@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>  
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"  
+	xmlns:card_view="http://schemas.android.com/apk/res-auto"  
+	xmlns:local="http://schemas.android.com/apk/res-auto"  
+    android:orientation="vertical"  
+    android:layout_width="match_parent"  
+    android:layout_height="match_parent">
+	<include layout="@layout/toolbar" />
+	 <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:id="@+id/buttonPanel"
+        android:orientation="horizontal">    
+  </LinearLayout> 	
+<mvvmcross.droid.support.v7.recyclerview.MvxRecyclerView
+    android:id="@+id/recyclerView"  
+    android:scrollbars="vertical"  
+    android:layout_width="fill_parent"  
+    android:layout_height="fill_parent"
+	local:MvxItemTemplate="@layout/item_contact"
+	local:MvxBind="ItemsSource TaskCollection; ItemClick ShowTaskChangedView"
+	/>
+</LinearLayout>  

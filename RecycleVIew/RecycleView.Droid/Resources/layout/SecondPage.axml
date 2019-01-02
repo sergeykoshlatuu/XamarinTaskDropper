@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"	
+     xmlns:local="http://schemas.android.com/apk/res-auto"  
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+	<include layout="@layout/toolbar" />
+	<EditText
+		android:id = "@+id/name_text"
+		android:layout_width = "match_parent"
+		android:layout_height = "wrap_content"
+		android:hint = "Title"
+		android:lines = "1"
+		android:textColorHint = "#A9A9A9"
+		android:textColor = "@android:color/background_dark"
+		local:MvxBind = "Text Title"
+	/>
+	<EditText
+		android:id = "@+id/task_text"
+		android:layout_width = "match_parent"
+		android:layout_height = "wrap_content"
+		android:lines = "3"
+		android:hint = "Description"
+		android:textColorHint = "#A9A9A9"
+		android:textColor = "@android:color/background_dark"
+	    local:MvxBind = "Text Description"/>
+	<LinearLayout
+		android:orientation="horizontal"
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		android:layout_weight="1">
+		<CheckBox
+			android:id = "@+id/togglebutton"
+			android:layout_width = "wrap_content"
+			android:layout_height = "match_parent"
+			android:textColor = "@android:color/black"
+		    local:MvxBind = "Checked Status"/>
+		<TextView
+			android:text = "Done"
+			android:layout_width = "wrap_content"
+			android:layout_height = "wrap_content"/>
+	</LinearLayout>
+	<LinearLayout
+		android:orientation="horizontal"
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		android:layout_weight="1"
+		
+		>
+		<Button
+			android:id = "@+id/Savetask"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginLeft="0dip"
+			android:text="Save"
+		    local:MvxBind = "Click SaveCommand; Enabled SaveStatusButton"/>
+		<Button
+			android:id = "@+id/Deletetask"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="Delete"
+		    local:MvxBind = "Click DeleteCommand"/>
+	</LinearLayout>
+</LinearLayout>
