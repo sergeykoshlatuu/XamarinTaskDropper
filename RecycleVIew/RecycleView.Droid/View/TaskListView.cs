@@ -12,6 +12,8 @@ using MvvmCross;
 using MvvmCross.Platforms.Android.Binding.BindingContext;
 using MvvmCross.Droid.Support.V7.RecyclerView;
 using Android.Views;
+using RecycleView.Droid.ViewAdapters;
+using Android.Graphics;
 
 namespace RecycleView.Droid.Views
 {
@@ -26,17 +28,22 @@ namespace RecycleView.Droid.Views
             base.OnCreate(savedInstanceState);
             SetContentView(Resource.Layout.activity_main);
             _recyclerView = FindViewById<MvxRecyclerView>(Resource.Id.recyclerView);
+            
             _layoutManager = new GridLayoutManager(this, 2);
             _layoutManager = new LinearLayoutManager(this);
             //_recyclerView.SetLayoutManager(_layoutManager);           
             var recyclerAdapter = new TaskListAdapter((IMvxAndroidBindingContext)this.BindingContext);
             _recyclerView.Adapter = recyclerAdapter;
 
+            //Typeface newTypeface = Typeface.CreateFromAsset(Assets, "fonts.otf");
+            //FindViewById<TextView>(Resource.Id.textViewTitle);
+            
+
             var imageButton = FindViewById<ImageButton>(Resource.Id.imageButton);
             imageButton.Visibility = ViewStates.Visible;
 
             var toolbar = FindViewById<Android.Support.V7.Widget.Toolbar>(Resource.Id.toolbar);
-
+            
             SetSupportActionBar(toolbar);
 
             //var toolbar = FindViewById<Toolbar>(Resource.Id.toobar);

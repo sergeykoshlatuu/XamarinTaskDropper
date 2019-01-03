@@ -35,6 +35,9 @@
     <AndroidUseSharedRuntime>True</AndroidUseSharedRuntime>
     <AndroidLinkMode>None</AndroidLinkMode>
     <EmbedAssembliesIntoApk>False</EmbedAssembliesIntoApk>
+    <AotAssemblies>false</AotAssemblies>
+    <EnableLLVM>false</EnableLLVM>
+    <BundleAssemblies>false</BundleAssemblies>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugSymbols>True</DebugSymbols>
@@ -68,6 +71,8 @@
     <Compile Include="Setup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <AndroidAsset Include="Assets\Font.ttf" />
+    <AndroidAsset Include="Assets\fonts.otf" />
     <None Include="Resources\AboutResources.txt" />
     <None Include="Properties\AndroidManifest.xml" />
     <None Include="Assets\AboutAssets.txt" />
@@ -76,9 +81,6 @@
     <AndroidResource Include="Resources\layout\activity_main.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
-    <AndroidResource Include="Resources\values\colors.xml" />
-    <AndroidResource Include="Resources\values\ic_launcher_background.xml" />
-    <AndroidResource Include="Resources\values\strings.xml" />
     <AndroidResource Include="Resources\values\styles.xml" />
     <AndroidResource Include="Resources\mipmap-anydpi-v26\ic_launcher.xml" />
     <AndroidResource Include="Resources\mipmap-anydpi-v26\ic_launcher_round.xml" />
@@ -120,14 +122,14 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\layout\item_contact.axml">
+    <AndroidResource Include="Resources\layout\item_task.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\RecycleVIew.Core\RecycleVIew.Core.csproj">
+    <ProjectReference Include="..\RecycleVIew.Core\TasksDropper.Core.csproj">
       <Project>{7dd06ab2-7e6a-4838-8031-e81501c48cd4}</Project>
-      <Name>RecycleVIew.Core</Name>
+      <Name>TasksDropper.Core</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
@@ -139,7 +141,7 @@
     </AndroidResource>
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\layout\SecondPage.axml">
+    <AndroidResource Include="Resources\layout\item_changed.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
   </ItemGroup>
@@ -151,6 +153,12 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\Drawable\Plus.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\values\values.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Resources\font\" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.

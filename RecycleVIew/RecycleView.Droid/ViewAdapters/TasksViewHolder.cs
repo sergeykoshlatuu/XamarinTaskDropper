@@ -1,15 +1,16 @@
-﻿using Android.Support.V7.Widget;
-using Android.Views;
-using Android.Widget;
-using System;
+﻿using Android.Widget;
 using RecycleVIew.Core.Services;
+using Android.Views;
+using Android.Graphics;
 using MvvmCross.Droid.Support.V7.RecyclerView;
 using MvvmCross.Platforms.Android.Binding.BindingContext;
 using MvvmCross.Binding.BindingContext;
+using RecycleView.Droid;
+using MvvmCross.Droid.Support.V7.AppCompat;
+using Android.App;
 
-namespace RecycleView.Droid
+namespace RecycleView.Droid.ViewAdapters
 {
-
     public class TasksViewHolder : MvxRecyclerViewHolder
     {
         public TextView NameTaskHolder { get; set; }
@@ -20,6 +21,9 @@ namespace RecycleView.Droid
 
             NameTaskHolder = itemView.FindViewById<TextView>(Resource.Id.textViewTitle);
             CheckTaskHolder = itemView.FindViewById<CheckBox>(Resource.Id.checkBoxStatus);
+            //Typeface newTypeface1 = Typeface.CreateFromAsset(Activity.Assets, "fonts.otf");
+            //NameTaskHolder.SetTypeface(newTypeface1, TypefaceStyle.Normal);
+
             this.DelayBind(() =>
             {
                 var set = this.CreateBindingSet<TasksViewHolder, ItemTask>();

@@ -6,18 +6,15 @@ using System.Collections.Generic;
 
 namespace RecycleVIew.Core.Services
 {
-    public class TaskService : ITaskRepositiry
+    public class TaskService : ITaskRepository
     {
         private SQLiteConnection _con;
-        private Random random = new Random();
       
         public TaskService(IDatabaseConnectionService con)
         {
             _con = con.GetDatebaseConnection();
             //_con.DropTable<Tasks>();
-            _con.CreateTable<ItemTask>();
-            //_con.Insert(new Tasks("Test Task"+random.Next(0,100), "Not important", false));
-            
+            _con.CreateTable<ItemTask>(); 
         }
 
         public void AddToTable(ItemTask task1)

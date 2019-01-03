@@ -6,7 +6,7 @@ using System.Text;
 
 namespace RecycleVIew.Core.Interface
 {
-    public interface ITaskRepositiry
+    public interface ITaskRepository
     {
        void AddToTable(ItemTask _tasks);
         List<ItemTask> LoadListItems();

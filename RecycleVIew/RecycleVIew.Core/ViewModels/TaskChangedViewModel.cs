@@ -15,7 +15,7 @@ namespace RecycleVIew.Core.ViewModels
     public class TaskChangedViewModel : MvxViewModel<ItemTask>
     {
         private readonly IMvxNavigationService _navigationService;
-        private  ITaskRepositiry _taskRepositiry;
+        private  ITaskRepository _taskRepositiry;
 
         public override async Task Initialize()
         {
@@ -23,7 +23,7 @@ namespace RecycleVIew.Core.ViewModels
 
         }
 
-        public TaskChangedViewModel(IMvxNavigationService navigationService, ITaskRepositiry taskRepositiry)
+        public TaskChangedViewModel(IMvxNavigationService navigationService, ITaskRepository taskRepositiry)
         {
             _navigationService = navigationService;
             _taskRepositiry = taskRepositiry;

@@ -14,16 +14,17 @@ using MvvmCross.Platforms.Android.Core;
 using MvvmCross.Platforms.Android.Views;
 using RecycleVIew.Core;
 using RecycleView.Droid;
+using Android.Graphics;
 
 namespace RecycleView.Droid
 {
     [Application]
     public class MainApplication : MvxAppCompatApplication<Setup,App>
     {
-
         public MainApplication(IntPtr javaReference, JniHandleOwnership transfer)
             : base(javaReference, transfer)
         {
+
         }
     }
 }

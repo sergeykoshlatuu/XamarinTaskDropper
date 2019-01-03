@@ -6,7 +6,7 @@ using MvvmCross.Droid.Support.V7.RecyclerView;
 using MvvmCross.ViewModels;
 using MvvmCross.Platforms.Android.Binding.BindingContext;
 
-namespace RecycleView.Droid
+namespace RecycleView.Droid.ViewAdapters
 {
     public class TaskListAdapter : MvxRecyclerAdapter
     {

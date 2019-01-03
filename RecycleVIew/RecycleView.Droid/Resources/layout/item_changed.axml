@@ -1,44 +1,56 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"	
      xmlns:local="http://schemas.android.com/apk/res-auto"  
+	 xmlns:card_view="http://schemas.android.com/apk/res-auto"  
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+	android:id="@+id/main_layout">
 	<include layout="@layout/toolbar" />
+	<android.support.v7.widget.CardView  
+		style="@style/CardViewStyle"
+		card_view:cardElevation="4dp"  
+        card_view:cardCornerRadius="10dp"  
+        card_view:cardUseCompatPadding="true"
+   >  
 	<EditText
-		android:id = "@+id/name_text"
-		android:layout_width = "match_parent"
-		android:layout_height = "wrap_content"
+		android:id = "@+id/title_txt"
+		style="@style/EditTextStyle"
 		android:hint = "Title"
 		android:lines = "1"
-		android:textColorHint = "#A9A9A9"
-		android:textColor = "@android:color/background_dark"
 		local:MvxBind = "Text Title"
 	/>
-	<EditText
-		android:id = "@+id/task_text"
-		android:layout_width = "match_parent"
-		android:layout_height = "wrap_content"
+		</android.support.v7.widget.CardView>
+	<android.support.v7.widget.CardView  
+        style="@style/CardViewStyle"
+		card_view:cardElevation="4dp"  
+        card_view:cardCornerRadius="10dp"  
+        card_view:cardUseCompatPadding="true"
+		>
+	<EditText	
+		android:id = "@+id/description_txt"
+		style="@style/EditTextStyle"	
 		android:lines = "3"
 		android:hint = "Description"
-		android:textColorHint = "#A9A9A9"
-		android:textColor = "@android:color/background_dark"
 	    local:MvxBind = "Text Description"/>
+		</android.support.v7.widget.CardView>
 	<LinearLayout
 		android:orientation="horizontal"
 		android:layout_width="match_parent"
 		android:layout_height="match_parent"
 		android:layout_weight="1">
 		<CheckBox
-			android:id = "@+id/togglebutton"
+			android:id = "@+id/status_check"
 			android:layout_width = "wrap_content"
 			android:layout_height = "match_parent"
 			android:textColor = "@android:color/black"
 		    local:MvxBind = "Checked Status"/>
 		<TextView
+			android:id="@+id/done_txt"
 			android:text = "Done"
 			android:layout_width = "wrap_content"
-			android:layout_height = "wrap_content"/>
+			android:layout_height = "wrap_content"
+		/>
 	</LinearLayout>
 	<LinearLayout
 		android:orientation="horizontal"
@@ -61,4 +73,5 @@
 			android:text="Delete"
 		    local:MvxBind = "Click DeleteCommand"/>
 	</LinearLayout>
+
 </LinearLayout>

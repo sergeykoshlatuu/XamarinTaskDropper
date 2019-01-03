@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28307.106
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RecycleVIew.Core", "RecycleVIew.Core\RecycleVIew.Core.csproj", "{7DD06AB2-7E6A-4838-8031-E81501C48CD4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TasksDropper.Core", "RecycleVIew.Core\TasksDropper.Core.csproj", "{7DD06AB2-7E6A-4838-8031-E81501C48CD4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RecycleView.Droid", "RecycleView.Droid\RecycleView.Droid.csproj", "{AD4142CC-CCCE-4243-ACC5-8EEBFBB8AF33}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TasksDropper.Droid", "RecycleView.Droid\TasksDropper.Droid.csproj", "{AD4142CC-CCCE-4243-ACC5-8EEBFBB8AF33}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
