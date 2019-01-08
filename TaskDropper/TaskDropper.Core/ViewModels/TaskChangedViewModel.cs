@@ -31,9 +31,7 @@ namespace TaskDropper.Core.ViewModels
 
         }
         public IMvxAsyncCommand CloseCommand { get; set; }
-        public IMvxCommand ShowViewTip { get; set; }
-
-
+      
         private int _id;
         private string _title;
         private string _description;
@@ -56,18 +54,18 @@ namespace TaskDropper.Core.ViewModels
             {
                 _title = value;
                 RaisePropertyChanged(() => Title);
-                UpdateSaveButton();
+                UpdateSave();
 
             }
         }
-        public void UpdateSaveButton()
+        public void UpdateSave()
         {
             if (Title != null && Title != " " && Title != "")
             {
-                SaveStatusButton = true;
+                SaveStatus = true;
             }
             else
-                SaveStatusButton = false;
+                SaveStatus = false;
         }
 
         public string Description
@@ -99,14 +97,14 @@ namespace TaskDropper.Core.ViewModels
             get { return new MvxCommand(DeleteTask); }
         }
 
-        private bool _saveStatusButton;
-        public bool SaveStatusButton
+        private bool _saveStatus;
+        public bool SaveStatus
         {
-            get => _saveStatusButton;
+            get => _saveStatus;
             set
             {
-                _saveStatusButton = value;
-                RaisePropertyChanged(() => SaveStatusButton);
+                _saveStatus = value;
+                RaisePropertyChanged(() => SaveStatus);
             }
         }
 
@@ -134,7 +132,7 @@ namespace TaskDropper.Core.ViewModels
                 Description = parameter.Description;
                 Status = parameter.Status;
             }
-            UpdateSaveButton();
+            UpdateSave();
         }
     }
 }
