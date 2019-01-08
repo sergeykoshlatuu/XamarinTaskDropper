@@ -1,0 +1,33 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.106
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaskDropper.Core", "TaskDropper.Core\TaskDropper.Core.csproj", "{4ED6EA0B-6EAA-4E6A-B21C-2A6D875AB246}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaskDropper.Droid", "TaskDropper.Droid\TaskDropper.Droid.csproj", "{BF1AB99C-A3B6-4E69-B188-C05C6FE42F6F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{4ED6EA0B-6EAA-4E6A-B21C-2A6D875AB246}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4ED6EA0B-6EAA-4E6A-B21C-2A6D875AB246}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4ED6EA0B-6EAA-4E6A-B21C-2A6D875AB246}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4ED6EA0B-6EAA-4E6A-B21C-2A6D875AB246}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BF1AB99C-A3B6-4E69-B188-C05C6FE42F6F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BF1AB99C-A3B6-4E69-B188-C05C6FE42F6F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BF1AB99C-A3B6-4E69-B188-C05C6FE42F6F}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{BF1AB99C-A3B6-4E69-B188-C05C6FE42F6F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BF1AB99C-A3B6-4E69-B188-C05C6FE42F6F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BF1AB99C-A3B6-4E69-B188-C05C6FE42F6F}.Release|Any CPU.Deploy.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {AFA14867-09ED-4581-96FE-B61587F7853A}
+	EndGlobalSection
+EndGlobal
