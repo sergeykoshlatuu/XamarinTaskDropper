@@ -23,6 +23,7 @@ namespace TaskDropper.Core.ViewModels
 
         }
 
+
         public TaskChangedViewModel(IMvxNavigationService navigationService, ITaskRepository taskRepositiry)
         {
             _navigationService = navigationService;

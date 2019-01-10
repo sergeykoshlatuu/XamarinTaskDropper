@@ -65,7 +65,7 @@
 			android:layout_height="wrap_content"
 			android:layout_marginLeft="0dip"
 			android:text="Save"
-		    local:MvxBind = "Click SaveCommand; Enabled SaveStatusButton"/>
+		    local:MvxBind = "Click SaveCommand; Enabled SaveStatus"/>
 		<Button
 			android:id = "@+id/Deletetask"
 			android:layout_width="wrap_content"

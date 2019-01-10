@@ -20,6 +20,7 @@ namespace TaskDropper.Core.ViewModels
 
         }
 
+
         public TasksListViewModel(IMvxNavigationService navigationService, ITaskRepository taskRepositiry)
         {
             _navigationService = navigationService;
