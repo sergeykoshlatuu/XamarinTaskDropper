@@ -60,6 +60,8 @@
     <Reference Include="Mono.Android" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Configuration.cs" />
+    <Compile Include="GoogleAuthInterceptor.cs" />
     <Compile Include="MainApplication.cs" />
     <Compile Include="Resources\Resource.designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -68,11 +70,13 @@
     <Compile Include="ViewAdapters\MvxViewPagerFragmentAdapter.cs" />
     <Compile Include="ViewAdapters\TasksListAdapter.cs" />
     <Compile Include="ViewAdapters\TasksViewHolder.cs" />
+    <Compile Include="Views\AboutFragment.cs" />
     <Compile Include="Views\BaseFragment.cs" />
     <Compile Include="Views\HomeFragment.cs" />
+    <Compile Include="Views\LoginFragment.cs" />
     <Compile Include="Views\MainView.cs" />
-    <Compile Include="Views\TaskChangedViewFragment.cs" />
-    <Compile Include="Views\TaskListViewFragment.cs" />
+    <Compile Include="Views\TaskChangedFragment.cs" />
+    <Compile Include="Views\TaskListFragment.cs" />
   </ItemGroup>
   <ItemGroup>
     <AndroidAsset Include="Assets\NK123.otf" />
@@ -129,6 +133,9 @@
     <PackageReference Include="Xamarin.Android.Support.ViewPager">
       <Version>28.0.0</Version>
     </PackageReference>
+    <PackageReference Include="Xamarin.GooglePlayServices.Auth">
+      <Version>60.1142.1</Version>
+    </PackageReference>
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\values\values.xml" />
@@ -170,6 +177,16 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\layout\main_view.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\about_view.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\login_view.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
   </ItemGroup>

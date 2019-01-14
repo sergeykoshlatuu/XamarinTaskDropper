@@ -7,5 +7,6 @@
 
   <string name="app_name">TasksDropper.Droid</string>
   <string name="action_settings">Settings</string>
+  <string name="googleLogin">Login with Google</string>
 
 </resources>

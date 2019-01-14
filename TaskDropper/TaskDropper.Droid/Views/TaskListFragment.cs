@@ -34,8 +34,8 @@ namespace TaskDropper.Droid.Views
             _recyclerView = view.FindViewById<MvxRecyclerView>(Resource.Id.recyclerView);
 
             //_layoutManager = new GridLayoutManager(this, 2);
-            //_layoutManager = new LinearLayoutManager(this);
-            //_recyclerView.SetLayoutManager(_layoutManager);           
+            _layoutManager = new LinearLayoutManager(this.Context);
+            _recyclerView.SetLayoutManager(_layoutManager);           
             var recyclerAdapter = new TaskListAdapter((IMvxAndroidBindingContext)this.BindingContext);
             _recyclerView.Adapter = recyclerAdapter;
 

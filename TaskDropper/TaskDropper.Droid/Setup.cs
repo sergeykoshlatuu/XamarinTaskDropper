@@ -41,7 +41,7 @@ namespace TaskDropper.Droid
                       .EndingWith("Service")
                       .AsInterfaces()
                       .RegisterAsLazySingleton();
-            //Mvx.RegisterType<IDatabaseConnectionService, DatabaseConnectionService>();
+            Mvx.RegisterType<IDatabaseConnectionService, DatabaseConnectionService>();
             return base.CreateApp();
         }
     }

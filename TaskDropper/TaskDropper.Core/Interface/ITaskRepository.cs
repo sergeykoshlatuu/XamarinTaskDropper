@@ -8,9 +8,15 @@ namespace TaskDropper.Core.Interface
 {
     public interface ITaskRepository
     {
-        void AddToTable(ItemTask _tasks);
-        List<ItemTask> LoadListItems();
-
+        //Tasks
+        void AddToTable(ItemTask tasks);
+        List<ItemTask> LoadListItems(int userId);
         void DeleteTaskFromTable(ItemTask tasks);
+        //Users
+        void AddUserToTable(string email);
+
+        void UpdateLastUser(string email);
+        List<LastUser> GetLastUser();
+        int GetLastUserId();
     }
 }

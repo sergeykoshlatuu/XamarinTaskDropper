@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout 
+	xmlns:android="http://schemas.android.com/apk/res/android"  
+	xmlns:card_view="http://schemas.android.com/apk/res-auto"  
+    xmlns:local="http://schemas.android.com/apk/res-auto"  
+	android:layout_width="wrap_content"  
+    android:layout_height="wrap_content">
+	<TextView
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		android:id="@+id/textKind"
+		android:gravity = "center"
+		local:MvxBind="Text Kind"
+			/>
+	<TextView
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		android:id="@+id/textEtag"
+		android:gravity = "center"
+		local:MvxBind="Text Etag"
+			/>
+	<TextView
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		android:id="@+id/textOccupation"
+		android:gravity = "center"
+		local:MvxBind="Text Occupation"
+			/>
+	<TextView
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		android:id="@+id/textGender"
+		android:gravity = "center"
+		local:MvxBind="Text Gender"
+			/>
+	<TextView
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		android:id="@+id/textId"
+		android:gravity = "center"
+		local:MvxBind="Text Id"
+			/>
+	<TextView
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		android:id="@+id/textDisplayName"
+		android:gravity = "center"
+		local:MvxBind="Text DisplayName"
+			/>
+
+</FrameLayout>  
+

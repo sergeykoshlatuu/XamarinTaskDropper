@@ -15,6 +15,10 @@ using Android.Support.V4.Widget;
 using Android.Support.V4.View;
 using Android.Views.InputMethods;
 using Android.Widget;
+using Xamarin.Auth;
+using Xamarin.Auth.OAuth2;
+using TaskDropper.Core.Authentication;
+using TaskDropper.Core.Services;
 
 namespace TaskDropper.Droid.Views
 {
@@ -34,12 +38,12 @@ namespace TaskDropper.Droid.Views
 
             SetContentView(Resource.Layout.main_view);
 
-            DrawerLayout = FindViewById<DrawerLayout>(Resource.Id.drawer_layout);
-         
+            //DrawerLayout = FindViewById<DrawerLayout>(Resource.Id.drawer_layout);
+
 
             if (bundle == null)
             {
-                ViewModel.ShowTaskListViewModelCommand.Execute(null);
+                ViewModel.ShowGoogleLoginViewModelCommand.Execute(null);
             }
         }
 
@@ -56,4 +60,4 @@ namespace TaskDropper.Droid.Views
 
 
     }
-    }
+}

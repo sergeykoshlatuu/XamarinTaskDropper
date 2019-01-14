@@ -7,6 +7,8 @@ namespace TaskDropper.Core.Models
         [PrimaryKey, AutoIncrement]
         public int Id { get; set; }
 
+        public int UserId { get; set; }
+
         public string Title { get; set; }
 
         public string Description { get; set; }
@@ -15,12 +17,13 @@ namespace TaskDropper.Core.Models
 
         public ItemTask() { }
 
-        public ItemTask(int _id, string _title, string _description, bool _status)
+        public ItemTask(int id, int userId, string title, string description, bool status)
         {
-            Id = _id;
-            Title = _title;
-            Description = _description;
-            Status = _status;
+            Id = id;
+            UserId = userId;
+            Title = title;
+            Description = description;
+            Status = status;
         }
     }
 }

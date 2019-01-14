@@ -36,15 +36,15 @@ namespace TaskDropper.Droid.Views
                 {
                     new MvxViewPagerFragmentAdapter.FragmentInfo
                     {
-                        FragmentType = typeof(TasksListViewModel),
+                        FragmentType = typeof(AboutViewModel),
                         Title = "",
-                        ViewModel = ViewModel.TaskList
+                        ViewModel = ViewModel.AboutsViewModel
                     },
                     new MvxViewPagerFragmentAdapter.FragmentInfo
                     {
-                        FragmentType = typeof(TaskChangedViewModel),
+                        FragmentType = typeof(AboutViewModel),
                         Title = "",
-                        ViewModel = ViewModel.TaskChanged
+                        ViewModel = ViewModel.AboutsViewModel
                     },
 
                 };

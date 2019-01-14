@@ -29,7 +29,7 @@ namespace TaskDropper.Core.ViewModels
             _navigationService = navigationService;
             _taskRepositiry = taskRepositiry;
             CloseCommand = new MvxAsyncCommand(async () => await _navigationService.Navigate<TasksListViewModel>());
-
+            UserId = _taskRepositiry.GetLastUserId();
         }
         public IMvxAsyncCommand CloseCommand { get; set; }
       
@@ -37,7 +37,7 @@ namespace TaskDropper.Core.ViewModels
         private string _title;
         private string _description;
         private bool _status;
-
+        private int _userId;
         public int Id
         {
             get => _id;
@@ -45,6 +45,16 @@ namespace TaskDropper.Core.ViewModels
             {
                 _id = value;
                 RaisePropertyChanged(() => Id);
+            }
+        }
+
+        public int UserId
+        {
+            get => _userId;
+            set
+            {
+                _userId = value;
+                RaisePropertyChanged(() => UserId);
             }
         }
 
@@ -88,6 +98,8 @@ namespace TaskDropper.Core.ViewModels
                 RaisePropertyChanged(() => Status);
             }
         }
+
+
         public IMvxCommand SaveCommand
         {
             get { return new MvxCommand(SaveTask); }
@@ -111,14 +123,14 @@ namespace TaskDropper.Core.ViewModels
 
         private void DeleteTask()
         {
-            ItemTask _deletedTask = new ItemTask(Id, Title, Description, Status);
+            ItemTask _deletedTask = new ItemTask(Id,UserId, Title, Description, Status);
             _taskRepositiry.DeleteTaskFromTable(_deletedTask);
             _navigationService.Navigate<TasksListViewModel>();
         }
 
         private void SaveTask()
         {
-            ItemTask _addtask = new ItemTask(Id, Title, Description, Status);
+            ItemTask _addtask = new ItemTask(Id,UserId, Title, Description, Status);
             _taskRepositiry.AddToTable(_addtask);
             _navigationService.Navigate<TasksListViewModel>();
 
@@ -129,6 +141,7 @@ namespace TaskDropper.Core.ViewModels
             if (parameter != null)
             {
                 Id = parameter.Id;
+                UserId = parameter.UserId;
                 Title = parameter.Title;
                 Description = parameter.Description;
                 Status = parameter.Status;

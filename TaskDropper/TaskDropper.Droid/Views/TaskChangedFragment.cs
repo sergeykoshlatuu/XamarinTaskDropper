@@ -11,7 +11,7 @@ using Android.Widget;
 namespace TaskDropper.Droid.Views
 {
     [MvxFragmentPresentation(typeof(MainViewModel), Resource.Id.content_frame, true)]
-    public class TaskChangedViewFragment : BaseFragment<TaskChangedViewModel>
+    public class TaskChangedFragment : BaseFragment<TaskChangedViewModel>
     {
         protected override int FragmentId => Resource.Layout.item_changed;
         private InputMethodManager _imm;
