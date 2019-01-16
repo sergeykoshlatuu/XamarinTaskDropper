@@ -1,10 +1,12 @@
-﻿using MvvmCross.Commands;
+﻿using MvvmCross;
+using MvvmCross.Commands;
 using MvvmCross.Navigation;
 using MvvmCross.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
+using TaskDropper.Core.Models;
 
 namespace TaskDropper.Core.ViewModels
 {
@@ -21,14 +23,21 @@ namespace TaskDropper.Core.ViewModels
         public HomeViewModel(IMvxNavigationService navigationService)
         {
             _navigationService = navigationService;
-            AboutViewModel = new MvxAsyncCommand(async () => await _navigationService.Navigate<AboutViewModel>());
-            TaskListViewModel = new MvxAsyncCommand(async () => await _navigationService.Navigate<TasksListViewModel>());
+            TaskListViewModel = Mvx.IoCConstruct<TasksListViewModel>();
+            AboutViewModel = Mvx.IoCConstruct<AboutViewModel>();
+            ShowTaskChangedView = new MvxAsyncCommand<ItemTask>(ShowTaskChanged);
         }
 
-        public IMvxAsyncCommand TaskListViewModel { get; private set; }
-        public IMvxAsyncCommand AboutViewModel { get; private set; }
+        public IMvxCommand ShowTaskChangedView { get; set; }
 
-        public TasksListViewModel TasksListViewModel { get; set; }
-        public AboutViewModel AboutsViewModel { get; set; }
+
+        private async Task ShowTaskChanged(ItemTask _taskCreate)
+        {
+            var result = await _navigationService.Navigate<TaskChangedViewModel, ItemTask>(_taskCreate);
+           
+        }
+
+       public TasksListViewModel TaskListViewModel;
+       public AboutViewModel AboutViewModel;
     }
 }

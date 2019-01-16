@@ -28,7 +28,7 @@ namespace TaskDropper.Core.ViewModels
         {
             _navigationService = navigationService;
             _taskRepositiry = taskRepositiry;
-            CloseCommand = new MvxAsyncCommand(async () => await _navigationService.Navigate<TasksListViewModel>());
+            CloseCommand = new MvxAsyncCommand(async () => await _navigationService.Navigate<HomeViewModel>());
             UserId = _taskRepositiry.GetLastUserId();
         }
         public IMvxAsyncCommand CloseCommand { get; set; }
@@ -125,14 +125,14 @@ namespace TaskDropper.Core.ViewModels
         {
             ItemTask _deletedTask = new ItemTask(Id,UserId, Title, Description, Status);
             _taskRepositiry.DeleteTaskFromTable(_deletedTask);
-            _navigationService.Navigate<TasksListViewModel>();
+            _navigationService.Navigate<HomeViewModel>();
         }
 
         private void SaveTask()
         {
             ItemTask _addtask = new ItemTask(Id,UserId, Title, Description, Status);
             _taskRepositiry.AddToTable(_addtask);
-            _navigationService.Navigate<TasksListViewModel>();
+            _navigationService.Navigate<HomeViewModel>();
 
         }
 

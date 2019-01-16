@@ -20,11 +20,12 @@ using MvvmCross.Platforms.Android.Presenters.Attributes;
 namespace TaskDropper.Droid.Views
 {
     [MvxFragmentPresentation(typeof(MainViewModel), Resource.Id.content_frame, true)]
-    public class TaskListView : BaseFragment<TasksListViewModel>
+    public class TaskListFragment : BaseFragment<TasksListViewModel>
     {
         protected override int FragmentId => Resource.Layout.list_items;
         MvxRecyclerView _recyclerView;
         RecyclerView.LayoutManager _layoutManager;
+        private Bundle _savedInstanceState;
 
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
@@ -41,17 +42,17 @@ namespace TaskDropper.Droid.Views
 
             //Typeface newTypeface = Typeface.CreateFromAsset(Assets, "fonts.otf");
             //FindViewById<TextView>(Resource.Id.textViewTitle).SetTypeface(newTypeface, TypefaceStyle.Normal);
-
-
+            
+          
+            //SetSupportActionBar(toolbar);
             var imageButton = view.FindViewById<ImageButton>(Resource.Id.imageButton);
-            imageButton.Visibility = ViewStates.Visible;
-
+            //imageButton.Visibility = ViewStates.Visible;
             var toolbar = view.FindViewById<Android.Support.V7.Widget.Toolbar>(Resource.Id.toolbar);
 
-            //SetSupportActionBar(toolbar);
 
-            ////var toolbar = FindViewById<Toolbar>(Resource.Id.toobar);
-            ////SetActionBar(toolbar);
+
+
+
             //SupportActionBar.Title = "TaskDropper";
 
             return view;

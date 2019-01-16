@@ -49,7 +49,7 @@ namespace TaskDropper.Droid
 
             // Send the URI to the Authenticator for continuation
             LoginFragment.Auth?.OnPageLoading(uri_netfx);
-
+            //.IsVisible = false;
             Finish();
         }
     }

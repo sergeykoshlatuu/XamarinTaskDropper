@@ -27,6 +27,7 @@ namespace TaskDropper.Core.ViewModels
             ShowHomeViewModelCommand = new MvxAsyncCommand(async () => await _navigationService.Navigate<HomeViewModel>());
             ShowTaskListViewModelCommand = new MvxAsyncCommand(async () => await _navigationService.Navigate<TasksListViewModel>());
             ShowGoogleLoginViewModelCommand = new MvxAsyncCommand(async () => await _navigationService.Navigate<GoogleLoginViewModel>());
+            ShowAboutViewModelCommand = new MvxAsyncCommand(async () => await _navigationService.Navigate<AboutViewModel>());
         }
 
         // MvvmCross Lifecycle
@@ -37,7 +38,7 @@ namespace TaskDropper.Core.ViewModels
         public IMvxAsyncCommand ShowHomeViewModelCommand { get; private set; }
         public IMvxAsyncCommand ShowTaskListViewModelCommand { get; private set; }
         public IMvxAsyncCommand ShowGoogleLoginViewModelCommand { get; private set; }
-
+        public IMvxAsyncCommand ShowAboutViewModelCommand { get; private set; }
         // Private methods
     }
 }

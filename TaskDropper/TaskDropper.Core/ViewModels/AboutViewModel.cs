@@ -18,12 +18,12 @@ namespace TaskDropper.Core.ViewModels
 
         }
 
-        public AboutViewModel() { }
-
         public AboutViewModel(IMvxNavigationService navigationService/*, ITaskRepository taskRepository*/)
         {
             _navigationService = navigationService;
             //_taskRepository = taskRepository;
+            Name = "Sergey Koshlatuu";
+            Email = "koshsy6363@gmail.com";
         }
 
         //public override void ViewAppearing()
@@ -54,25 +54,25 @@ namespace TaskDropper.Core.ViewModels
 
         #region variables
 
-        private string _kind;
-        public string Kind
+        private string _name;
+        public string Name
         {
-            get => _kind;
+            get => _name;
             set
             {
-                _kind = value;
-                RaisePropertyChanged(() => Kind);
+                _name = value;
+                RaisePropertyChanged(() => Name);
             }
         }
 
-        private string _etag;
-        public string Etag
+        private string _email;
+        public string Email
         {
-            get => _etag;
+            get => _email;
             set
             {
-                _etag = value;
-                RaisePropertyChanged(() => Etag);
+                _email = value;
+                RaisePropertyChanged(() => Email);
             }
         }
 

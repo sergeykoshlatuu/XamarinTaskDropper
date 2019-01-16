@@ -60,6 +60,7 @@ namespace TaskDropper.Droid.Views
 
             // Retrieve the user's email address
             var googleService = new GoogleService();
+            
             var email = await googleService.GetEmailAsync(token.TokenType, token.AccessToken);
 
             // Display it on the UI
@@ -69,8 +70,7 @@ namespace TaskDropper.Droid.Views
             ViewModel.AddUserToTable(email);
             ViewModel.PrintLastUser();
             
-            ViewModel.ShowTaskListViewModelCommand.Execute(null);
-            
+            ViewModel.ShowHomeViewModelCommand.Execute(null);
             
         }
 

@@ -19,6 +19,9 @@ using TaskDropper.Droid.ViewAdapters;
 
 namespace TaskDropper.Droid.Views
 {
+    
+
+
     [MvxFragmentPresentation(typeof(MainViewModel), Resource.Id.content_frame, true)]
     public class HomeFragment : BaseFragment<HomeViewModel>
     {
@@ -36,24 +39,32 @@ namespace TaskDropper.Droid.Views
                 {
                     new MvxViewPagerFragmentAdapter.FragmentInfo
                     {
-                        FragmentType = typeof(AboutViewModel),
+                        FragmentType = typeof(TaskListFragment),
                         Title = "",
-                        ViewModel = ViewModel.AboutsViewModel
+                        ViewModel = ViewModel.TaskListViewModel
                     },
                     new MvxViewPagerFragmentAdapter.FragmentInfo
                     {
-                        FragmentType = typeof(AboutViewModel),
+                        FragmentType = typeof(AboutFragment),
                         Title = "",
-                        ViewModel = ViewModel.AboutsViewModel
+                        ViewModel = ViewModel.AboutViewModel
                     },
 
                 };
-                viewPager.Adapter = new MvxViewPagerFragmentAdapter(Activity, ChildFragmentManager, fragments);
+                var adapter = new MvxViewPagerFragmentAdapter(Activity, ChildFragmentManager, fragments);
+                viewPager.Adapter = adapter;
+
+                var tabLayout = view.FindViewById<TabLayout>(Resource.Id.tabs);
+                tabLayout.SetupWithViewPager(viewPager);
+
+                for (int i = 0; i < tabLayout.TabCount; i++)
+                {
+                    TabLayout.Tab tab = tabLayout.GetTabAt(i);
+                    tab.SetCustomView(adapter.GetTabView(i));
+                }
             }
 
-            var tabLayout = view.FindViewById<TabLayout>(Resource.Id.tabs);
-            tabLayout.SetupWithViewPager(viewPager);
-
+           
             return view;
         }
     }

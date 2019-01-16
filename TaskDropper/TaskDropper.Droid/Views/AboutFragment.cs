@@ -28,11 +28,11 @@ namespace TaskDropper.Droid.Views
 
 
             var imageButton = view.FindViewById<ImageButton>(Resource.Id.imageButton);
-            imageButton.Visibility = ViewStates.Visible;
+            //imageButton.Visibility = ViewStates.Invisible;
 
             var toolbar = view.FindViewById<Android.Support.V7.Widget.Toolbar>(Resource.Id.toolbar);
 
-            //SetSupportActionBar(toolbar);
+            ParentActivity.SetSupportActionBar(toolbar);
 
             ////var toolbar = FindViewById<Toolbar>(Resource.Id.toobar);
             ////SetActionBar(toolbar);

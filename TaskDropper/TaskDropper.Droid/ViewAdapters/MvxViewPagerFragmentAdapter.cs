@@ -1,18 +1,22 @@
-﻿using Android.Content;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using Android.Content;
+using Android.Runtime;
 using Android.Support.V4.App;
+using Android.Views;
+using Android.Widget;
 using Java.Lang;
 using MvvmCross.Droid.Support.V4;
 using MvvmCross.ViewModels;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using String = Java.Lang.String;
 
 namespace TaskDropper.Droid.ViewAdapters
 {
     public class MvxViewPagerFragmentAdapter
-         : FragmentPagerAdapter
+        : FragmentPagerAdapter
     {
+        
+        private string[] tabTitles = { "TaskList", "About" };
         private readonly Context _context;
         public IEnumerable<FragmentInfo> Fragments { get; private set; }
 
@@ -40,16 +44,14 @@ namespace TaskDropper.Droid.ViewAdapters
 
         protected static string FragmentJavaName(Type fragmentType)
         {
-            var namespaceText = fragmentType.Namespace ?? "";
-            if (namespaceText.Length > 0)
-                namespaceText = namespaceText.ToLowerInvariant() + ".";
-            return namespaceText + fragmentType.Name;
+            //var namespaceText = fragmentType.Namespace ?? "";
+            //if (namespaceText.Length > 0)
+            //    namespaceText = namespaceText.ToLowerInvariant() + ".";
+            //return namespaceText + fragmentType.Name;
+            return Java.Lang.Class.FromType(fragmentType).Name;
         }
 
-        public override ICharSequence GetPageTitleFormatted(int position)
-        {
-            return new String(Fragments.ElementAt(position).Title);
-        }
+       
 
         public class FragmentInfo
         {
@@ -57,5 +59,14 @@ namespace TaskDropper.Droid.ViewAdapters
             public Type FragmentType { get; set; }
             public IMvxViewModel ViewModel { get; set; }
         }
+
+        public View GetTabView(int position)
+        {
+            // Given you have a custom layout in `res/layout/custom_tab.xml` with a TextView
+            var tv = (TextView)LayoutInflater.From(_context).Inflate(Resource.Layout.custom_tab, null);
+            tv.Text = tabTitles[position];
+            return tv;
+        }
+
     }
 }
