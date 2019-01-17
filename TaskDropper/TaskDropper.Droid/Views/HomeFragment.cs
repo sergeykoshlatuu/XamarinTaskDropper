@@ -5,6 +5,7 @@ using System.Text;
 
 using Android.App;
 using Android.Content;
+using Android.Graphics;
 using Android.OS;
 using Android.Runtime;
 using Android.Support.Design.Widget;
@@ -31,6 +32,15 @@ namespace TaskDropper.Droid.Views
         {
             var view = base.OnCreateView(inflater, container, savedInstanceState);
             //var view = this.BindingInflate(Resource.Layout.home_view,container);
+
+            Typeface newTypeface = Typeface.CreateFromAsset(Activity.Assets, "NK123.otf");
+            view.FindViewById<TextView>(Resource.Id.app_name_text).SetTypeface(newTypeface, TypefaceStyle.Normal);
+
+          
+            var addtask_button = view.FindViewById<ImageButton>(Resource.Id.addtask_button);
+            addtask_button.Visibility = ViewStates.Visible;
+            var back_button = view.FindViewById<ImageButton>(Resource.Id.back_button);
+            back_button.Visibility = ViewStates.Invisible;
 
             var viewPager = view.FindViewById<ViewPager>(Resource.Id.viewpager);
             if (viewPager != null)

@@ -23,13 +23,11 @@ using TaskDropper.Core.Services;
 namespace TaskDropper.Droid.Views
 {
     [MvxActivityPresentation]
-    [Activity(Label = "TaskDropper", MainLauncher = true)]
+    [Activity(Label = "", MainLauncher = true)]
     public class MainView : MvxAppCompatActivity<MainViewModel>
     {
 
         public DrawerLayout DrawerLayout { get; set; }
-        private InputMethodManager _imm;
-        private LinearLayout _linearLayoutMain;
 
         protected override void OnCreate(Android.OS.Bundle bundle)
         {
@@ -40,24 +38,37 @@ namespace TaskDropper.Droid.Views
 
             //DrawerLayout = FindViewById<DrawerLayout>(Resource.Id.drawer_layout);
 
+            //var toolbar = FindViewById<Android.Support.V7.Widget.Toolbar>(Resource.Id.toolbar);
+            //SetSupportActionBar(toolbar);
+            //var imageButton = FindViewById<ImageButton>(Resource.Id.imageButton);
+            //imageButton.Visibility = ViewStates.Invisible;
+            //var imageButton2 = FindViewById<ImageButton>(Resource.Id.logout);
+            //imageButton.Visibility = ViewStates.Invisible;
+
+
 
             if (bundle == null)
             {
-                ViewModel.ShowGoogleLoginViewModelCommand.Execute(null);
+                if (!ViewModel.IsUserLogin()) {
+                    ViewModel.ShowGoogleLoginViewModelCommand.Execute(null);
+                }
+                else
+                {
+                    ViewModel.ShowHomeViewModelCommand.Execute(null);
+                }
+
             }
         }
 
+        //public override bool OnOptionsItemSelected(IMenuItem item)
+        //{
+        //    if (item.ItemId == global::Android.Resource.Id.Home)
+        //    {
+        //        OnBackPressed();
+        //    }
 
-        public override bool OnOptionsItemSelected(IMenuItem item)
-        {
-            if (item.ItemId == global::Android.Resource.Id.Home)
-            {
-                OnBackPressed();
-            }
-
-            return base.OnOptionsItemSelected(item);
-        }
-
+        //    return base.OnOptionsItemSelected(item);
+        //}
 
     }
 }

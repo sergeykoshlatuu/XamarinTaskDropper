@@ -25,7 +25,7 @@ namespace TaskDropper.Droid.Views
         protected override int FragmentId => Resource.Layout.list_items;
         MvxRecyclerView _recyclerView;
         RecyclerView.LayoutManager _layoutManager;
-        private Bundle _savedInstanceState;
+        
 
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
@@ -43,17 +43,6 @@ namespace TaskDropper.Droid.Views
             //Typeface newTypeface = Typeface.CreateFromAsset(Assets, "fonts.otf");
             //FindViewById<TextView>(Resource.Id.textViewTitle).SetTypeface(newTypeface, TypefaceStyle.Normal);
             
-          
-            //SetSupportActionBar(toolbar);
-            var imageButton = view.FindViewById<ImageButton>(Resource.Id.imageButton);
-            //imageButton.Visibility = ViewStates.Visible;
-            var toolbar = view.FindViewById<Android.Support.V7.Widget.Toolbar>(Resource.Id.toolbar);
-
-
-
-
-
-            //SupportActionBar.Title = "TaskDropper";
 
             return view;
         }

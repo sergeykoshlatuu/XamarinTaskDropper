@@ -19,11 +19,12 @@ namespace TaskDropper.Core.ViewModels
         //}
 
         private readonly IMvxNavigationService _navigationService;
+        private ITaskRepository _taskRepository;
 
-        public MainViewModel(IMvxNavigationService navigationService)
+        public MainViewModel(IMvxNavigationService navigationService, ITaskRepository taskRepository)
         {
             _navigationService = navigationService;
-
+            _taskRepository = taskRepository;
             ShowHomeViewModelCommand = new MvxAsyncCommand(async () => await _navigationService.Navigate<HomeViewModel>());
             ShowTaskListViewModelCommand = new MvxAsyncCommand(async () => await _navigationService.Navigate<TasksListViewModel>());
             ShowGoogleLoginViewModelCommand = new MvxAsyncCommand(async () => await _navigationService.Navigate<GoogleLoginViewModel>());
@@ -31,7 +32,7 @@ namespace TaskDropper.Core.ViewModels
         }
 
         // MvvmCross Lifecycle
-
+       
         // MVVM Properties
 
         // MVVM Commands
@@ -40,5 +41,22 @@ namespace TaskDropper.Core.ViewModels
         public IMvxAsyncCommand ShowGoogleLoginViewModelCommand { get; private set; }
         public IMvxAsyncCommand ShowAboutViewModelCommand { get; private set; }
         // Private methods
+
+        public bool IsUserLogin()
+        {
+            if (_taskRepository.GetLastUserId()==1)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public void LogOutUser()
+        {
+            _taskRepository.LogOutUser();
+        }
     }
 }

@@ -15,7 +15,7 @@ namespace TaskDropper.Core.ViewModels
     public class TaskChangedViewModel : MvxViewModel<ItemTask>
     {
         private readonly IMvxNavigationService _navigationService;
-        private ITaskRepository _taskRepositiry;
+        private ITaskRepository _taskRepository;
 
         public override async Task Initialize()
         {
@@ -27,10 +27,13 @@ namespace TaskDropper.Core.ViewModels
         public TaskChangedViewModel(IMvxNavigationService navigationService, ITaskRepository taskRepositiry)
         {
             _navigationService = navigationService;
-            _taskRepositiry = taskRepositiry;
+            _taskRepository = taskRepositiry;
             CloseCommand = new MvxAsyncCommand(async () => await _navigationService.Navigate<HomeViewModel>());
-            UserId = _taskRepositiry.GetLastUserId();
-        }
+            UserId = _taskRepository.GetLastUserId();
+            
+       
+    }
+      
         public IMvxAsyncCommand CloseCommand { get; set; }
       
         private int _id;
@@ -124,17 +127,19 @@ namespace TaskDropper.Core.ViewModels
         private void DeleteTask()
         {
             ItemTask _deletedTask = new ItemTask(Id,UserId, Title, Description, Status);
-            _taskRepositiry.DeleteTaskFromTable(_deletedTask);
+            _taskRepository.DeleteTaskFromTable(_deletedTask);
             _navigationService.Navigate<HomeViewModel>();
         }
 
         private void SaveTask()
         {
             ItemTask _addtask = new ItemTask(Id,UserId, Title, Description, Status);
-            _taskRepositiry.AddToTable(_addtask);
+            _taskRepository.AddTaskToTable(_addtask);
             _navigationService.Navigate<HomeViewModel>();
 
         }
+
+        
 
         public override void Prepare(ItemTask parameter)
         {
@@ -147,6 +152,27 @@ namespace TaskDropper.Core.ViewModels
                 Status = parameter.Status;
             }
             UpdateSave();
+        }
+
+        public IMvxCommand LogOutUser
+        {
+            get { return new MvxCommand(LogOutUsers); }
+        }
+
+        private void LogOutUsers()
+        {
+            _taskRepository.LogOutUser();
+            _navigationService.Navigate<GoogleLoginViewModel>();
+        }
+
+       public IMvxCommand Back
+        {
+            get { return new MvxCommand(GoBack); }
+        }
+
+        private void GoBack()
+        {
+            _navigationService.Navigate<HomeViewModel>();
         }
     }
 }

@@ -5,6 +5,7 @@ using System.Text;
 
 using Android.App;
 using Android.Content;
+using Android.Graphics;
 using Android.OS;
 using Android.Runtime;
 using Android.Views;
@@ -23,12 +24,12 @@ namespace TaskDropper.Droid.Views
         {
             var view = base.OnCreateView(inflater, container, savedInstanceState);
 
-            //Typeface newTypeface = Typeface.CreateFromAsset(Assets, "fonts.otf");
-            //FindViewById<TextView>(Resource.Id.textViewTitle).SetTypeface(newTypeface, TypefaceStyle.Normal);
+            Typeface newTypeface = Typeface.CreateFromAsset(Activity.Assets, "NK123.otf");
+            view.FindViewById<TextView>(Resource.Id.name_text).SetTypeface(newTypeface, TypefaceStyle.Normal);
+            view.FindViewById<TextView>(Resource.Id.email_text).SetTypeface(newTypeface, TypefaceStyle.Normal);
 
 
-            var imageButton = view.FindViewById<ImageButton>(Resource.Id.imageButton);
-            //imageButton.Visibility = ViewStates.Invisible;
+
 
             var toolbar = view.FindViewById<Android.Support.V7.Widget.Toolbar>(Resource.Id.toolbar);
 

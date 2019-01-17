@@ -40,7 +40,7 @@ namespace TaskDropper.Droid.Views
             if (_toolbar != null)
             {
                 ParentActivity.SetSupportActionBar(_toolbar);
-                ParentActivity.SupportActionBar.SetDisplayHomeAsUpEnabled(true);
+                //ParentActivity.SupportActionBar.SetDisplayHomeAsUpEnabled(true);
 
             }
 

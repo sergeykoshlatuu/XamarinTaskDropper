@@ -33,6 +33,7 @@ namespace TaskDropper.Droid.Views
             view.FindViewById<TextView>(Resource.Id.done_txt).SetTypeface(newTypeface, TypefaceStyle.Normal);
             view.FindViewById<Button>(Resource.Id.Savetask).SetTypeface(newTypeface, TypefaceStyle.Normal);
             view.FindViewById<Button>(Resource.Id.Deletetask).SetTypeface(newTypeface, TypefaceStyle.Normal);
+            view.FindViewById<TextView>(Resource.Id.app_name_text).SetTypeface(newTypeface, TypefaceStyle.Normal);
 
             _linearLayoutMain = view.FindViewById<LinearLayout>(Resource.Id.main_layout);
             _linearLayoutMain.Click += delegate
@@ -46,9 +47,11 @@ namespace TaskDropper.Droid.Views
                 HideSoftKeyboard();
             };
 
-            var imageButton = view.FindViewById<ImageButton>(Resource.Id.imageButton);
-            imageButton.Visibility = ViewStates.Invisible;
-            
+            var addtask_button = view.FindViewById<ImageButton>(Resource.Id.addtask_button);
+            addtask_button.Visibility = ViewStates.Invisible;
+            var back_button = view.FindViewById<ImageButton>(Resource.Id.back_button);
+            back_button.Visibility = ViewStates.Visible;
+
 
             return view;
         }
@@ -60,5 +63,6 @@ namespace TaskDropper.Droid.Views
         }
 
         
+
     }
 }

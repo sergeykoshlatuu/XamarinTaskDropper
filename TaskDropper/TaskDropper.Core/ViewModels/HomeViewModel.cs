@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 using TaskDropper.Core.Models;
+using TaskDropper.Core.Interface;
 
 namespace TaskDropper.Core.ViewModels
 {
@@ -19,13 +20,25 @@ namespace TaskDropper.Core.ViewModels
             await base.Initialize();
 
         }
+        private ITaskRepository _taskRepository;
 
-        public HomeViewModel(IMvxNavigationService navigationService)
+        public HomeViewModel(IMvxNavigationService navigationService, ITaskRepository taskRepository)
         {
             _navigationService = navigationService;
+            _taskRepository = taskRepository;
             TaskListViewModel = Mvx.IoCConstruct<TasksListViewModel>();
             AboutViewModel = Mvx.IoCConstruct<AboutViewModel>();
             ShowTaskChangedView = new MvxAsyncCommand<ItemTask>(ShowTaskChanged);
+        }
+        public IMvxCommand LogOutUser
+        {
+            get { return new MvxCommand(LogOutUsers); }
+        }
+
+        private void LogOutUsers()
+        {
+            _taskRepository.LogOutUser();
+            _navigationService.Navigate<GoogleLoginViewModel>();
         }
 
         public IMvxCommand ShowTaskChangedView { get; set; }
@@ -37,7 +50,9 @@ namespace TaskDropper.Core.ViewModels
            
         }
 
-       public TasksListViewModel TaskListViewModel;
+        
+
+        public TasksListViewModel TaskListViewModel;
        public AboutViewModel AboutViewModel;
     }
 }

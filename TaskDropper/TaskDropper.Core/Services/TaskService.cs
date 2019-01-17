@@ -18,9 +18,10 @@ namespace TaskDropper.Core.Services
             _con.CreateTable<ItemTask>();
             _con.CreateTable<Users>();
             _con.CreateTable<LastUser>();
+            _con.CreateTable<GoogleProfile>();
         }
 
-        public void AddToTable(ItemTask task1)
+        public void AddTaskToTable(ItemTask task1)
         {
             if (task1.Id == 0)
             {
@@ -44,10 +45,9 @@ namespace TaskDropper.Core.Services
                     return;
                 }
             }
+
             _con.Insert(user);
         }
-
-        
 
         public void DeleteTaskFromTable(ItemTask _task)
         {
@@ -64,15 +64,26 @@ namespace TaskDropper.Core.Services
        public int GetLastUserId()
         {
             List<LastUser> lastUsers = _con.Table<LastUser>().ToList();
+            if (lastUsers.Count == 0) return 0;
             return lastUsers[0].Id;
         }
 
+        public List<GoogleProfile> ListGoogleUsers()
+        {
+            return _con.Table<GoogleProfile>().ToList();
+        }
 
         public List<ItemTask> LoadListItems(int userId)
         {
             List<ItemTask> ListFromDatabase = _con.Table<ItemTask>().Where(x => x.UserId == userId).ToList();
 
             return ListFromDatabase;
+        }
+
+        public void LogOutUser()
+        {
+            _con.DropTable<LastUser>();
+            _con.CreateTable<LastUser>();
         }
 
         public void UpdateLastUser(string email)
