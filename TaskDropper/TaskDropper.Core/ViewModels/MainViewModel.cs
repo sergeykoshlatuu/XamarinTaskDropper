@@ -12,16 +12,11 @@ namespace TaskDropper.Core.ViewModels
 {
     public class MainViewModel : BaseViewModel
     {
-        //public override async Task Initialize()
-        //{
-        //    await base.Initialize();
-
-        //}
 
         private readonly IMvxNavigationService _navigationService;
-        private ITaskRepository _taskRepository;
+        private IDatabaseHelper _taskRepository;
 
-        public MainViewModel(IMvxNavigationService navigationService, ITaskRepository taskRepository)
+        public MainViewModel(IMvxNavigationService navigationService, IDatabaseHelper taskRepository)
         {
             _navigationService = navigationService;
             _taskRepository = taskRepository;
@@ -30,17 +25,11 @@ namespace TaskDropper.Core.ViewModels
             ShowGoogleLoginViewModelCommand = new MvxAsyncCommand(async () => await _navigationService.Navigate<GoogleLoginViewModel>());
             ShowAboutViewModelCommand = new MvxAsyncCommand(async () => await _navigationService.Navigate<AboutViewModel>());
         }
-
-        // MvvmCross Lifecycle
-       
-        // MVVM Properties
-
-        // MVVM Commands
+     
         public IMvxAsyncCommand ShowHomeViewModelCommand { get; private set; }
         public IMvxAsyncCommand ShowTaskListViewModelCommand { get; private set; }
         public IMvxAsyncCommand ShowGoogleLoginViewModelCommand { get; private set; }
         public IMvxAsyncCommand ShowAboutViewModelCommand { get; private set; }
-        // Private methods
 
         public bool IsUserLogin()
         {

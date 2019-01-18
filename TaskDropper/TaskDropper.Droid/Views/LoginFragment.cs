@@ -59,7 +59,7 @@ namespace TaskDropper.Droid.Views
             // Display it on the UI
             //var googleButton = FindViewById<Button>(Resource.Id.googleLoginButton);
             ViewModel.AddUserToTable(email);
-            ViewModel.PrintLastUser();
+           
             
             
             

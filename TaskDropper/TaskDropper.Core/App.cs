@@ -18,8 +18,9 @@ namespace TaskDropper.Core
                .EndingWith("Service")
                .AsInterfaces()
                .RegisterAsLazySingleton();
+
             var foo = Mvx.IoCProvider.Resolve<IDatabaseConnectionService>();
-            Mvx.IoCProvider.RegisterSingleton<ITaskRepository>(new TaskService(foo));
+            Mvx.IoCProvider.RegisterSingleton<IDatabaseHelper>(new DatabaseService(foo));
             
             RegisterAppStart<MainViewModel>();
 

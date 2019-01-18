@@ -15,15 +15,18 @@ namespace TaskDropper.Core.Models
 
         public bool Status { get; set; }
 
+        public byte[] PhotoTask { get; set; }
+
         public ItemTask() { }
 
-        public ItemTask(int id, int userId, string title, string description, bool status)
+        public ItemTask(int id, int userId, string title, string description, bool status, byte[] photoTask)
         {
             Id = id;
             UserId = userId;
             Title = title;
             Description = description;
             Status = status;
+            PhotoTask = photoTask;
         }
     }
 }

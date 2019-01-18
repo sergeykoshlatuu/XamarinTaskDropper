@@ -6,21 +6,18 @@ using System.Text;
 
 namespace TaskDropper.Core.Interface
 {
-    public interface ITaskRepository
+    public interface IDatabaseHelper
     {
         //Tasks
         void AddTaskToTable(ItemTask tasks);
-        List<ItemTask> LoadListItems(int userId);
+        List<ItemTask> LoadListItemsTask(int userId);
         void DeleteTaskFromTable(ItemTask tasks);
+
         //Users
         void AddUserToTable(string email);
-
         void UpdateLastUser(string email);
         List<LastUser> GetLastUser();
         int GetLastUserId();
-
-        List<GoogleProfile> ListGoogleUsers();
-
         void LogOutUser();
     }
 }

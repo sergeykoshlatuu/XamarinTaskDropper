@@ -16,7 +16,7 @@ namespace TaskDropper.Core.ViewModels
     public class TaskChangedViewModel : MvxViewModel<ItemTask>
     {
         private readonly IMvxNavigationService _navigationService;
-        private ITaskRepository _taskRepository;
+        private IDatabaseHelper _taskRepository;
         private readonly IMvxPictureChooserTask _pictureChooserTask;
 
         public override async Task Initialize()
@@ -26,7 +26,7 @@ namespace TaskDropper.Core.ViewModels
         }
 
 
-        public TaskChangedViewModel(IMvxNavigationService navigationService, ITaskRepository taskRepositiry, IMvxPictureChooserTask pictureChooserTask)
+        public TaskChangedViewModel(IMvxNavigationService navigationService, IDatabaseHelper taskRepositiry, IMvxPictureChooserTask pictureChooserTask)
         {
             _pictureChooserTask = pictureChooserTask;
             _navigationService = navigationService;
@@ -83,6 +83,16 @@ namespace TaskDropper.Core.ViewModels
                 SaveStatus = false;
         }
 
+        public void UpdatePhotoStatus()
+        {
+            if (Bytes!=null)
+            {
+                PhotoStatus = true;
+            }
+            else
+                PhotoStatus = false;
+        }
+
         public string Description
         {
             get => _description;
@@ -113,6 +123,8 @@ namespace TaskDropper.Core.ViewModels
         {
             get { return new MvxCommand(DeleteTask); }
         }
+       
+
 
         private bool _saveStatus;
         public bool SaveStatus
@@ -125,16 +137,27 @@ namespace TaskDropper.Core.ViewModels
             }
         }
 
+        private bool _photoStatus;
+        public bool PhotoStatus
+        {
+            get => _photoStatus;
+            set
+            {
+                _photoStatus = value;
+                RaisePropertyChanged(() => PhotoStatus);
+            }
+        }
+        
         private void DeleteTask()
         {
-            ItemTask _deletedTask = new ItemTask(Id,UserId, Title, Description, Status);
+            ItemTask _deletedTask = new ItemTask(Id,UserId, Title, Description, Status,Bytes);
             _taskRepository.DeleteTaskFromTable(_deletedTask);
             _navigationService.Navigate<HomeViewModel>();
         }
 
         private void SaveTask()
         {
-            ItemTask _addtask = new ItemTask(Id,UserId, Title, Description, Status);
+            ItemTask _addtask = new ItemTask(Id,UserId, Title, Description, Status,Bytes);
             _taskRepository.AddTaskToTable(_addtask);
             _navigationService.Navigate<HomeViewModel>();
 
@@ -151,8 +174,10 @@ namespace TaskDropper.Core.ViewModels
                 Title = parameter.Title;
                 Description = parameter.Description;
                 Status = parameter.Status;
+                Bytes = parameter.PhotoTask;
             }
             UpdateSave();
+            UpdatePhotoStatus();
         }
 
         public IMvxCommand LogOutUser
@@ -184,6 +209,9 @@ namespace TaskDropper.Core.ViewModels
         private void DoTakePicture()
         {
             _pictureChooserTask.TakePicture(400, 95, OnPicture, () => { });
+            UpdatePhotoStatus();
+            RaiseAllPropertiesChanged();
+
         }
 
         public IMvxCommand ChoosePictureCommand
@@ -195,6 +223,8 @@ namespace TaskDropper.Core.ViewModels
         private void DoChoosePicture()
         {
            _pictureChooserTask.ChoosePictureFromLibrary(400, 95, OnPicture, () => { });
+            UpdatePhotoStatus();
+            RaiseAllPropertiesChanged();
         }
 
         private byte[] _bytes;
@@ -202,7 +232,7 @@ namespace TaskDropper.Core.ViewModels
         public byte[] Bytes
         {
             get { return _bytes; }
-            set { _bytes = value; RaisePropertyChanged(() => Bytes); }
+            set { _bytes = value; RaisePropertyChanged(() => Bytes); UpdatePhotoStatus(); }
         }
 
         private void OnPicture(Stream pictureStream)
@@ -210,6 +240,16 @@ namespace TaskDropper.Core.ViewModels
             var memoryStream = new MemoryStream();
             pictureStream.CopyTo(memoryStream);
             Bytes = memoryStream.ToArray();
+        }
+
+        public IMvxCommand DettachPhoto
+        {
+            get { return new MvxCommand(DettachPhotos); }
+        }
+
+        public void DettachPhotos()
+        {
+            Bytes = null;
         }
     }
 }

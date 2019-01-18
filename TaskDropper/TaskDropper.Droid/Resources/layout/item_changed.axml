@@ -62,12 +62,21 @@
 			android:text="Attach Photo"
 		    />
 
+
+
 	 <ImageView
+		android:id = "@+id/imageview"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
     local:MvxBind="Bitmap Bytes,Converter=InMemoryImage"
     />
-
+	<Button
+			android:id = "@+id/DettachPhoto"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginLeft="0dip"
+			android:text="DettachPhoto"
+		    local:MvxBind = "Click DettachPhoto; Enabled PhotoStatus"/>
 	<LinearLayout
 		android:orientation="horizontal"
 		android:layout_width="match_parent"

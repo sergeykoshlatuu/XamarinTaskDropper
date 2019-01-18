@@ -6,11 +6,11 @@ using System.Collections.Generic;
 
 namespace TaskDropper.Core.Services
 {
-    public class TaskService : ITaskRepository
+    public class DatabaseService : IDatabaseHelper
     {
         private SQLiteConnection _con;
 
-        public TaskService(IDatabaseConnectionService con)
+        public DatabaseService(IDatabaseConnectionService con)
         {
             _con = con.GetDatebaseConnection();
             //_con.DropTable<Users>();
@@ -18,9 +18,10 @@ namespace TaskDropper.Core.Services
             _con.CreateTable<ItemTask>();
             _con.CreateTable<Users>();
             _con.CreateTable<LastUser>();
-            _con.CreateTable<GoogleProfile>();
+           
         }
 
+        //Work with ItemTask
         public void AddTaskToTable(ItemTask task1)
         {
             if (task1.Id == 0)
@@ -33,6 +34,20 @@ namespace TaskDropper.Core.Services
             }
         }
 
+        public void DeleteTaskFromTable(ItemTask _task)
+        {
+            if (_task.Id != 0)
+                _con.Table<ItemTask>().Where(x => x.Id == _task.Id).Delete();
+        }
+
+        public List<ItemTask> LoadListItemsTask(int userId)
+        {
+            List<ItemTask> ListFromDatabase = _con.Table<ItemTask>().Where(x => x.UserId == userId).ToList();
+
+            return ListFromDatabase;
+        }
+
+        //Work with users
         public void AddUserToTable(string email)
         {
             Users user = new Users(email);
@@ -49,12 +64,6 @@ namespace TaskDropper.Core.Services
             _con.Insert(user);
         }
 
-        public void DeleteTaskFromTable(ItemTask _task)
-        {
-            if (_task.Id != 0)
-                _con.Table<ItemTask>().Where(x => x.Id == _task.Id).Delete();
-        }
-
         public List<LastUser> GetLastUser()
         {
             List<LastUser> lastUsers = _con.Table<LastUser>().ToList();
@@ -66,18 +75,6 @@ namespace TaskDropper.Core.Services
             List<LastUser> lastUsers = _con.Table<LastUser>().ToList();
             if (lastUsers.Count == 0) return 0;
             return lastUsers[0].Id;
-        }
-
-        public List<GoogleProfile> ListGoogleUsers()
-        {
-            return _con.Table<GoogleProfile>().ToList();
-        }
-
-        public List<ItemTask> LoadListItems(int userId)
-        {
-            List<ItemTask> ListFromDatabase = _con.Table<ItemTask>().Where(x => x.UserId == userId).ToList();
-
-            return ListFromDatabase;
         }
 
         public void LogOutUser()

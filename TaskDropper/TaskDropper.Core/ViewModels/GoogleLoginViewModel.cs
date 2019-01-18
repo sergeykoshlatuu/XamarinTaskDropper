@@ -20,10 +20,10 @@ namespace TaskDropper.Core.ViewModels
 
         
         private readonly IMvxNavigationService _navigationService;
-        private ITaskRepository _taskRepository;
+        private IDatabaseHelper _taskRepository;
        
 
-        public GoogleLoginViewModel(IMvxNavigationService navigationService,ITaskRepository taskRepository)
+        public GoogleLoginViewModel(IMvxNavigationService navigationService,IDatabaseHelper taskRepository)
         {
             _navigationService = navigationService;
             _taskRepository = taskRepository;
@@ -40,25 +40,10 @@ namespace TaskDropper.Core.ViewModels
             _taskRepository.UpdateLastUser(email);
         }
 
-        public void PrintLastUser()
-        {
-            List<LastUser> lastUsers = _taskRepository.GetLastUser();
-            for (int i = 0; i < lastUsers.Count; i++)
-            {
-                Console.WriteLine("__________________________");
-                Console.WriteLine(lastUsers[i].Id);
-                Console.WriteLine(lastUsers[i].Email);
-                Console.WriteLine("__________________________");
-            }
-        }
-
         public IMvxAsyncCommand ShowHomeViewModelCommand { get; private set; }
         public IMvxAsyncCommand ShowTaskListViewModelCommand { get; private set; }
         public IMvxAsyncCommand ShowAboutViewModelCommand { get; private set; }
 
-
-
-        
         public override void ViewAppearing()
         {
 

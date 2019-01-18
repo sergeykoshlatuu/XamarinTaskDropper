@@ -11,7 +11,7 @@ namespace TaskDropper.Core.ViewModels
     public class TasksListViewModel : BaseViewModel
     {
         private readonly IMvxNavigationService _navigationService;
-        public ITaskRepository _taskRepository;
+        public IDatabaseHelper _taskRepository;
 
         public override async Task Initialize()
         {
@@ -20,7 +20,7 @@ namespace TaskDropper.Core.ViewModels
 
         }
 
-        public TasksListViewModel(IMvxNavigationService navigationService, ITaskRepository taskRepository)
+        public TasksListViewModel(IMvxNavigationService navigationService, IDatabaseHelper taskRepository)
         {
             _navigationService = navigationService;
             _taskRepository = taskRepository;
@@ -52,7 +52,7 @@ namespace TaskDropper.Core.ViewModels
         public override void ViewAppearing()
         {
             int userId = _taskRepository.GetLastUserId();
-            List<ItemTask> _templeteTasksList = _taskRepository.LoadListItems(userId);
+            List<ItemTask> _templeteTasksList = _taskRepository.LoadListItemsTask(userId);
             TaskCollection = new MvxObservableCollection<ItemTask>(_templeteTasksList);
             //System.Console.WriteLine(TaskCollection);
         }

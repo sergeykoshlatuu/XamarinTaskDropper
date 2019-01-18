@@ -20,9 +20,9 @@ namespace TaskDropper.Core.ViewModels
             await base.Initialize();
 
         }
-        private ITaskRepository _taskRepository;
+        private IDatabaseHelper _taskRepository;
 
-        public HomeViewModel(IMvxNavigationService navigationService, ITaskRepository taskRepository)
+        public HomeViewModel(IMvxNavigationService navigationService, IDatabaseHelper taskRepository)
         {
             _navigationService = navigationService;
             _taskRepository = taskRepository;
@@ -49,8 +49,6 @@ namespace TaskDropper.Core.ViewModels
             var result = await _navigationService.Navigate<TaskChangedViewModel, ItemTask>(_taskCreate);
            
         }
-
-        
 
         public TasksListViewModel TaskListViewModel;
        public AboutViewModel AboutViewModel;
