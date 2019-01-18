@@ -44,7 +44,8 @@
 				android:background="@drawable/LogoutIcon"
 				local:MvxBind = "Click LogOutUser"
 				android:layout_alignParentRight = "true"
-				android:layout_gravity = "right"/>
+				android:layout_gravity = "right"
+			    />
 			<ImageButton
 				android:id="@+id/addtask_button"
 				android:layout_width="30dp"

@@ -51,7 +51,23 @@
 			android:layout_width = "wrap_content"
 			android:layout_height = "wrap_content"
 		/>
+		
 	</LinearLayout>
+
+	<Button
+			android:id = "@+id/OpenPopup"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginLeft="0dip"
+			android:text="Attach Photo"
+		    />
+
+	 <ImageView
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    local:MvxBind="Bitmap Bytes,Converter=InMemoryImage"
+    />
+
 	<LinearLayout
 		android:orientation="horizontal"
 		android:layout_width="match_parent"

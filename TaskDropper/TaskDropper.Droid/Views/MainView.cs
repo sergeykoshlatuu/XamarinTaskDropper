@@ -32,23 +32,10 @@ namespace TaskDropper.Droid.Views
         protected override void OnCreate(Android.OS.Bundle bundle)
         {
             base.OnCreate(bundle);
-
-
             SetContentView(Resource.Layout.main_view);
-
-            //DrawerLayout = FindViewById<DrawerLayout>(Resource.Id.drawer_layout);
-
-            //var toolbar = FindViewById<Android.Support.V7.Widget.Toolbar>(Resource.Id.toolbar);
-            //SetSupportActionBar(toolbar);
-            //var imageButton = FindViewById<ImageButton>(Resource.Id.imageButton);
-            //imageButton.Visibility = ViewStates.Invisible;
-            //var imageButton2 = FindViewById<ImageButton>(Resource.Id.logout);
-            //imageButton.Visibility = ViewStates.Invisible;
-
-
-
             if (bundle == null)
             {
+                
                 if (!ViewModel.IsUserLogin()) {
                     ViewModel.ShowGoogleLoginViewModelCommand.Execute(null);
                 }
@@ -59,16 +46,5 @@ namespace TaskDropper.Droid.Views
 
             }
         }
-
-        //public override bool OnOptionsItemSelected(IMenuItem item)
-        //{
-        //    if (item.ItemId == global::Android.Resource.Id.Home)
-        //    {
-        //        OnBackPressed();
-        //    }
-
-        //    return base.OnOptionsItemSelected(item);
-        //}
-
     }
 }

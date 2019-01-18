@@ -14,17 +14,41 @@ namespace TaskDropper.Droid.Views
     public class TaskChangedFragment : BaseFragment<TaskChangedViewModel>
     {
         protected override int FragmentId => Resource.Layout.item_changed;
-        private InputMethodManager _imm;
         private LinearLayout _linearLayoutMain;
 
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
             var view = base.OnCreateView(inflater, container, savedInstanceState);
 
-            //var  = this.BindingInflate(Resource.Layout.item_changed, container);
+            Button showPopupMenu = view.FindViewById<Button>(Resource.Id.OpenPopup);
 
-            //SetContentView(Resource.Layout.item_changed);
+            showPopupMenu.Click += (s, arg) => {
 
+                PopupMenu menu = new PopupMenu(Context, showPopupMenu);
+
+                // Call inflate directly on the menu:
+                menu.Inflate(Resource.Menu.popup_menu);
+
+                // A menu item was clicked:
+                menu.MenuItemClick += (s1, arg1) => {
+                    Console.WriteLine("{0} selected", arg1.Item.TitleFormatted);
+                    if (arg1.Item.ItemId == Resource.Id.FromGallary)
+                    {
+                        ViewModel.ChoosePictureCommand.Execute();
+                    }
+                    if (arg1.Item.ItemId == Resource.Id.FromCamera)
+                    { 
+                        ViewModel.TakePictureCommand.Execute();
+                    }
+                };
+
+                // Menu was dismissed:
+                menu.DismissEvent += (s2, arg2) => {
+                    Console.WriteLine("menu dismissed");
+                };
+
+                menu.Show();
+            };
 
             Typeface newTypeface = Typeface.CreateFromAsset(Activity.Assets, "NK123.otf");
             view.FindViewById<EditText>(Resource.Id.title_txt).SetTypeface(newTypeface, TypefaceStyle.Normal);

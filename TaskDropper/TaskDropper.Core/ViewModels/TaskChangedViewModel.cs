@@ -8,7 +8,8 @@ using System.Windows.Input;
 using TaskDropper.Core.Models;
 using TaskDropper.Core.Interface;
 using System.Threading.Tasks;
-
+using MvvmCross.Plugin.PictureChooser;
+using System.IO;
 
 namespace TaskDropper.Core.ViewModels
 {
@@ -16,6 +17,7 @@ namespace TaskDropper.Core.ViewModels
     {
         private readonly IMvxNavigationService _navigationService;
         private ITaskRepository _taskRepository;
+        private readonly IMvxPictureChooserTask _pictureChooserTask;
 
         public override async Task Initialize()
         {
@@ -24,14 +26,13 @@ namespace TaskDropper.Core.ViewModels
         }
 
 
-        public TaskChangedViewModel(IMvxNavigationService navigationService, ITaskRepository taskRepositiry)
+        public TaskChangedViewModel(IMvxNavigationService navigationService, ITaskRepository taskRepositiry, IMvxPictureChooserTask pictureChooserTask)
         {
+            _pictureChooserTask = pictureChooserTask;
             _navigationService = navigationService;
             _taskRepository = taskRepositiry;
             CloseCommand = new MvxAsyncCommand(async () => await _navigationService.Navigate<HomeViewModel>());
             UserId = _taskRepository.GetLastUserId();
-            
-       
     }
       
         public IMvxAsyncCommand CloseCommand { get; set; }
@@ -173,6 +174,42 @@ namespace TaskDropper.Core.ViewModels
         private void GoBack()
         {
             _navigationService.Navigate<HomeViewModel>();
+        }
+
+        public IMvxCommand TakePictureCommand
+        {
+            get { return new MvxCommand(DoTakePicture); }
+        }
+
+        private void DoTakePicture()
+        {
+            _pictureChooserTask.TakePicture(400, 95, OnPicture, () => { });
+        }
+
+        public IMvxCommand ChoosePictureCommand
+        {
+            get { return new MvxCommand(DoChoosePicture); }
+        }
+ 
+
+        private void DoChoosePicture()
+        {
+           _pictureChooserTask.ChoosePictureFromLibrary(400, 95, OnPicture, () => { });
+        }
+
+        private byte[] _bytes;
+
+        public byte[] Bytes
+        {
+            get { return _bytes; }
+            set { _bytes = value; RaisePropertyChanged(() => Bytes); }
+        }
+
+        private void OnPicture(Stream pictureStream)
+        {
+            var memoryStream = new MemoryStream();
+            pictureStream.CopyTo(memoryStream);
+            Bytes = memoryStream.ToArray();
         }
     }
 }
