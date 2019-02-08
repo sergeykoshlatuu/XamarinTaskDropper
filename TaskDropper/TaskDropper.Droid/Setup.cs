@@ -9,9 +9,11 @@ using MvvmCross.Converters;
 using MvvmCross.Droid.Support.V4;
 using MvvmCross.Droid.Support.V7.AppCompat;
 using MvvmCross.IoC;
+using MvvmCross.Plugin.PictureChooser;
+using MvvmCross.Plugin.PictureChooser.Platforms.Android;
 using MvvmCross.ViewModels;
 using TaskDropper.Core.Interface;
-
+using TaskDropper.Droid.Services;
 
 namespace TaskDropper.Droid
 {
@@ -42,7 +44,15 @@ namespace TaskDropper.Droid
                       .AsInterfaces()
                       .RegisterAsLazySingleton();
             Mvx.RegisterType<IDatabaseConnectionService, DatabaseConnectionService>();
+
+            Mvx.RegisterType<IPhotoService, PhotoService>();
             return base.CreateApp();
+        }
+
+        protected override void InitializeFirstChance()
+        {
+    
+            base.InitializeFirstChance();
         }
     }
 }

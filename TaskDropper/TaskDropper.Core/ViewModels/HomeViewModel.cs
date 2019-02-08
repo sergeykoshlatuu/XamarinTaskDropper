@@ -28,20 +28,20 @@ namespace TaskDropper.Core.ViewModels
             _taskRepository = taskRepository;
             TaskListViewModel = Mvx.IoCConstruct<TasksListViewModel>();
             AboutViewModel = Mvx.IoCConstruct<AboutViewModel>();
-            ShowTaskChangedView = new MvxAsyncCommand<ItemTask>(ShowTaskChanged);
+            ShowTaskChangedViewCommand = new MvxAsyncCommand<ItemTask>(ShowTaskChanged);
         }
-        public IMvxCommand LogOutUser
+        public IMvxCommand LogOutUserCommand
         {
-            get { return new MvxCommand(LogOutUsers); }
+            get { return new MvxCommand(LogOutUser); }
         }
 
-        private void LogOutUsers()
+        private void LogOutUser()
         {
             _taskRepository.LogOutUser();
             _navigationService.Navigate<GoogleLoginViewModel>();
         }
 
-        public IMvxCommand ShowTaskChangedView { get; set; }
+        public IMvxCommand ShowTaskChangedViewCommand { get; set; }
 
 
         private async Task ShowTaskChanged(ItemTask _taskCreate)

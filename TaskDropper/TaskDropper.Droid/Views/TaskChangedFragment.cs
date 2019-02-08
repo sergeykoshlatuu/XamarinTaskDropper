@@ -15,6 +15,8 @@ using Android.App;
 using Android.Support.V4.App;
 using Android.Util;
 using Android.Support.Design.Widget;
+using TaskDropper.Core.Services;
+using TaskDropper.Droid.Services;
 
 namespace TaskDropper.Droid.Views
 {
@@ -29,10 +31,12 @@ namespace TaskDropper.Droid.Views
             Manifest.Permission.ReadExternalStorage,
             Manifest.Permission.WriteExternalStorage
         };
+
         View layout;
-
+        Button DettachPhoto;
         private LinearLayout _linearLayoutMain;
-
+        private ScrollView _scrollView;
+       
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
             var view = base.OnCreateView(inflater, container, savedInstanceState);
@@ -40,7 +44,9 @@ namespace TaskDropper.Droid.Views
             Typeface newTypeface = Typeface.CreateFromAsset(Activity.Assets, "NK123.otf");
             Button showPopupMenu = view.FindViewById<Button>(Resource.Id.OpenPopup);
 
-            var DettachPhoto = view.FindViewById<Button>(Resource.Id.DettachPhoto);
+         
+
+            DettachPhoto = view.FindViewById<Button>(Resource.Id.DettachPhoto);
 
             DettachPhoto.Click += delegate
             {
@@ -50,7 +56,7 @@ namespace TaskDropper.Droid.Views
             showPopupMenu.Click += (s, arg) => {
 
                 PopupMenu menu = new PopupMenu(Context, showPopupMenu);
-                
+              
 
                 // Call inflate directly on the menu:
                 menu.Inflate(Resource.Menu.popup_menu);
@@ -61,20 +67,21 @@ namespace TaskDropper.Droid.Views
                         if (arg1.Item.ItemId == Resource.Id.FromGallary)
                         {
                             ViewModel.ChoosePictureCommand.Execute();
-
                         }
                     
                     if (arg1.Item.ItemId == Resource.Id.FromCamera)
                         {
-                        if (ActivityCompat.CheckSelfPermission(Context, Manifest.Permission.WriteExternalStorage) == (int)Permission.Granted)
+                        if (ViewModel.CheckPermissionForCamera())
                         {
                             ViewModel.TakePictureCommand.Execute();
                         }
-
                         else
                         {
                             RequestStoragePermission();
+                           
+                            
                         }
+
                     }
                 };
 
@@ -86,7 +93,9 @@ namespace TaskDropper.Droid.Views
                 menu.Show();
             };
 
-           
+
+            
+            
             view.FindViewById<EditText>(Resource.Id.title_txt).SetTypeface(newTypeface, TypefaceStyle.Normal);
             view.FindViewById<EditText>(Resource.Id.description_txt).SetTypeface(newTypeface, TypefaceStyle.Normal);
             view.FindViewById<CheckBox>(Resource.Id.status_check).SetTypeface(newTypeface, TypefaceStyle.Normal);
@@ -98,7 +107,7 @@ namespace TaskDropper.Droid.Views
             view.FindViewById<Button>(Resource.Id.DettachPhoto).SetTypeface(newTypeface, TypefaceStyle.Normal);
             
 
-            _linearLayoutMain = view.FindViewById<LinearLayout>(Resource.Id.main_layout);
+            _linearLayoutMain = view.FindViewById<LinearLayout>(Resource.Id.LinearLayout1);
             _linearLayoutMain.Click += delegate
             {
                 HideSoftKeyboard();
@@ -106,6 +115,12 @@ namespace TaskDropper.Droid.Views
 
             var _toolbar = view.FindViewById<Android.Support.V7.Widget.Toolbar>(Resource.Id.toolbar);
             _toolbar.Click += delegate
+            {
+                HideSoftKeyboard();
+            };
+
+            _scrollView = view.FindViewById<ScrollView>(Resource.Id.scrollingElement);
+            _scrollView.Click += delegate
             {
                 HideSoftKeyboard();
             };
@@ -131,7 +146,36 @@ namespace TaskDropper.Droid.Views
             close.HideSoftInputFromWindow(_linearLayoutMain.WindowToken, 0);
         }
 
-        void RequestStoragePermission()
+        
+
+        public override void OnRequestPermissionsResult(int requestCode, string[] permissions, Permission[] grantResults)
+        {
+            View layout = new View(null);
+            if (requestCode == REQUEST_STORAGE)
+            {
+                // Received permission result for camera permission.
+                Log.Info("TaskDropper", "Received response for Camera permission request.");
+               
+                // Check if the only required permission has been granted
+                if (grantResults.Length == 1 && grantResults[0] == Permission.Granted)
+                {  
+                    // Camera permission has been granted, preview can be displayed
+                    Log.Info("TaskDropper", "CAMERA permission has now been granted. Showing preview.");
+                    Snackbar.Make(this.View, Resource.String.permission_available_camera, Snackbar.LengthShort).Show();
+                   
+                }
+                else
+                {
+                    Log.Info("TaskDropper", "CAMERA permission was NOT granted.");
+                    Snackbar.Make(this.View, Resource.String.permissions_not_granted, Snackbar.LengthShort).Show();
+                }
+            }
+            else
+            {
+                base.OnRequestPermissionsResult(requestCode, permissions, grantResults);
+            }
+        }
+        public void RequestStoragePermission()
         {
             Log.Info("TaskDropper", "CAMERA permission has NOT been granted. Requesting permission.");
 
@@ -141,44 +185,45 @@ namespace TaskDropper.Droid.Views
                 // and the user would benefit from additional context for the use of the permission.
                 // For example if the user has previously denied the permission.
                 Log.Info("TaskDropper", "Displaying storage permission rationale to provide additional context.");
-
-                Snackbar.Make(layout,"Storage Permission",
-                     Snackbar.LengthIndefinite).SetAction(Resource.String.ok, new Action<View>(delegate (View obj) {
-                         ActivityCompat.RequestPermissions(ParentActivity, new String[] { Manifest.Permission.Camera }, REQUEST_STORAGE);
+                
+                Snackbar.Make(this.View, "Storage Permission",
+                     Snackbar.LengthIndefinite).SetAction(Resource.String.ok, new Action<View>(delegate (View obj)
+                     {
+                         ActivityCompat.RequestPermissions(ParentActivity, new String[] { Manifest.Permission.WriteExternalStorage }, REQUEST_STORAGE);
                      })).Show();
+
             }
             else
             {
                 // Camera permission has not been granted yet. Request it directly.
                 ActivityCompat.RequestPermissions(ParentActivity, new String[] { Manifest.Permission.WriteExternalStorage }, REQUEST_STORAGE);
             }
+            if (ViewModel.CheckPermissionForCamera())
+            {
+                ViewModel.TakePictureCommand.Execute();
+            }
         }
-
-        public override void OnRequestPermissionsResult(int requestCode, string[] permissions, Permission[] grantResults)
+        public override void OnDestroyView()
         {
-            if (requestCode == REQUEST_STORAGE)
+            base.OnDestroyView();
+            DettachPhoto.Click -= delegate
             {
-                // Received permission result for camera permission.
-                Log.Info("TaskDropper", "Received response for Camera permission request.");
+                HideImage();
+            };
 
-                // Check if the only required permission has been granted
-                if (grantResults.Length == 1 && grantResults[0] == Permission.Granted)
-                {
-                    // Camera permission has been granted, preview can be displayed
-                    Log.Info("TaskDropper", "CAMERA permission has now been granted. Showing preview.");
-                    Snackbar.Make(layout, Resource.String.permission_available_camera, Snackbar.LengthShort).Show();
-                }
-                else
-                {
-                    Log.Info("TaskDropper", "CAMERA permission was NOT granted.");
-                    Snackbar.Make(layout, Resource.String.permissions_not_granted, Snackbar.LengthShort).Show();
-                }
-            }
-            else
+            _linearLayoutMain.Click -= delegate
             {
-                base.OnRequestPermissionsResult(requestCode, permissions, grantResults);
-            }
+                HideSoftKeyboard();
+            };
+
+            _scrollView.Click -= delegate
+            {
+                HideSoftKeyboard();
+            };
         }
 
+       
+
+       
     }
 }

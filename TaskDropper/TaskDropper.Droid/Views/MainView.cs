@@ -23,7 +23,7 @@ using TaskDropper.Core.Services;
 namespace TaskDropper.Droid.Views
 {
     [MvxActivityPresentation]
-    [Activity(Label = "", MainLauncher = true)]
+    [Activity(Label = "@string/app_name", MainLauncher = true)]
     public class MainView : MvxAppCompatActivity<MainViewModel>
     {
 
@@ -46,5 +46,11 @@ namespace TaskDropper.Droid.Views
 
             }
         }
+
+        public override bool OnOptionsItemSelected(Android.Views.IMenuItem item)
+        {
+            return false;
+        }
+
     }
 }

@@ -23,22 +23,9 @@ namespace TaskDropper.Droid.Views
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
             var view = base.OnCreateView(inflater, container, savedInstanceState);
-
             Typeface newTypeface = Typeface.CreateFromAsset(Activity.Assets, "NK123.otf");
             view.FindViewById<TextView>(Resource.Id.name_text).SetTypeface(newTypeface, TypefaceStyle.Normal);
             view.FindViewById<TextView>(Resource.Id.email_text).SetTypeface(newTypeface, TypefaceStyle.Normal);
-
-
-
-
-            var toolbar = view.FindViewById<Android.Support.V7.Widget.Toolbar>(Resource.Id.toolbar);
-
-            ParentActivity.SetSupportActionBar(toolbar);
-
-            ////var toolbar = FindViewById<Toolbar>(Resource.Id.toobar);
-            ////SetActionBar(toolbar);
-            //SupportActionBar.Title = "TaskDropper";
-
             return view;
         }
 

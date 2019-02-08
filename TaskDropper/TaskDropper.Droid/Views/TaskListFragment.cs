@@ -30,27 +30,12 @@ namespace TaskDropper.Droid.Views
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
             var view = base.OnCreateView(inflater, container, savedInstanceState);
-            //var view = this.BindingInflate(Resource.Layout.list_items, container);
-            //SetContentView(Resource.Layout.list_items);
             _recyclerView = view.FindViewById<MvxRecyclerView>(Resource.Id.recyclerView);
-
-            //_layoutManager = new GridLayoutManager(this, 2);
             _layoutManager = new LinearLayoutManager(this.Context);
             _recyclerView.SetLayoutManager(_layoutManager);           
             var recyclerAdapter = new TaskListAdapter((IMvxAndroidBindingContext)this.BindingContext);
             _recyclerView.Adapter = recyclerAdapter;
-
-            //Typeface newTypeface = Typeface.CreateFromAsset(Assets, "fonts.otf");
-            //FindViewById<TextView>(Resource.Id.textViewTitle).SetTypeface(newTypeface, TypefaceStyle.Normal);
-            
-
             return view;
         }
-
-
-
     }
 }
-
-
-

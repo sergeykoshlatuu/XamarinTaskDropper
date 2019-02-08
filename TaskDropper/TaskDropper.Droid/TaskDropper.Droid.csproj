@@ -66,6 +66,7 @@
     <Compile Include="Resources\Resource.designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\DatabaseConnectionService.cs" />
+    <Compile Include="Services\PhotoService.cs" />
     <Compile Include="Setup.cs" />
     <Compile Include="ViewAdapters\CustomPagerAdapter.cs" />
     <Compile Include="ViewAdapters\MvxViewPagerFragmentAdapter.cs" />
@@ -78,7 +79,6 @@
     <Compile Include="Views\MainView.cs" />
     <Compile Include="Views\TaskChangedFragment.cs" />
     <Compile Include="Views\TaskListFragment.cs" />
-    <Compile Include="Views\TestFragment.cs" />
   </ItemGroup>
   <ItemGroup>
     <AndroidAsset Include="Assets\NK123.otf" />
@@ -209,6 +209,9 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\menu\popup_menu.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\Drawable\icon.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.

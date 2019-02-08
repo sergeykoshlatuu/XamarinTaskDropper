@@ -40,8 +40,6 @@ namespace TaskDropper.Droid.Views
             if (_toolbar != null)
             {
                 ParentActivity.SetSupportActionBar(_toolbar);
-                //ParentActivity.SupportActionBar.SetDisplayHomeAsUpEnabled(true);
-
             }
 
             return view;
@@ -56,6 +54,11 @@ namespace TaskDropper.Droid.Views
             base.OnActivityCreated(savedInstanceState);
             if (_toolbar != null) { }
                 
+        }
+
+        public override bool OnOptionsItemSelected(Android.Views.IMenuItem item)
+        {
+            return false;
         }
     }
 

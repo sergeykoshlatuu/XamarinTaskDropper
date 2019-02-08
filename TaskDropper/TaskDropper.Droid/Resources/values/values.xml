@@ -11,18 +11,6 @@
 
 
   <string name="ok">OK</string>
-  <string name="contacts_string">
-    Total number of contacts: %1$,d\nFirst contact:<b>%2$s</b>
-  </string>
-  <string name="contacts_none">No contacts stored on device.</string>
-  <string name="contacts_empty">Contacts not loaded.</string>
-  <string name="add_contact">Add a contact</string>
-  <string name="show_contact">Show first contact</string>
-  <string name="contacts_intro">
-    This fragment demonstrates access to the contact database on the device.\n
-    Clicking \"Add a contact\" adds a new contact named "__DUMMY ENTRY" directly into the database.\n
-    Clicking \"Show first contact\" accesses the contact database to display the name of the first contact.
-  </string>
   <string name="camera_unavailable">
     <b>Camera could not be opened.</b>\nThis occurs when the camera is not available (for example it is already in use) or if the system has denied access (for example when camera access has been disabled).
   </string>

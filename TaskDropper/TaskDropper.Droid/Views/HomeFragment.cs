@@ -23,25 +23,21 @@ namespace TaskDropper.Droid.Views
     
 
 
-    [MvxFragmentPresentation(typeof(MainViewModel), Resource.Id.content_frame, true)]
+    [MvxFragmentPresentation(typeof(MainViewModel), Resource.Id.content_frame,addToBackStack:false)]
     public class HomeFragment : BaseFragment<HomeViewModel>
     {
         protected override int FragmentId => Resource.Layout.home_view;
 
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
+            //FragmentManager.PopBackStack();
             var view = base.OnCreateView(inflater, container, savedInstanceState);
-            //var view = this.BindingInflate(Resource.Layout.home_view,container);
-
             Typeface newTypeface = Typeface.CreateFromAsset(Activity.Assets, "NK123.otf");
             view.FindViewById<TextView>(Resource.Id.app_name_text).SetTypeface(newTypeface, TypefaceStyle.Normal);
-
-          
             var addtask_button = view.FindViewById<ImageButton>(Resource.Id.addtask_button);
             addtask_button.Visibility = ViewStates.Visible;
             var back_button = view.FindViewById<ImageButton>(Resource.Id.back_button);
             back_button.Visibility = ViewStates.Invisible;
-
             var viewPager = view.FindViewById<ViewPager>(Resource.Id.viewpager);
             if (viewPager != null)
             {
@@ -73,9 +69,16 @@ namespace TaskDropper.Droid.Views
                     tab.SetCustomView(adapter.GetTabView(i));
                 }
             }
-
-           
             return view;
+        }
+
+        public override bool OnOptionsItemSelected(Android.Views.IMenuItem item)
+        {
+            if (item.ItemId == (int)Keycode.Home)
+            {
+                return false;
+            }
+            return true;
         }
     }
 }

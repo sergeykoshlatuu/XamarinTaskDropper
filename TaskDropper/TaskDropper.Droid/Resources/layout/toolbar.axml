@@ -25,7 +25,7 @@
 				android:layout_width="30dp"
 				android:layout_height="30dp"
 				android:background="@drawable/BackIcon"
-				local:MvxBind = "Click Back"
+				local:MvxBind = "Click BackCommand"
 				android:layout_alignParentRight = "true"
 				android:layout_gravity = "left"/>
 			<TextView 
@@ -42,7 +42,7 @@
 				android:layout_width="30dp"
 				android:layout_height="30dp"
 				android:background="@drawable/LogoutIcon"
-				local:MvxBind = "Click LogOutUser"
+				local:MvxBind = "Click LogOutUserCommand"
 				android:layout_alignParentRight = "true"
 				android:layout_gravity = "right"
 			    />
@@ -51,7 +51,7 @@
 				android:layout_width="30dp"
 				android:layout_height="30dp"
 				android:background="@drawable/PlusIcon"
-				local:MvxBind = "Click ShowTaskChangedView"
+				local:MvxBind = "Click ShowTaskChangedViewCommand"
 				android:layout_alignParentRight = "true"
 				android:layout_gravity = "right"
 				android:layout_marginRight="10dp"/>	
