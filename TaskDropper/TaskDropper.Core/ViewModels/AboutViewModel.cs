@@ -9,7 +9,7 @@ namespace TaskDropper.Core.ViewModels
 {
     public class AboutViewModel : MvxViewModel
     {
-        private IDatabaseHelper _taskRepository;
+        //private IDatabaseHelper _taskRepository;
         private readonly IMvxNavigationService _navigationService;
 
         public override async Task Initialize()
@@ -18,10 +18,10 @@ namespace TaskDropper.Core.ViewModels
 
         }
 
-        public AboutViewModel(IMvxNavigationService navigationService, IDatabaseHelper taskRepository)
+        public AboutViewModel(IMvxNavigationService navigationService/*, IDatabaseHelper taskRepository*/)
         {
             _navigationService = navigationService;
-            _taskRepository = taskRepository;
+            //_taskRepository = taskRepository;
 
             Name = "Sergey Koshlatuu";
             Email = "koshsy6363@gmail.com";

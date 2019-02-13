@@ -27,13 +27,16 @@ namespace TaskDropper.Core.ViewModels
 
 
         public TaskChangedViewModel(IMvxNavigationService navigationService,
-            IDatabaseHelper taskRepository, IPhotoService photoService,
-            IMvxPictureChooserTask pictureChooserTask)
+            IDatabaseHelper taskRepository
+            //, 
+            //IPhotoService photoService,
+            //IMvxPictureChooserTask pictureChooserTask
+            )
         {
-            _photoService = photoService;
+            //_photoService = photoService;
             _navigationService = navigationService;
             _taskRepository = taskRepository;
-            _pictureChooserTask = pictureChooserTask;
+            //_pictureChooserTask = pictureChooserTask;
             CloseCommand = new MvxAsyncCommand(async () => await _navigationService.Navigate<HomeViewModel>());
             UserId = _taskRepository.GetLastUserId();
     }
@@ -155,15 +158,17 @@ namespace TaskDropper.Core.ViewModels
         {
             ItemTask _deletedTask = new ItemTask(Id,UserId, Title, Description, Status,Photo);
             _taskRepository.DeleteTaskFromTable(_deletedTask);
-            _navigationService.Navigate<HomeViewModel>();
+            //_navigationService.Navigate<HomeViewModel>();
+            _navigationService.Navigate<TasksListViewModel>();
+
         }
 
         private void SaveTask()
         {
             ItemTask _addtask = new ItemTask(Id,UserId, Title, Description, Status,Photo);
             _taskRepository.AddTaskToTable(_addtask);
-            _navigationService.Navigate<HomeViewModel>();
-
+            //_navigationService.Navigate<HomeViewModel>();
+            _navigationService.Navigate<TasksListViewModel>();
         }
 
         

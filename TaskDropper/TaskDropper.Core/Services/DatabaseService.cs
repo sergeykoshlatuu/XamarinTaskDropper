@@ -18,7 +18,8 @@ namespace TaskDropper.Core.Services
             _con.CreateTable<ItemTask>();
             _con.CreateTable<Users>();
             _con.CreateTable<LastUser>();
-           
+            //ItemTask item = new ItemTask(0, 0, "title", "description", true, null);
+            //_con.Insert(item);
         }
 
         //Work with ItemTask
