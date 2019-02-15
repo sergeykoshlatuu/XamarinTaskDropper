@@ -30,6 +30,7 @@ namespace TaskDropper.iOS
                       .AsInterfaces()
                       .RegisterAsLazySingleton();
             Mvx.RegisterType<IDatabaseConnectionService, DatabaseConnectionService>();
+            Mvx.RegisterType<IPhotoService, PhotoService>();
             return new Core.App();
         }
 

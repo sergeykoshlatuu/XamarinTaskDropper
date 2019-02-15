@@ -17,9 +17,9 @@ namespace TaskDropper.iOS.Views
             base.ViewDidLoad();
 
             var set = this.CreateBindingSet<AboutView, AboutViewModel>();
+
             set.Bind(nameTextView).To(vm => vm.Name);
-            //set.Bind(SubTotalTextField).To(vm => vm.Email);
-            
+            set.Bind(emailTextView).To(vm => vm.Email);
             set.Apply();
 
             // this is optional. What this code does is to close the keyboard whenever you 

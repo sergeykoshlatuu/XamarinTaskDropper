@@ -15,10 +15,19 @@ namespace TaskDropper.iOS.Views
     {
         [Outlet]
         [GeneratedCode ("iOS Designer", "1.0")]
+        UIKit.UITextView emailTextView { get; set; }
+
+        [Outlet]
+        [GeneratedCode ("iOS Designer", "1.0")]
         UIKit.UITextView nameTextView { get; set; }
 
         void ReleaseDesignerOutlets ()
         {
+            if (emailTextView != null) {
+                emailTextView.Dispose ();
+                emailTextView = null;
+            }
+
             if (nameTextView != null) {
                 nameTextView.Dispose ();
                 nameTextView = null;

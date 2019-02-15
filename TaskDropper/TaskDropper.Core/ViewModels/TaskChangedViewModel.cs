@@ -27,16 +27,15 @@ namespace TaskDropper.Core.ViewModels
 
 
         public TaskChangedViewModel(IMvxNavigationService navigationService,
-            IDatabaseHelper taskRepository
-            //, 
-            //IPhotoService photoService,
-            //IMvxPictureChooserTask pictureChooserTask
+            IDatabaseHelper taskRepository, 
+            IPhotoService photoService
+            ,IMvxPictureChooserTask pictureChooserTask
             )
         {
-            //_photoService = photoService;
+            _photoService = photoService;
             _navigationService = navigationService;
             _taskRepository = taskRepository;
-            //_pictureChooserTask = pictureChooserTask;
+            _pictureChooserTask = pictureChooserTask;
             CloseCommand = new MvxAsyncCommand(async () => await _navigationService.Navigate<HomeViewModel>());
             UserId = _taskRepository.GetLastUserId();
     }
@@ -158,8 +157,8 @@ namespace TaskDropper.Core.ViewModels
         {
             ItemTask _deletedTask = new ItemTask(Id,UserId, Title, Description, Status,Photo);
             _taskRepository.DeleteTaskFromTable(_deletedTask);
-            //_navigationService.Navigate<HomeViewModel>();
-            _navigationService.Navigate<TasksListViewModel>();
+            _navigationService.Navigate<HomeViewModel>();
+            //_navigationService.Navigate<TasksListViewModel>();
 
         }
 
@@ -167,8 +166,8 @@ namespace TaskDropper.Core.ViewModels
         {
             ItemTask _addtask = new ItemTask(Id,UserId, Title, Description, Status,Photo);
             _taskRepository.AddTaskToTable(_addtask);
-            //_navigationService.Navigate<HomeViewModel>();
-            _navigationService.Navigate<TasksListViewModel>();
+            _navigationService.Navigate<HomeViewModel>();
+            //_navigationService.Navigate<TasksListViewModel>();
         }
 
         
@@ -206,6 +205,7 @@ namespace TaskDropper.Core.ViewModels
 
         private void Back()
         {
+            //_navigationService.Navigate<TasksListViewModel>();
             _navigationService.Navigate<HomeViewModel>();
         }
 
@@ -224,6 +224,7 @@ namespace TaskDropper.Core.ViewModels
                 RaisePropertyChanged(() => Photo);
             }
             _photoService.TakePictureFromCamera(action);
+
             UpdateIsDetachEnabled();
             RaisePropertyChanged(() => Photo);
         }
@@ -242,8 +243,15 @@ namespace TaskDropper.Core.ViewModels
                 Photo = null;
                 UpdateIsDetachEnabled();
                 RaisePropertyChanged(() => Photo);
-            }  
-            _photoService.ChoosePictureFromGallary(action);     
+            }
+            //_photoService.ChoosePictureFromGallary(action);    
+
+            _pictureChooserTask.ChoosePictureFromLibrary(400, 95, pictureStream => {
+                var memoryStream = new MemoryStream();
+                pictureStream.CopyTo(memoryStream);
+                Photo = memoryStream.ToArray();
+                
+            }, () => { });
             UpdateIsDetachEnabled();
             RaisePropertyChanged(() => Photo);
         }

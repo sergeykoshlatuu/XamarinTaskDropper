@@ -15,11 +15,19 @@ namespace TaskDropper.iOS.Views
     {
         [Outlet]
         [GeneratedCode ("iOS Designer", "1.0")]
+        UIKit.UIButton AttachPhoto { get; set; }
+
+        [Outlet]
+        [GeneratedCode ("iOS Designer", "1.0")]
         UIKit.UIButton DeleteButton { get; set; }
 
         [Outlet]
         [GeneratedCode ("iOS Designer", "1.0")]
         UIKit.UITextField DescriptionTextField { get; set; }
+
+        [Outlet]
+        [GeneratedCode ("iOS Designer", "1.0")]
+        UIKit.UIImageView Photo { get; set; }
 
         [Outlet]
         [GeneratedCode ("iOS Designer", "1.0")]
@@ -33,8 +41,17 @@ namespace TaskDropper.iOS.Views
         [GeneratedCode ("iOS Designer", "1.0")]
         UIKit.UITextField TitleTextField { get; set; }
 
+        [Action ("AttachPhoto_TouchUpInside:")]
+        [GeneratedCode ("iOS Designer", "1.0")]
+        partial void AttachPhoto_TouchUpInside (UIKit.UIButton sender);
+
         void ReleaseDesignerOutlets ()
         {
+            if (AttachPhoto != null) {
+                AttachPhoto.Dispose ();
+                AttachPhoto = null;
+            }
+
             if (DeleteButton != null) {
                 DeleteButton.Dispose ();
                 DeleteButton = null;
@@ -43,6 +60,11 @@ namespace TaskDropper.iOS.Views
             if (DescriptionTextField != null) {
                 DescriptionTextField.Dispose ();
                 DescriptionTextField = null;
+            }
+
+            if (Photo != null) {
+                Photo.Dispose ();
+                Photo = null;
             }
 
             if (SaveButton != null) {

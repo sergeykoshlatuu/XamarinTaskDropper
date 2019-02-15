@@ -66,51 +66,69 @@
     <AppExtensionDebugBundleId />
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Configuration.cs" />
+    <Compile Include="Views\Home\HomeView.cs" />
+    <Compile Include="Views\Home\HomeView.designer.cs">
+      <DependentUpon>HomeView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="LinkerPleaseInclude.cs" />
+    <Compile Include="Services\PhotoService.cs" />
+    <Compile Include="Views\GoogleLogin\GoogleLoginView.cs" />
+    <Compile Include="Views\GoogleLogin\GoogleLoginView.designer.cs">
+      <DependentUpon>GoogleLoginView.cs</DependentUpon>
+    </Compile>
     <Compile Include="Services\DatabaseConnectionService.cs" />
     <Compile Include="Setup.cs" />
-    <Compile Include="Views\TaskChangedView.cs" />
-    <Compile Include="Views\TaskChangedView.designer.cs">
+    <Compile Include="Views\TaskChanged\TaskChangedView.cs" />
+    <Compile Include="Views\TaskChanged\TaskChangedView.designer.cs">
       <DependentUpon>TaskChangedView.cs</DependentUpon>
     </Compile>
-    <Compile Include="Views\TasksListView.cs" />
-    <Compile Include="Views\TasksListView.designer.cs">
+    <Compile Include="Views\TaskList\TasksListView.cs" />
+    <Compile Include="Views\TaskList\TasksListView.designer.cs">
       <DependentUpon>TasksListView.cs</DependentUpon>
     </Compile>
-    <Compile Include="Views\TaskCell.cs" />
-    <Compile Include="Views\TaskCell.designer.cs">
+    <Compile Include="Views\TaskCell\TaskCell.cs" />
+    <Compile Include="Views\TaskCell\TaskCell.designer.cs">
       <DependentUpon>TaskCell.cs</DependentUpon>
     </Compile>
-    <Compile Include="Views\AboutView.cs" />
-    <Compile Include="Views\AboutView.designer.cs">
+    <Compile Include="Views\About\AboutView.cs" />
+    <Compile Include="Views\About\AboutView.designer.cs">
       <DependentUpon>AboutView.cs</DependentUpon>
     </Compile>
     <Compile Include="Main.cs" />
     <Compile Include="AppDelegate.cs" />
     <Compile Include="Views\TasksTVS.cs" />
-    <None Include="Info.plist" />
+    <None Include="app.config" />
+    <None Include="Info.plist">
+      <SubType>Designer</SubType>
+    </None>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Content Include="Entitlements.plist" />
     <InterfaceDefinition Include="LaunchScreen.storyboard" />
-    <InterfaceDefinition Include="Views\AboutView.xib">
+    <InterfaceDefinition Include="Views\About\AboutView.xib">
       <SubType>Designer</SubType>
     </InterfaceDefinition>
     <None Include="packages.config" />
-    <InterfaceDefinition Include="Views\TaskCell.xib">
+    <InterfaceDefinition Include="Views\TaskCell\TaskCell.xib">
       <SubType>Designer</SubType>
     </InterfaceDefinition>
-    <InterfaceDefinition Include="Views\TasksListView.xib">
+    <InterfaceDefinition Include="Views\TaskList\TasksListView.xib">
       <SubType>Designer</SubType>
     </InterfaceDefinition>
-    <InterfaceDefinition Include="Views\TaskChangedView.xib">
+    <InterfaceDefinition Include="Views\TaskChanged\TaskChangedView.xib">
       <SubType>Designer</SubType>
     </InterfaceDefinition>
+    <InterfaceDefinition Include="Views\GoogleLogin\GoogleLoginView.xib">
+      <SubType>Designer</SubType>
+    </InterfaceDefinition>
+    <InterfaceDefinition Include="Views\Home\HomeView.xib" />
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="MvvmCross, Version=6.2.2.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\MvvmCross.6.2.2\lib\xamarinios10\MvvmCross.dll</HintPath>
+    <Reference Include="MvvmCross, Version=6.2.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MvvmCross.6.2.3\lib\xamarinios10\MvvmCross.dll</HintPath>
     </Reference>
-    <Reference Include="MvvmCross.Plugin.PictureChooser, Version=6.2.2.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\MvvmCross.Plugin.PictureChooser.6.2.2\lib\xamarinios10\MvvmCross.Plugin.PictureChooser.dll</HintPath>
+    <Reference Include="MvvmCross.Plugin.PictureChooser, Version=6.2.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MvvmCross.Plugin.PictureChooser.6.2.3\lib\xamarinios10\MvvmCross.Plugin.PictureChooser.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.12.0.1\lib\netstandard2.0\Newtonsoft.Json.dll</HintPath>
@@ -118,17 +136,17 @@
     <Reference Include="SQLite-net, Version=1.5.231.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\sqlite-net-pcl.1.5.231\lib\netstandard1.1\SQLite-net.dll</HintPath>
     </Reference>
-    <Reference Include="SQLitePCLRaw.batteries_green, Version=1.1.11.121, Culture=neutral, PublicKeyToken=a84b7dcfb1391f7f, processorArchitecture=MSIL">
-      <HintPath>..\packages\SQLitePCLRaw.bundle_green.1.1.11\lib\Xamarin.iOS10\SQLitePCLRaw.batteries_green.dll</HintPath>
+    <Reference Include="SQLitePCLRaw.batteries_green, Version=1.1.13.388, Culture=neutral, PublicKeyToken=a84b7dcfb1391f7f, processorArchitecture=MSIL">
+      <HintPath>..\packages\SQLitePCLRaw.bundle_green.1.1.13\lib\Xamarin.iOS10\SQLitePCLRaw.batteries_green.dll</HintPath>
     </Reference>
-    <Reference Include="SQLitePCLRaw.batteries_v2, Version=1.1.11.121, Culture=neutral, PublicKeyToken=8226ea5df37bcae9, processorArchitecture=MSIL">
-      <HintPath>..\packages\SQLitePCLRaw.bundle_green.1.1.11\lib\Xamarin.iOS10\SQLitePCLRaw.batteries_v2.dll</HintPath>
+    <Reference Include="SQLitePCLRaw.batteries_v2, Version=1.1.13.388, Culture=neutral, PublicKeyToken=8226ea5df37bcae9, processorArchitecture=MSIL">
+      <HintPath>..\packages\SQLitePCLRaw.bundle_green.1.1.13\lib\Xamarin.iOS10\SQLitePCLRaw.batteries_v2.dll</HintPath>
     </Reference>
-    <Reference Include="SQLitePCLRaw.core, Version=1.1.11.121, Culture=neutral, PublicKeyToken=1488e028ca7ab535, processorArchitecture=MSIL">
-      <HintPath>..\packages\SQLitePCLRaw.core.1.1.11\lib\Xamarin.iOS10\SQLitePCLRaw.core.dll</HintPath>
+    <Reference Include="SQLitePCLRaw.core, Version=1.1.13.388, Culture=neutral, PublicKeyToken=1488e028ca7ab535, processorArchitecture=MSIL">
+      <HintPath>..\packages\SQLitePCLRaw.core.1.1.13\lib\Xamarin.iOS10\SQLitePCLRaw.core.dll</HintPath>
     </Reference>
-    <Reference Include="SQLitePCLRaw.provider.sqlite3, Version=1.1.11.121, Culture=neutral, PublicKeyToken=62684c7b4f184e3f, processorArchitecture=MSIL">
-      <HintPath>..\packages\SQLitePCLRaw.provider.sqlite3.ios_unified.1.1.11\lib\Xamarin.iOS10\SQLitePCLRaw.provider.sqlite3.dll</HintPath>
+    <Reference Include="SQLitePCLRaw.provider.sqlite3, Version=1.1.13.388, Culture=neutral, PublicKeyToken=62684c7b4f184e3f, processorArchitecture=MSIL">
+      <HintPath>..\packages\SQLitePCLRaw.provider.sqlite3.ios_unified.1.1.13\lib\Xamarin.iOS10\SQLitePCLRaw.provider.sqlite3.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Json" />
@@ -140,6 +158,15 @@
     <Reference Include="Xamarin.iOS" />
   </ItemGroup>
   <ItemGroup>
+    <ImageAsset Include="Assets.xcassets\AddButton.imageset\1.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\AddButton.imageset\11.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\AddButton.imageset\12.png">
+      <Visible>false</Visible>
+    </ImageAsset>
     <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Contents.json">
       <Visible>false</Visible>
     </ImageAsset>
@@ -180,6 +207,21 @@
       <Visible>false</Visible>
     </ImageAsset>
     <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Icon60.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\BackButton.imageset\Contents.json">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\AddButton.imageset\Contents.json">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\BackButton.imageset\icons8-go-back-filled-50.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\BackButton.imageset\icons8-go-back-filled-501.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\BackButton.imageset\icons8-go-back-filled-502.png">
       <Visible>false</Visible>
     </ImageAsset>
   </ItemGroup>
