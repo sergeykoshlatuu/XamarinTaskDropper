@@ -28,9 +28,6 @@ namespace TaskDropper.Droid.Views
             view.FindViewById<TextView>(Resource.Id.email_text).SetTypeface(newTypeface, TypefaceStyle.Normal);
             return view;
         }
-
-
-
     }
 }
 

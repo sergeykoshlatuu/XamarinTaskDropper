@@ -18,13 +18,9 @@ namespace TaskDropper.iOS.Views
 
             var set = this.CreateBindingSet<AboutView, AboutViewModel>();
 
-            set.Bind(nameTextView).To(vm => vm.Name);
-            set.Bind(emailTextView).To(vm => vm.Email);
+            set.Bind(NameLabel).To(vm => vm.Name);
+            set.Bind(EmailLabel).To(vm => vm.Email);
             set.Apply();
-
-            // this is optional. What this code does is to close the keyboard whenever you 
-            // tap on the screen, outside the bounds of the TextField
-          
         }
     }
 }

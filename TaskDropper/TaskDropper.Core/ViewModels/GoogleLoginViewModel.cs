@@ -15,18 +15,17 @@ namespace TaskDropper.Core.ViewModels
         public override async Task Initialize()
         {
             await base.Initialize();
-
         }
 
         
         private readonly IMvxNavigationService _navigationService;
-        private IDatabaseHelper _taskRepository;
+        private IDatabaseHelper _databaseHelper;
        
 
-        public GoogleLoginViewModel(IMvxNavigationService navigationService,IDatabaseHelper taskRepository)
+        public GoogleLoginViewModel(IMvxNavigationService navigationService,IDatabaseHelper databaseHelper)
         {
             _navigationService = navigationService;
-            _taskRepository = taskRepository;
+            _databaseHelper = databaseHelper;
             ShowHomeViewModelCommand = new MvxAsyncCommand(async () => await _navigationService.Navigate<HomeViewModel>());
             ShowTaskListViewModelCommand = new MvxAsyncCommand(async () => await _navigationService.Navigate<TasksListViewModel>());
             ShowAboutViewModelCommand = new MvxAsyncCommand(async () => await _navigationService.Navigate<AboutViewModel>());
@@ -36,8 +35,8 @@ namespace TaskDropper.Core.ViewModels
 
         public void AddUserToTable(string email)
         {
-            _taskRepository.AddUserToTable(email);
-            _taskRepository.UpdateLastUser(email);
+            _databaseHelper.AddUserToTable(email);
+            _databaseHelper.UpdateLastUser(email);
         }
 
         public IMvxAsyncCommand ShowHomeViewModelCommand { get; private set; }

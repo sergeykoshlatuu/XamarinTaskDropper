@@ -19,7 +19,9 @@ namespace TaskDropper.Core.Models
 
         public ItemTask() { }
 
-        public ItemTask(int id, int userId, string title, string description, bool status, byte[] photoTask)
+        public string UserEmail { get; set; }
+
+        public ItemTask(int id, int userId, string title, string description, bool status, byte[] photoTask, string userEmail)
         {
             Id = id;
             UserId = userId;
@@ -27,6 +29,7 @@ namespace TaskDropper.Core.Models
             Description = description;
             Status = status;
             PhotoTask = photoTask;
+            UserEmail = userEmail;
         }
     }
 }

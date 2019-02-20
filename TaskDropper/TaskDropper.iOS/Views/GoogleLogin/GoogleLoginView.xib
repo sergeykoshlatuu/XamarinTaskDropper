@@ -19,6 +19,7 @@
             <subviews>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="188" translatesAutoresizingMaskIntoConstraints="NO">
                     <rect key="frame" x="0.0" y="314" width="414" height="30"/>
+                    <fontDescription key="fontDescription" name="NK123" family="NK123" pointSize="17"/>
                     <state key="normal" title="Login with Google"/>
                 </button>
             </subviews>

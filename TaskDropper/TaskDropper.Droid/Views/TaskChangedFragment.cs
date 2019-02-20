@@ -26,12 +26,6 @@ namespace TaskDropper.Droid.Views
         protected override int FragmentId => Resource.Layout.item_changed;
 
         static readonly int REQUEST_STORAGE = 0;
-
-        static string[] PERMISSIONS_CONTACT = {
-            Manifest.Permission.ReadExternalStorage,
-            Manifest.Permission.WriteExternalStorage
-        };
-
         View layout;
         Button DettachPhoto;
         private LinearLayout _linearLayoutMain;
@@ -43,8 +37,6 @@ namespace TaskDropper.Droid.Views
 
             Typeface newTypeface = Typeface.CreateFromAsset(Activity.Assets, "NK123.otf");
             Button showPopupMenu = view.FindViewById<Button>(Resource.Id.OpenPopup);
-
-         
 
             DettachPhoto = view.FindViewById<Button>(Resource.Id.DettachPhoto);
 
@@ -93,9 +85,7 @@ namespace TaskDropper.Droid.Views
                 menu.Show();
             };
 
-
-            
-            
+            //fonts
             view.FindViewById<EditText>(Resource.Id.title_txt).SetTypeface(newTypeface, TypefaceStyle.Normal);
             view.FindViewById<EditText>(Resource.Id.description_txt).SetTypeface(newTypeface, TypefaceStyle.Normal);
             view.FindViewById<CheckBox>(Resource.Id.status_check).SetTypeface(newTypeface, TypefaceStyle.Normal);
@@ -106,7 +96,7 @@ namespace TaskDropper.Droid.Views
             view.FindViewById<Button>(Resource.Id.OpenPopup).SetTypeface(newTypeface, TypefaceStyle.Normal);
             view.FindViewById<Button>(Resource.Id.DettachPhoto).SetTypeface(newTypeface, TypefaceStyle.Normal);
             
-
+            //Hide Keyboard
             _linearLayoutMain = view.FindViewById<LinearLayout>(Resource.Id.LinearLayout1);
             _linearLayoutMain.Click += delegate
             {
@@ -125,6 +115,7 @@ namespace TaskDropper.Droid.Views
                 HideSoftKeyboard();
             };
 
+            //toolbar setting
             var addtask_button = view.FindViewById<ImageButton>(Resource.Id.addtask_button);
             addtask_button.Visibility = ViewStates.Invisible;
             var back_button = view.FindViewById<ImageButton>(Resource.Id.back_button);
@@ -145,8 +136,6 @@ namespace TaskDropper.Droid.Views
             InputMethodManager close = (InputMethodManager)Activity.GetSystemService(Context.InputMethodService);
             close.HideSoftInputFromWindow(_linearLayoutMain.WindowToken, 0);
         }
-
-        
 
         public override void OnRequestPermissionsResult(int requestCode, string[] permissions, Permission[] grantResults)
         {
@@ -175,6 +164,7 @@ namespace TaskDropper.Droid.Views
                 base.OnRequestPermissionsResult(requestCode, permissions, grantResults);
             }
         }
+
         public void RequestStoragePermission()
         {
             Log.Info("TaskDropper", "CAMERA permission has NOT been granted. Requesting permission.");
@@ -203,6 +193,7 @@ namespace TaskDropper.Droid.Views
                 ViewModel.TakePictureCommand.Execute();
             }
         }
+
         public override void OnDestroyView()
         {
             base.OnDestroyView();

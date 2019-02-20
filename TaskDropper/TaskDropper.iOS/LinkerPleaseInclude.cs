@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Windows.Input;
 using Foundation;
@@ -15,6 +16,9 @@ namespace TaskDropper.iOS
 {
     public class LinkerPleaseInclude
     {
+
+       
+
         public void Include(MvxTaskBasedBindingContext c)
         {
             c.Dispose();

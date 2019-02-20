@@ -3,6 +3,8 @@ using MvvmCross.IoC;
 using MvvmCross.Platforms.Ios.Core;
 using MvvmCross.Platforms.Ios.Presenters;
 using MvvmCross.ViewModels;
+using System.Collections.Generic;
+using System.Reflection;
 using TaskDropper.Core;
 using TaskDropper.Core.Interface;
 using TaskDropper.iOS.Services;
@@ -33,9 +35,6 @@ namespace TaskDropper.iOS
             Mvx.RegisterType<IPhotoService, PhotoService>();
             return new Core.App();
         }
-
-
-       
 
         protected override void InitializeFirstChance()
         {

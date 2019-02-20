@@ -52,8 +52,7 @@ namespace TaskDropper.Droid.Views
         public override void OnActivityCreated(Bundle savedInstanceState)
         {
             base.OnActivityCreated(savedInstanceState);
-            if (_toolbar != null) { }
-                
+            if (_toolbar != null) { }               
         }
 
         public override bool OnOptionsItemSelected(Android.Views.IMenuItem item)

@@ -1,5 +1,4 @@
 ﻿using System;
-
 using Foundation;
 using TaskDropper.Core.Models;
 using UIKit;
@@ -24,8 +23,14 @@ namespace TaskDropper.iOS.Views
         internal void UpdateCell(ItemTask task)
         {
             titleLabel.Text = task.Title;
-            statusSwitch.On = task.Status;
-            statusSwitch.Enabled = false;
+            if (task.Status == true)
+            {
+                ChecboxImage.Image = UIImage.FromBundle("Checked");
+            }
+            else
+            {
+                ChecboxImage.Image = UIImage.FromBundle("Unchecked");
+            }
         }
     }
 }

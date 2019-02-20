@@ -1,16 +1,10 @@
-using Foundation;
 using MvvmCross.Binding.BindingContext;
-using MvvmCross.Platforms.Ios.Presenters.Attributes;
 using MvvmCross.Platforms.Ios.Views;
-using MvvmCross.ViewModels;
-using System;
-using TaskDropper.Core.Models;
 using TaskDropper.Core.ViewModels;
-using UIKit;
 
 namespace TaskDropper.iOS.Views
 {
-    [MvxRootPresentation(WrapInNavigationController = true)]
+
     public partial class TasksListView : MvxViewController<TasksListViewModel>
     {
         public TasksListView() : base(nameof(TasksListView), null)

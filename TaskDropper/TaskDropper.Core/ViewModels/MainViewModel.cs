@@ -14,12 +14,12 @@ namespace TaskDropper.Core.ViewModels
     {
 
         private readonly IMvxNavigationService _navigationService;
-        private IDatabaseHelper _taskRepository;
+        private IDatabaseHelper _databaseHelper;
 
-        public MainViewModel(IMvxNavigationService navigationService, IDatabaseHelper taskRepository)
+        public MainViewModel(IMvxNavigationService navigationService, IDatabaseHelper databaseHelper)
         {
             _navigationService = navigationService;
-            _taskRepository = taskRepository;
+            _databaseHelper = databaseHelper;
             ShowHomeViewModelCommand = new MvxAsyncCommand(async () => await _navigationService.Navigate<HomeViewModel>());
             ShowTaskListViewModelCommand = new MvxAsyncCommand(async () => await _navigationService.Navigate<TasksListViewModel>());
             ShowGoogleLoginViewModelCommand = new MvxAsyncCommand(async () => await _navigationService.Navigate<GoogleLoginViewModel>());
@@ -33,7 +33,7 @@ namespace TaskDropper.Core.ViewModels
 
         public bool IsUserLogin()
         {
-            if (_taskRepository.GetLastUserId()==1)
+            if (_databaseHelper.GetLastUserId()==1)
             {
                 return true;
             }
@@ -45,7 +45,7 @@ namespace TaskDropper.Core.ViewModels
 
         public void LogOutUser()
         {
-            _taskRepository.LogOutUser();
+            _databaseHelper.LogOutUser();
         }
     }
 }

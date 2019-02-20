@@ -18,8 +18,8 @@ namespace TaskDropper.Core.Services
             _con.CreateTable<ItemTask>();
             _con.CreateTable<Users>();
             _con.CreateTable<LastUser>();
-            ItemTask item = new ItemTask(0, 0, "title", "description", true, null);
-            _con.Insert(item);
+            //ItemTask item = new ItemTask(0, 0, "title", "description", true, null);
+            //_con.Insert(item);
         }
 
         //Work with ItemTask
@@ -41,9 +41,9 @@ namespace TaskDropper.Core.Services
                 _con.Table<ItemTask>().Where(x => x.Id == _task.Id).Delete();
         }
 
-        public List<ItemTask> LoadListItemsTask(int userId)
+        public List<ItemTask> LoadListItemsTask(string email)
         {
-            List<ItemTask> ListFromDatabase = _con.Table<ItemTask>().Where(x => x.UserId == userId).ToList();
+            List<ItemTask> ListFromDatabase = _con.Table<ItemTask>().Where(x => x.UserEmail == email).ToList();
 
             return ListFromDatabase;
         }
@@ -99,6 +99,13 @@ namespace TaskDropper.Core.Services
                 }
             }
            
+        }
+
+        public string GetLastUserEmail()
+        {
+            List<LastUser> lastUsers = _con.Table<LastUser>().ToList();
+            if (lastUsers.Count == 0) return "";
+            return lastUsers[0].Email;
         }
     }
 }

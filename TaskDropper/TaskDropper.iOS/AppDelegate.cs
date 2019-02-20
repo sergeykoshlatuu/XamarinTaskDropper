@@ -1,6 +1,10 @@
 ﻿using Foundation;
 using MvvmCross.Platforms.Ios.Core;
+using System;
+using System.Collections.Generic;
+using System.Reflection;
 using TaskDropper.Core;
+using TaskDropper.iOS.Views;
 using UIKit;
 
 namespace TaskDropper.iOS
@@ -17,5 +21,17 @@ namespace TaskDropper.iOS
 
             return result;
         }
+
+        public override bool OpenUrl(UIApplication application, NSUrl url, string sourceApplication, NSObject annotation)
+        {
+            // Convert iOS NSUrl to C#/netxf/BCL System.Uri - common API
+            var uri_netfx = new Uri(url.AbsoluteString);
+
+            GoogleLoginView.Auth?.OnPageLoading(uri_netfx);
+            
+            return true;
+        }
+
+       
     }
 }

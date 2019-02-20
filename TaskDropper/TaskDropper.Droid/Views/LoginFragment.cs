@@ -48,11 +48,8 @@ namespace TaskDropper.Droid.Views
             // Retrieve the user's email address
             var googleService = new GoogleService();
             var email = await googleService.GetEmailAsync(token.TokenType, token.AccessToken);
-            ViewModel.ShowHomeViewModelCommand.Execute(null);
 
-            //FragmentManager.PopBackStack();
-            // Display it on the UI
-            //var googleButton = FindViewById<Button>(Resource.Id.googleLoginButton);
+            ViewModel.ShowHomeViewModelCommand.Execute(null);
             ViewModel.AddUserToTable(email);  
         }
 

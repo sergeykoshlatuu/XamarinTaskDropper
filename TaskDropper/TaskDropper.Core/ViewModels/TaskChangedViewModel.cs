@@ -16,7 +16,7 @@ namespace TaskDropper.Core.ViewModels
     public class TaskChangedViewModel : MvxViewModel<ItemTask>
     {
         private readonly IMvxNavigationService _navigationService;
-        private IDatabaseHelper _taskRepository;
+        private IDatabaseHelper _databaseHelper;
         private readonly IPhotoService _photoService;
         private readonly IMvxPictureChooserTask _pictureChooserTask;
         public override async Task Initialize()
@@ -27,17 +27,16 @@ namespace TaskDropper.Core.ViewModels
 
 
         public TaskChangedViewModel(IMvxNavigationService navigationService,
-            IDatabaseHelper taskRepository, 
-            IPhotoService photoService
-            ,IMvxPictureChooserTask pictureChooserTask
-            )
+            IDatabaseHelper databaseHelper, 
+            IPhotoService photoService,
+            IMvxPictureChooserTask pictureChooserTask)
         {
             _photoService = photoService;
             _navigationService = navigationService;
-            _taskRepository = taskRepository;
+            _databaseHelper = databaseHelper;
             _pictureChooserTask = pictureChooserTask;
             CloseCommand = new MvxAsyncCommand(async () => await _navigationService.Navigate<HomeViewModel>());
-            UserId = _taskRepository.GetLastUserId();
+            UserId = _databaseHelper.GetLastUserId();
     }
       
         public IMvxAsyncCommand CloseCommand { get; set; }
@@ -47,6 +46,7 @@ namespace TaskDropper.Core.ViewModels
         private string _description;
         private bool _status;
         private int _userId;
+        private string _userEmail;
         public int Id
         {
             get => _id;
@@ -54,6 +54,16 @@ namespace TaskDropper.Core.ViewModels
             {
                 _id = value;
                 RaisePropertyChanged(() => Id);
+            }
+        }
+
+        public string UserEmail
+        {
+            get => _userEmail;
+            set
+            {
+                _userEmail = value;
+                RaisePropertyChanged(() => UserEmail);
             }
         }
 
@@ -78,6 +88,8 @@ namespace TaskDropper.Core.ViewModels
 
             }
         }
+
+
         public void UpdateSave()
         {
             if (Title != null && Title != " " && Title != "")
@@ -153,10 +165,11 @@ namespace TaskDropper.Core.ViewModels
             }
         }
         
+
         private void DeleteTask()
         {
-            ItemTask _deletedTask = new ItemTask(Id,UserId, Title, Description, Status,Photo);
-            _taskRepository.DeleteTaskFromTable(_deletedTask);
+            ItemTask _deletedTask = new ItemTask(Id,UserId, Title, Description, Status,Photo,UserEmail);
+            _databaseHelper.DeleteTaskFromTable(_deletedTask);
             _navigationService.Navigate<HomeViewModel>();
             //_navigationService.Navigate<TasksListViewModel>();
 
@@ -164,8 +177,8 @@ namespace TaskDropper.Core.ViewModels
 
         private void SaveTask()
         {
-            ItemTask _addtask = new ItemTask(Id,UserId, Title, Description, Status,Photo);
-            _taskRepository.AddTaskToTable(_addtask);
+            ItemTask _addtask = new ItemTask(Id,UserId, Title, Description, Status,Photo,UserEmail);
+            _databaseHelper.AddTaskToTable(_addtask);
             _navigationService.Navigate<HomeViewModel>();
             //_navigationService.Navigate<TasksListViewModel>();
         }
@@ -194,7 +207,7 @@ namespace TaskDropper.Core.ViewModels
 
         private void LogOutUser()
         {
-            _taskRepository.LogOutUser();
+            _databaseHelper.LogOutUser();
             _navigationService.Navigate<GoogleLoginViewModel>();
         }
 
@@ -217,14 +230,8 @@ namespace TaskDropper.Core.ViewModels
         private void DoTakePicture()
         {
             Action<byte[]> action = new Action<byte[]>(GetPhotoFromDroid); 
-            if (Photo != null)
-            {
-                Photo = null;
-                UpdateIsDetachEnabled();
-                RaisePropertyChanged(() => Photo);
-            }
-            _photoService.TakePictureFromCamera(action);
 
+            _photoService.TakePictureFromCamera(action);
             UpdateIsDetachEnabled();
             RaisePropertyChanged(() => Photo);
         }
@@ -238,27 +245,15 @@ namespace TaskDropper.Core.ViewModels
         private void DoChoosePicture()
         {
             Action<byte[]> action = new Action<byte[]>(GetPhotoFromDroid);
-            if (Photo != null)
-            {
-                Photo = null;
-                UpdateIsDetachEnabled();
-                RaisePropertyChanged(() => Photo);
-            }
-            //_photoService.ChoosePictureFromGallary(action);    
 
-            _pictureChooserTask.ChoosePictureFromLibrary(400, 95, pictureStream => {
-                var memoryStream = new MemoryStream();
-                pictureStream.CopyTo(memoryStream);
-                Photo = memoryStream.ToArray();
-                
-            }, () => { });
+            _photoService.ChoosePictureFromGallary(action);    
             UpdateIsDetachEnabled();
             RaisePropertyChanged(() => Photo);
         }
 
         public override void ViewAppearing()
         {
-
+            UserEmail = _databaseHelper.GetLastUserEmail();
             RaisePropertyChanged(() => Photo);
             base.ViewAppearing();
         }
@@ -268,12 +263,6 @@ namespace TaskDropper.Core.ViewModels
             return _photoService.CheckPermission();
         }
       
-        private void OnPicture(Stream stream)
-        {
-            var memoryStream = new MemoryStream();
-            stream.CopyTo(memoryStream);
-            Photo = memoryStream.ToArray();
-        }
 
         public void GetPhotoFromDroid(byte[] photos)
         {

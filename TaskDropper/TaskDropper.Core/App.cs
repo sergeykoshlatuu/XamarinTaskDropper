@@ -22,7 +22,7 @@ namespace TaskDropper.Core
             var foo = Mvx.IoCProvider.Resolve<IDatabaseConnectionService>();
             Mvx.IoCProvider.RegisterSingleton<IDatabaseHelper>(new DatabaseService(foo));
 
-            RegisterAppStart<HomeViewModel>();
+            RegisterAppStart<MainViewModel>();
 
         }
     }

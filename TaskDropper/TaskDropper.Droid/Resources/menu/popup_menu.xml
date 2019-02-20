@@ -2,7 +2,7 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
       xmlns:local="http://schemas.android.com/apk/res-auto">
   <item android:id="@+id/FromGallary"
-        android:title="Photo from gallary"
+        android:title="Photo from gallery"
         local:MvxBind="Click ChoosePictureCommand"/>
   <item android:id="@+id/FromCamera"
         android:title="Photo from camera"

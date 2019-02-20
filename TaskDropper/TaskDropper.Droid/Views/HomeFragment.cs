@@ -20,9 +20,6 @@ using TaskDropper.Droid.ViewAdapters;
 
 namespace TaskDropper.Droid.Views
 {
-    
-
-
     [MvxFragmentPresentation(typeof(MainViewModel), Resource.Id.content_frame,addToBackStack:false)]
     public class HomeFragment : BaseFragment<HomeViewModel>
     {
@@ -30,7 +27,6 @@ namespace TaskDropper.Droid.Views
 
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
-            //FragmentManager.PopBackStack();
             var view = base.OnCreateView(inflater, container, savedInstanceState);
             Typeface newTypeface = Typeface.CreateFromAsset(Activity.Assets, "NK123.otf");
             view.FindViewById<TextView>(Resource.Id.app_name_text).SetTypeface(newTypeface, TypefaceStyle.Normal);

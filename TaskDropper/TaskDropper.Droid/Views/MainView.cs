@@ -36,7 +36,8 @@ namespace TaskDropper.Droid.Views
             if (bundle == null)
             {
                 
-                if (!ViewModel.IsUserLogin()) {
+                if (!ViewModel.IsUserLogin())
+                {
                     ViewModel.ShowGoogleLoginViewModelCommand.Execute(null);
                 }
                 else

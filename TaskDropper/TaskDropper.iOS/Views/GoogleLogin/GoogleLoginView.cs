@@ -21,6 +21,8 @@ namespace TaskDropper.iOS.Views
         public override void ViewDidLoad()
         {
             base.ViewDidLoad();
+            this.NavigationItem.SetHidesBackButton(true, false);
+            UINavigationBar.Appearance.BarTintColor = UIColor.FromRGB(43, 61, 80);
 
             Auth = new GoogleAuthenticator(Configuration.ClientId, Configuration.Scope, Configuration.RedirectUrl, this);
 
@@ -35,6 +37,7 @@ namespace TaskDropper.iOS.Views
             var authentificator = Auth.GetAuthenticator();
             var viewController = authentificator.GetUI();
             PresentViewController(viewController, true, null);
+            
         }
 
 
@@ -44,20 +47,24 @@ namespace TaskDropper.iOS.Views
 
             var googleService = new GoogleService();
             var email = await googleService.GetEmailAsync(token.TokenType, token.AccessToken);
-
+            ViewModel.ShowHomeViewModelCommand.Execute(null);
             GoogleLoginButton.SetTitle($"Connected with {email}", UIControlState.Normal);
-
+            ViewModel.AddUserToTable(email);
         }
 
         public void OnAuthenticationCanceled()
         {
             DismissViewController(true, null);
-            var alertComtroller = new UIAlertController
+            var alertController = new UIAlertController
             {
                 Title = "Authentication Canceled",
                 Message = "You didn`t completed the authentication process"
+                
             };
-            //PresentViewController(alertComtroller, true, null);
+            alertController.AddAction(UIAlertAction.Create("Cancel", UIAlertActionStyle.Default, (UIAlertAction obj) =>
+            {
+            }));
+            PresentViewController(alertController, true, null);
 
             DismissViewController(true, null);
         }
@@ -72,7 +79,10 @@ namespace TaskDropper.iOS.Views
                 Title = message,
                 Message = exception?.ToString()
             };
-            //PresentViewController(alertController, true, null);
+            alertController.AddAction(UIAlertAction.Create("Cancel", UIAlertActionStyle.Default, (UIAlertAction obj) =>
+            {
+            }));
+            PresentViewController(alertController, true, null);
 
             DismissViewController(true, null);
         }

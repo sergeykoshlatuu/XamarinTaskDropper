@@ -10,7 +10,7 @@ namespace TaskDropper.Core.Interface
     {
         //Tasks
         void AddTaskToTable(ItemTask tasks);
-        List<ItemTask> LoadListItemsTask(int userId);
+        List<ItemTask> LoadListItemsTask(string userEmail);
         void DeleteTaskFromTable(ItemTask tasks);
 
         //Users
@@ -18,6 +18,7 @@ namespace TaskDropper.Core.Interface
         void UpdateLastUser(string email);
         List<LastUser> GetLastUser();
         int GetLastUserId();
+        string GetLastUserEmail();
         void LogOutUser();
     }
 }

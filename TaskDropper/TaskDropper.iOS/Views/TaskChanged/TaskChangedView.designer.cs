@@ -15,7 +15,7 @@ namespace TaskDropper.iOS.Views
     {
         [Outlet]
         [GeneratedCode ("iOS Designer", "1.0")]
-        UIKit.UIButton AttachPhoto { get; set; }
+        UIKit.UIButton AttachPhotoButton { get; set; }
 
         [Outlet]
         [GeneratedCode ("iOS Designer", "1.0")]
@@ -27,7 +27,11 @@ namespace TaskDropper.iOS.Views
 
         [Outlet]
         [GeneratedCode ("iOS Designer", "1.0")]
-        UIKit.UIImageView Photo { get; set; }
+        UIKit.UIButton DetachPhotoButton { get; set; }
+
+        [Outlet]
+        [GeneratedCode ("iOS Designer", "1.0")]
+        UIKit.UIImageView PhotoImageView { get; set; }
 
         [Outlet]
         [GeneratedCode ("iOS Designer", "1.0")]
@@ -41,15 +45,11 @@ namespace TaskDropper.iOS.Views
         [GeneratedCode ("iOS Designer", "1.0")]
         UIKit.UITextField TitleTextField { get; set; }
 
-        [Action ("AttachPhoto_TouchUpInside:")]
-        [GeneratedCode ("iOS Designer", "1.0")]
-        partial void AttachPhoto_TouchUpInside (UIKit.UIButton sender);
-
         void ReleaseDesignerOutlets ()
         {
-            if (AttachPhoto != null) {
-                AttachPhoto.Dispose ();
-                AttachPhoto = null;
+            if (AttachPhotoButton != null) {
+                AttachPhotoButton.Dispose ();
+                AttachPhotoButton = null;
             }
 
             if (DeleteButton != null) {
@@ -62,9 +62,14 @@ namespace TaskDropper.iOS.Views
                 DescriptionTextField = null;
             }
 
-            if (Photo != null) {
-                Photo.Dispose ();
-                Photo = null;
+            if (DetachPhotoButton != null) {
+                DetachPhotoButton.Dispose ();
+                DetachPhotoButton = null;
+            }
+
+            if (PhotoImageView != null) {
+                PhotoImageView.Dispose ();
+                PhotoImageView = null;
             }
 
             if (SaveButton != null) {

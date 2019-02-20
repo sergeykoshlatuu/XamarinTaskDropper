@@ -50,6 +50,7 @@
     <CodesignEntitlements>Entitlements.plist</CodesignEntitlements>
     <CodesignKey>iPhone Developer</CodesignKey>
     <MtouchDebug>true</MtouchDebug>
+    <MtouchLink>SdkOnly</MtouchLink>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|iPhone' ">
     <DebugType>none</DebugType>
@@ -66,7 +67,15 @@
     <AppExtensionDebugBundleId />
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Views\About\AboutView.cs" />
+    <Compile Include="Views\About\AboutView.designer.cs">
+      <DependentUpon>AboutView.cs</DependentUpon>
+    </Compile>
     <Compile Include="Configuration.cs" />
+    <Compile Include="Views\Main\MainView.cs" />
+    <Compile Include="Views\Main\MainView.designer.cs">
+      <DependentUpon>MainView.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\Home\HomeView.cs" />
     <Compile Include="Views\Home\HomeView.designer.cs">
       <DependentUpon>HomeView.cs</DependentUpon>
@@ -91,23 +100,17 @@
     <Compile Include="Views\TaskCell\TaskCell.designer.cs">
       <DependentUpon>TaskCell.cs</DependentUpon>
     </Compile>
-    <Compile Include="Views\About\AboutView.cs" />
-    <Compile Include="Views\About\AboutView.designer.cs">
-      <DependentUpon>AboutView.cs</DependentUpon>
-    </Compile>
     <Compile Include="Main.cs" />
     <Compile Include="AppDelegate.cs" />
     <Compile Include="Views\TasksTVS.cs" />
     <None Include="app.config" />
     <None Include="Info.plist">
       <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Content Include="Entitlements.plist" />
     <InterfaceDefinition Include="LaunchScreen.storyboard" />
-    <InterfaceDefinition Include="Views\About\AboutView.xib">
-      <SubType>Designer</SubType>
-    </InterfaceDefinition>
     <None Include="packages.config" />
     <InterfaceDefinition Include="Views\TaskCell\TaskCell.xib">
       <SubType>Designer</SubType>
@@ -122,16 +125,35 @@
       <SubType>Designer</SubType>
     </InterfaceDefinition>
     <InterfaceDefinition Include="Views\Home\HomeView.xib" />
+    <InterfaceDefinition Include="Views\Main\MainView.xib">
+      <SubType>Designer</SubType>
+    </InterfaceDefinition>
+    <BundleResource Include="Resources\NK123.ttf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </BundleResource>
+    <BundleResource Include="Resources\123.ttf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </BundleResource>
+    <BundleResource Include="Resources\NK123.otf" />
+    <InterfaceDefinition Include="Views\About\AboutView.xib">
+      <SubType>Designer</SubType>
+    </InterfaceDefinition>
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="MvvmCross, Version=6.2.3.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\MvvmCross.6.2.3\lib\xamarinios10\MvvmCross.dll</HintPath>
+    <Reference Include="MvvmCross, Version=6.2.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MvvmCross.6.2.2\lib\xamarinios10\MvvmCross.dll</HintPath>
     </Reference>
-    <Reference Include="MvvmCross.Plugin.PictureChooser, Version=6.2.3.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\MvvmCross.Plugin.PictureChooser.6.2.3\lib\xamarinios10\MvvmCross.Plugin.PictureChooser.dll</HintPath>
+    <Reference Include="MvvmCross.Plugin.PictureChooser, Version=6.2.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MvvmCross.Plugin.PictureChooser.6.2.2\lib\xamarinios10\MvvmCross.Plugin.PictureChooser.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.12.0.1\lib\netstandard2.0\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="Plugin.Media, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Xam.Plugin.Media.4.0.1.5\lib\xamarinios10\Plugin.Media.dll</HintPath>
+    </Reference>
+    <Reference Include="Plugin.Permissions, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Plugin.Permissions.3.0.0.12\lib\xamarinios10\Plugin.Permissions.dll</HintPath>
     </Reference>
     <Reference Include="SQLite-net, Version=1.5.231.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\sqlite-net-pcl.1.5.231\lib\netstandard1.1\SQLite-net.dll</HintPath>
@@ -158,13 +180,13 @@
     <Reference Include="Xamarin.iOS" />
   </ItemGroup>
   <ItemGroup>
-    <ImageAsset Include="Assets.xcassets\AddButton.imageset\1.png">
+    <ImageAsset Include="Assets.xcassets\AddButton.imageset\PlusIcon3.png">
       <Visible>false</Visible>
     </ImageAsset>
-    <ImageAsset Include="Assets.xcassets\AddButton.imageset\11.png">
+    <ImageAsset Include="Assets.xcassets\AddButton.imageset\PlusIcon4.png">
       <Visible>false</Visible>
     </ImageAsset>
-    <ImageAsset Include="Assets.xcassets\AddButton.imageset\12.png">
+    <ImageAsset Include="Assets.xcassets\AddButton.imageset\PlusIcon5.png">
       <Visible>false</Visible>
     </ImageAsset>
     <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Contents.json">
@@ -209,25 +231,65 @@
     <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Icon60.png">
       <Visible>false</Visible>
     </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\BackButton.imageset\BackIcon.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\BackButton.imageset\BackIcon1.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\BackButton.imageset\BackIcon2.png">
+      <Visible>false</Visible>
+    </ImageAsset>
     <ImageAsset Include="Assets.xcassets\BackButton.imageset\Contents.json">
       <Visible>false</Visible>
     </ImageAsset>
     <ImageAsset Include="Assets.xcassets\AddButton.imageset\Contents.json">
       <Visible>false</Visible>
     </ImageAsset>
-    <ImageAsset Include="Assets.xcassets\BackButton.imageset\icons8-go-back-filled-50.png">
+    <ImageAsset Include="Assets.xcassets\Checked.imageset\icons8-checked-checkbox-filled-50 (1).png">
       <Visible>false</Visible>
     </ImageAsset>
-    <ImageAsset Include="Assets.xcassets\BackButton.imageset\icons8-go-back-filled-501.png">
+    <ImageAsset Include="Assets.xcassets\Checked.imageset\icons8-checked-checkbox-filled-50 (1)1.png">
       <Visible>false</Visible>
     </ImageAsset>
-    <ImageAsset Include="Assets.xcassets\BackButton.imageset\icons8-go-back-filled-502.png">
+    <ImageAsset Include="Assets.xcassets\Checked.imageset\icons8-checked-checkbox-filled-50 (1)2.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\Font.dataset\Contents.json">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\Font.dataset\NK123.otf">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\Checked.imageset\Contents.json">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\LogOutButton.imageset\LogoutIcon.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\LogOutButton.imageset\LogoutIcon1.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\LogOutButton.imageset\LogoutIcon2.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\Unchecked.imageset\Contents.json">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\LogOutButton.imageset\Contents.json">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\Unchecked.imageset\icons8-unchecked-checkbox-filled-50.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\Unchecked.imageset\icons8-unchecked-checkbox-filled-501.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\Unchecked.imageset\icons8-unchecked-checkbox-filled-502.png">
       <Visible>false</Visible>
     </ImageAsset>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Resources\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\TaskDropper.Core\TaskDropper.Core.csproj">
       <Project>{4ed6ea0b-6eaa-4e6a-b21c-2a6d875ab246}</Project>

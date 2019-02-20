@@ -15,7 +15,7 @@ namespace TaskDropper.iOS.Views
     {
         [Outlet]
         [GeneratedCode ("iOS Designer", "1.0")]
-        UIKit.UISwitch statusSwitch { get; set; }
+        UIKit.UIImageView ChecboxImage { get; set; }
 
         [Outlet]
         [GeneratedCode ("iOS Designer", "1.0")]
@@ -23,9 +23,9 @@ namespace TaskDropper.iOS.Views
 
         void ReleaseDesignerOutlets ()
         {
-            if (statusSwitch != null) {
-                statusSwitch.Dispose ();
-                statusSwitch = null;
+            if (ChecboxImage != null) {
+                ChecboxImage.Dispose ();
+                ChecboxImage = null;
             }
 
             if (titleLabel != null) {

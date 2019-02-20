@@ -84,7 +84,7 @@ namespace TaskDropper.Droid.Services
 
         public byte[] GetPhoto()
         {
-            throw new NotImplementedException();
+            return Photos;
         }
 
         static readonly int REQUEST_STORAGE = 0;
