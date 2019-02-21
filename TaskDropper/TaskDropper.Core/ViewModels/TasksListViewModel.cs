@@ -12,7 +12,7 @@ namespace TaskDropper.Core.ViewModels
     {
         private readonly IMvxNavigationService _navigationService;
         public IDatabaseHelper _databaseHelper;
-
+        private ITaskWebApiService _taskWebApiService;
         public override async Task Initialize()
         {
             await base.Initialize();
@@ -20,8 +20,9 @@ namespace TaskDropper.Core.ViewModels
 
         }
 
-        public TasksListViewModel(IMvxNavigationService navigationService, IDatabaseHelper databaseHelper)
+        public TasksListViewModel(IMvxNavigationService navigationService, IDatabaseHelper databaseHelper, ITaskWebApiService taskWebApiService)
         {
+            _taskWebApiService = taskWebApiService;
             _navigationService = navigationService;
             _databaseHelper = databaseHelper;
             ShowTaskChangedView = new MvxAsyncCommand<ItemTask>(ShowTaskChanged);
@@ -49,11 +50,12 @@ namespace TaskDropper.Core.ViewModels
             }
         }
 
-        public override void ViewAppearing()
+        public async override void ViewAppearing()
         {
             int userId = _databaseHelper.GetLastUserId();
             string userEmail = _databaseHelper.GetLastUserEmail();
-            List<ItemTask> _templeteTasksList = _databaseHelper.LoadListItemsTask(userEmail);
+            //List<ItemTask> _templeteTasksList = _databaseHelper.LoadListItemsTask(userEmail);
+            List<ItemTask> _templeteTasksList = await _taskWebApiService.RefreshDataAsync(userEmail);
             TaskCollection = new MvxObservableCollection<ItemTask>(_templeteTasksList);
             //System.Console.WriteLine(TaskCollection);
         }

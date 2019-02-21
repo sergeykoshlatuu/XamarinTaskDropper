@@ -24,17 +24,19 @@ namespace TaskDropper.Core.ViewModels
             await base.Initialize();
 
         }
-
+        private ITaskWebApiService _taskWebApiService;
 
         public TaskChangedViewModel(IMvxNavigationService navigationService,
             IDatabaseHelper databaseHelper, 
             IPhotoService photoService,
-            IMvxPictureChooserTask pictureChooserTask)
+            IMvxPictureChooserTask pictureChooserTask,
+            ITaskWebApiService taskWebApiService)
         {
             _photoService = photoService;
             _navigationService = navigationService;
             _databaseHelper = databaseHelper;
             _pictureChooserTask = pictureChooserTask;
+            _taskWebApiService = taskWebApiService;
             CloseCommand = new MvxAsyncCommand(async () => await _navigationService.Navigate<HomeViewModel>());
             UserId = _databaseHelper.GetLastUserId();
     }
@@ -168,7 +170,8 @@ namespace TaskDropper.Core.ViewModels
 
         private void DeleteTask()
         {
-            ItemTask _deletedTask = new ItemTask(Id,UserId, Title, Description, Status,Photo,UserEmail);
+            _taskWebApiService.DeleteItemTaskAsync(Id.ToString());
+            ItemTask _deletedTask = new ItemTask { Id=Id, UserId=UserId, Title=Title, Description=Description, Status=Status, PhotoTask=Photo, UserEmail=UserEmail };
             _databaseHelper.DeleteTaskFromTable(_deletedTask);
             _navigationService.Navigate<HomeViewModel>();
             //_navigationService.Navigate<TasksListViewModel>();
@@ -177,8 +180,16 @@ namespace TaskDropper.Core.ViewModels
 
         private void SaveTask()
         {
-            ItemTask _addtask = new ItemTask(Id,UserId, Title, Description, Status,Photo,UserEmail);
-            _databaseHelper.AddTaskToTable(_addtask);
+            ItemTask _addtask = new ItemTask {Id=Id,UserId = UserId, Title = Title, Description = Description, Status = Status, PhotoTask = Photo, UserEmail = UserEmail };
+            //_databaseHelper.AddTaskToTable(_addtask);
+            if (Id == 0)
+            {
+                _taskWebApiService.SaveItemTaskAsync(_addtask, true);
+            }
+            else
+            {
+                _taskWebApiService.SaveItemTaskAsync(_addtask, false);
+            }
             _navigationService.Navigate<HomeViewModel>();
             //_navigationService.Navigate<TasksListViewModel>();
         }
