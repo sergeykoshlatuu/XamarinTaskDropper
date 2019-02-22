@@ -58,11 +58,13 @@ namespace TaskDropper.Droid.Views
 
                 var tabLayout = view.FindViewById<TabLayout>(Resource.Id.tabs);
                 tabLayout.SetupWithViewPager(viewPager);
-
+                tabLayout.DrawingCacheBackgroundColor=Color.Black;
+              
                 for (int i = 0; i < tabLayout.TabCount; i++)
                 {
                     TabLayout.Tab tab = tabLayout.GetTabAt(i);
                     tab.SetCustomView(adapter.GetTabView(i));
+                    
                 }
             }
             return view;

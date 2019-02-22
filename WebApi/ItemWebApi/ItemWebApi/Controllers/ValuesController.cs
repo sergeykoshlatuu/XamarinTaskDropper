@@ -39,7 +39,7 @@ namespace ItemWebApi.Controllers
         // PUT api/task/5
         public void UpdateTask(int id, [FromBody]TaskItem taskItem)
         {
-            taskService.ItemTasks.Update(taskItem);
+            taskService.ItemTasks.Update(id,taskItem);
             taskService.Save();
         }
 

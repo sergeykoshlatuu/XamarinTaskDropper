@@ -23,7 +23,7 @@ using TaskDropper.Core.Services;
 namespace TaskDropper.Droid.Views
 {
     [MvxActivityPresentation]
-    [Activity(Label = "@string/app_name", MainLauncher = true)]
+    [Activity(Label = "@string/app_name")]
     public class MainView : MvxAppCompatActivity<MainViewModel>
     {
 

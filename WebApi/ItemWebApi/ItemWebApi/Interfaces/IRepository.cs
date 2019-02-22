@@ -12,7 +12,7 @@ namespace ItemWebApi.Interfaces
         IEnumerable<T> GetAllByEmail(string id);
         T Get(int id);
         void Create(T item);
-        void Update(T item);
+        void Update(int id,T item);
         void Delete(int id);
     }
 
@@ -41,7 +41,7 @@ namespace ItemWebApi.Interfaces
             db.SaveChanges();
         }
 
-        public void Update(TaskItem task)
+        public void Update(int id,TaskItem task)
         {
             db.Entry(task).State = EntityState.Modified;
             db.SaveChanges();

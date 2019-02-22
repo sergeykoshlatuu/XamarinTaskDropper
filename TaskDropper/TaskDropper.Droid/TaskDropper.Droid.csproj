@@ -68,6 +68,7 @@
     <Compile Include="Services\DatabaseConnectionService.cs" />
     <Compile Include="Services\PhotoService.cs" />
     <Compile Include="Setup.cs" />
+    <Compile Include="SplashScreen.cs" />
     <Compile Include="ViewAdapters\CustomPagerAdapter.cs" />
     <Compile Include="ViewAdapters\MvxViewPagerFragmentAdapter.cs" />
     <Compile Include="ViewAdapters\TasksListAdapter.cs" />
@@ -212,6 +213,14 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\Drawable\icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\SplashScreen.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\Drawable\launcscreen.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.

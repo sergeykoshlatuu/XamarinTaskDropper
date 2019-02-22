@@ -15,8 +15,9 @@ namespace TaskDropper.iOS.Views
         public HomeView() : base()
         {
             tab1 = new TasksListView();
-            tab1.Title = "List Task";
+            tab1.Title = "TaskList";
             tab1.ViewModel = ViewModel.TaskListViewModel;
+            tab1.ModalPresentationStyle = UIModalPresentationStyle.CurrentContext;
             
             tab2 = new AboutView();
             tab2.Title = "About";

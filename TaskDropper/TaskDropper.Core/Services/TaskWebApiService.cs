@@ -19,7 +19,7 @@ namespace TaskDropper.Core.Services
         public TaskWebApiService()
         {
             client = new HttpClient();
-            client.MaxResponseContentBufferSize = 256000;
+           
         }
 
 
@@ -56,6 +56,8 @@ namespace TaskDropper.Core.Services
             }
             else
             {
+                RestUrl = "http://10.10.3.183:50176/api/task/?id=" + item.Id;
+                uri = new Uri(string.Format(RestUrl, string.Empty));
                 response = await client.PutAsync(uri, content);
             }
 

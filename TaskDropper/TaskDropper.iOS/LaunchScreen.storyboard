@@ -17,6 +17,17 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="536" translatesAutoresizingMaskIntoConstraints="NO" image="LaunchScreen">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                            </imageView>
+                        </subviews>
+                        <constraints>
+                            <constraint id="540" firstItem="536" firstAttribute="top" secondItem="223" secondAttribute="top"/>
+                            <constraint id="541" firstItem="536" firstAttribute="bottom" secondItem="223" secondAttribute="bottom"/>
+                            <constraint id="542" firstItem="536" firstAttribute="trailing" secondItem="223" secondAttribute="trailingMargin" constant="20"/>
+                            <constraint id="543" firstAttribute="leadingMargin" secondItem="536" secondAttribute="leading" constant="20"/>
+                        </constraints>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="224" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -24,4 +35,7 @@
             <point key="canvasLocation" x="-200" y="-388"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="LaunchScreen" width="320" height="480"/>
+    </resources>
 </document>

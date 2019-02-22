@@ -15,10 +15,11 @@ namespace TaskDropper.Core.ViewModels
         private ITaskWebApiService _taskWebApiService;
         public override async Task Initialize()
         {
+           
             await base.Initialize();
-
-
         }
+
+
 
         public TasksListViewModel(IMvxNavigationService navigationService, IDatabaseHelper databaseHelper, ITaskWebApiService taskWebApiService)
         {
@@ -26,9 +27,10 @@ namespace TaskDropper.Core.ViewModels
             _navigationService = navigationService;
             _databaseHelper = databaseHelper;
             ShowTaskChangedView = new MvxAsyncCommand<ItemTask>(ShowTaskChanged);
+            
         }
 
-        public IMvxCommand ShowTaskChangedView { get; set; }
+    public IMvxCommand ShowTaskChangedView { get; set; }
 
 
         private async Task ShowTaskChanged(ItemTask _taskCreate)
@@ -49,15 +51,33 @@ namespace TaskDropper.Core.ViewModels
                 RaisePropertyChanged(() => TaskCollection);
             }
         }
-
-        public async override void ViewAppearing()
+        private async void LoadTasks()
         {
-            int userId = _databaseHelper.GetLastUserId();
+            IsRefreshTaskCollection = true;
             string userEmail = _databaseHelper.GetLastUserEmail();
             //List<ItemTask> _templeteTasksList = _databaseHelper.LoadListItemsTask(userEmail);
             List<ItemTask> _templeteTasksList = await _taskWebApiService.RefreshDataAsync(userEmail);
             TaskCollection = new MvxObservableCollection<ItemTask>(_templeteTasksList);
-            //System.Console.WriteLine(TaskCollection);
+            IsRefreshTaskCollection = false;
+        }
+
+        private MvxCommand _refreshCommand;
+        public MvxCommand RefreshTaskCommand => _refreshCommand = _refreshCommand ?? new MvxCommand(LoadTasks);
+
+        private bool _isRefreshTaskCollection;
+        public bool IsRefreshTaskCollection
+        {
+            get => _isRefreshTaskCollection;
+            set
+            {
+                _isRefreshTaskCollection = value;
+                RaisePropertyChanged(() => IsRefreshTaskCollection);
+            }
+        }
+        
+        public override void ViewAppearing()
+        {
+            RefreshTaskCommand.Execute();
         }
     }
 }

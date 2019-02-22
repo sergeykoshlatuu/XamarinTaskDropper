@@ -47,9 +47,8 @@ namespace TaskDropper.iOS.Views
 
             var googleService = new GoogleService();
             var email = await googleService.GetEmailAsync(token.TokenType, token.AccessToken);
-            ViewModel.ShowHomeViewModelCommand.Execute(null);
-            GoogleLoginButton.SetTitle($"Connected with {email}", UIControlState.Normal);
             ViewModel.AddUserToTable(email);
+            ViewModel.ShowHomeViewModelCommand.Execute(null); 
         }
 
         public void OnAuthenticationCanceled()
