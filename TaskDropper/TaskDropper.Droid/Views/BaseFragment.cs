@@ -59,6 +59,22 @@ namespace TaskDropper.Droid.Views
         {
             return false;
         }
+
+        public void SetupHomeActionBar(View view)
+        {
+            var addtask_button = view.FindViewById<ImageButton>(Resource.Id.addtask_button);
+            addtask_button.Visibility = ViewStates.Visible;
+            var back_button = view.FindViewById<ImageButton>(Resource.Id.back_button);
+            back_button.Visibility = ViewStates.Invisible;
+        }
+
+        public void SetupBackActionBar(View view)
+        {
+            var addtask_button = view.FindViewById<ImageButton>(Resource.Id.addtask_button);
+            addtask_button.Visibility = ViewStates.Invisible;
+            var back_button = view.FindViewById<ImageButton>(Resource.Id.back_button);
+            back_button.Visibility = ViewStates.Visible;
+        }
     }
 
     public abstract class BaseFragment<TViewModel> : BaseFragment where TViewModel : class, IMvxViewModel

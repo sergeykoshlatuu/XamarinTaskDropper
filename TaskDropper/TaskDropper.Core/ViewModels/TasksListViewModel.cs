@@ -5,25 +5,32 @@ using MvvmCross.Commands;
 using TaskDropper.Core.Interface;
 using TaskDropper.Core.Models;
 using System.Collections.Generic;
+using Xamarin.Essentials;
 
 namespace TaskDropper.Core.ViewModels
 {
     public class TasksListViewModel : BaseViewModel
     {
-        private readonly IMvxNavigationService _navigationService;
-        public IDatabaseHelper _databaseHelper;
-
+        private IDatabaseUserService _databaseUserService;
+        private IDatabaseTaskService _databaseTaskService;
+        private ITaskWebApiService _taskWebApiService;
         public override async Task Initialize()
         {
+           
             await base.Initialize();
-
-
         }
 
-        public TasksListViewModel(IMvxNavigationService navigationService, IDatabaseHelper databaseHelper)
+
+
+        public TasksListViewModel(IMvxNavigationService navigationService,
+            IDatabaseUserService databaseUserService,
+            ITaskWebApiService taskWebApiService,
+            IDatabaseTaskService databaseTaskService)
+            : base(navigationService)
         {
-            _navigationService = navigationService;
-            _databaseHelper = databaseHelper;
+            _taskWebApiService = taskWebApiService;
+            _databaseUserService = databaseUserService;
+            _databaseTaskService = databaseTaskService;
             ShowTaskChangedView = new MvxAsyncCommand<ItemTask>(ShowTaskChanged);
         }
 
@@ -48,14 +55,42 @@ namespace TaskDropper.Core.ViewModels
                 RaisePropertyChanged(() => TaskCollection);
             }
         }
+        private async void LoadTasks()
+        {
+            List<ItemTask> _templeteTasksList;
+            IsRefreshTaskCollection = true;
+            string userEmail = _databaseUserService.GetLastUserEmail();
 
+            if (CheckInternetConnection())
+            {
+                 await _taskWebApiService.RefreshDataAsync(userEmail);
+                _templeteTasksList = _databaseTaskService.LoadListItemsTask(userEmail);
+            }
+            else
+            {
+                _templeteTasksList = _databaseTaskService.LoadListItemsTask(userEmail);
+            }
+            TaskCollection = new MvxObservableCollection<ItemTask>(_templeteTasksList);
+            IsRefreshTaskCollection = false;
+        }
+
+        private MvxCommand _refreshCommand;
+        public MvxCommand RefreshTaskCommand => _refreshCommand = _refreshCommand ?? new MvxCommand(LoadTasks);
+
+        private bool _isRefreshTaskCollection;
+        public bool IsRefreshTaskCollection
+        {
+            get => _isRefreshTaskCollection;
+            set
+            {
+                _isRefreshTaskCollection = value;
+                RaisePropertyChanged(() => IsRefreshTaskCollection);
+            }
+        }
+        
         public override void ViewAppearing()
         {
-            int userId = _databaseHelper.GetLastUserId();
-            string userEmail = _databaseHelper.GetLastUserEmail();
-            List<ItemTask> _templeteTasksList = _databaseHelper.LoadListItemsTask(userEmail);
-            TaskCollection = new MvxObservableCollection<ItemTask>(_templeteTasksList);
-            //System.Console.WriteLine(TaskCollection);
+            RefreshTaskCommand.Execute();
         }
     }
 }

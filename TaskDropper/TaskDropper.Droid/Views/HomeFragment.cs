@@ -24,17 +24,22 @@ namespace TaskDropper.Droid.Views
     public class HomeFragment : BaseFragment<HomeViewModel>
     {
         protected override int FragmentId => Resource.Layout.home_view;
-
+       
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
             var view = base.OnCreateView(inflater, container, savedInstanceState);
-            Typeface newTypeface = Typeface.CreateFromAsset(Activity.Assets, "NK123.otf");
-            view.FindViewById<TextView>(Resource.Id.app_name_text).SetTypeface(newTypeface, TypefaceStyle.Normal);
-            var addtask_button = view.FindViewById<ImageButton>(Resource.Id.addtask_button);
-            addtask_button.Visibility = ViewStates.Visible;
-            var back_button = view.FindViewById<ImageButton>(Resource.Id.back_button);
-            back_button.Visibility = ViewStates.Invisible;
-            var viewPager = view.FindViewById<ViewPager>(Resource.Id.viewpager);
+
+            SetupHomeActionBar(view);
+            SetupFonts(view);
+            SetupViewPager(view);
+
+            //ShowOrHide_no_internet_text_view(view);
+            return view;
+        }
+
+        public void SetupViewPager(View view)
+        {
+           var viewPager = view.FindViewById<ViewPager>(Resource.Id.viewpager);
             if (viewPager != null)
             {
                 var fragments = new List<MvxViewPagerFragmentAdapter.FragmentInfo>
@@ -58,14 +63,31 @@ namespace TaskDropper.Droid.Views
 
                 var tabLayout = view.FindViewById<TabLayout>(Resource.Id.tabs);
                 tabLayout.SetupWithViewPager(viewPager);
+                tabLayout.DrawingCacheBackgroundColor = Color.Black;
 
                 for (int i = 0; i < tabLayout.TabCount; i++)
                 {
                     TabLayout.Tab tab = tabLayout.GetTabAt(i);
                     tab.SetCustomView(adapter.GetTabView(i));
+
                 }
             }
-            return view;
+        }
+
+       //private void  ShowOrHide_no_internet_text_view(View view)
+       // {
+       //     var no_internet_text_view = view.FindViewById<TextView>(Resource.Id.no_internet_text_view);
+       //     if (!ViewModel.ChangedNetworkAccess)
+       //     {
+       //         no_internet_text_view.Visibility = ViewStates.Visible;
+       //         return;
+       //     }
+       //     no_internet_text_view.Visibility = ViewStates.Invisible;
+       // }
+        public void SetupFonts(View view)
+        {
+            Typeface newTypeface = Typeface.CreateFromAsset(Activity.Assets, "NK123.otf");
+            view.FindViewById<TextView>(Resource.Id.app_name_text).SetTypeface(newTypeface, TypefaceStyle.Normal);
         }
 
         public override bool OnOptionsItemSelected(Android.Views.IMenuItem item)

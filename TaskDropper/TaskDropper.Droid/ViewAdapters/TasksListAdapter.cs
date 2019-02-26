@@ -5,6 +5,7 @@ using TaskDropper.Core.Services;
 using MvvmCross.Droid.Support.V7.RecyclerView;
 using MvvmCross.ViewModels;
 using MvvmCross.Platforms.Android.Binding.BindingContext;
+using TaskDropper.Droid.Holders;
 
 namespace TaskDropper.Droid.ViewAdapters
 {

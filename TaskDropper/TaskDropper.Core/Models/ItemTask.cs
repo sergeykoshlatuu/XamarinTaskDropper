@@ -4,7 +4,7 @@ namespace TaskDropper.Core.Models
 {
     public class ItemTask
     {
-        [PrimaryKey, AutoIncrement]
+        [PrimaryKey]
         public int Id { get; set; }
 
         public int UserId { get; set; }
@@ -17,19 +17,18 @@ namespace TaskDropper.Core.Models
 
         public byte[] PhotoTask { get; set; }
 
-        public ItemTask() { }
-
         public string UserEmail { get; set; }
 
-        public ItemTask(int id, int userId, string title, string description, bool status, byte[] photoTask, string userEmail)
-        {
-            Id = id;
-            UserId = userId;
-            Title = title;
-            Description = description;
-            Status = status;
-            PhotoTask = photoTask;
-            UserEmail = userEmail;
-        }
     }
+
+    //public ItemTask(int id, int userId, string title, string description, bool status, byte[] photoTask, string userEmail)
+    //{
+    //    Id = id;
+    //    UserId = userId;
+    //    Title = title;
+    //    Description = description;
+    //    Status = status;
+    //    PhotoTask = photoTask;
+    //    UserEmail = userEmail;
+    //}
 }

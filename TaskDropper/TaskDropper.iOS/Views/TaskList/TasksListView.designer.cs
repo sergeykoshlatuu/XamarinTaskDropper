@@ -15,10 +15,19 @@ namespace TaskDropper.iOS.Views
     {
         [Outlet]
         [GeneratedCode ("iOS Designer", "1.0")]
+        UIKit.UILabel NoInternetConnection { get; set; }
+
+        [Outlet]
+        [GeneratedCode ("iOS Designer", "1.0")]
         UIKit.UITableView TasksTable { get; set; }
 
         void ReleaseDesignerOutlets ()
         {
+            if (NoInternetConnection != null) {
+                NoInternetConnection.Dispose ();
+                NoInternetConnection = null;
+            }
+
             if (TasksTable != null) {
                 TasksTable.Dispose ();
                 TasksTable = null;

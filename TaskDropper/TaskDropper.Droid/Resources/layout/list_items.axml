@@ -5,7 +5,12 @@
     android:orientation="vertical"  
     android:layout_width="match_parent"  
     android:layout_height="match_parent">
-
+<MvxSwipeRefreshLayout
+			android:id="@+id/refresher"
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"
+			local:layout_behavior="@string/appbar_scrolling_view_behavior"
+			local:MvxBind = "Refreshing IsRefreshTaskCollection; RefreshCommand RefreshTaskCommand">
 <mvvmcross.droid.support.v7.recyclerview.MvxRecyclerView
     android:id="@+id/recyclerView"  
     android:scrollbars="vertical"  
@@ -14,4 +19,5 @@
 	local:MvxItemTemplate="@layout/item_task"
 	local:MvxBind="ItemsSource TaskCollection; ItemClick ShowTaskChangedView"
 	/>
+</MvxSwipeRefreshLayout>
 </LinearLayout>  

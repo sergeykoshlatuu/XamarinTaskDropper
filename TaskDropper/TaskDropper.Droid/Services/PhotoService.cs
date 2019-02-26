@@ -36,7 +36,7 @@ namespace TaskDropper.Droid.Services
         {
             
         }
-        public void ChoosePictureFromGallary(Action<byte[]> action)
+        public void ChoosePictureFromGallery(Action<byte[]> action)
         {
             var task = Mvx.IoCProvider.Resolve<IMvxPictureChooserTask>();
             task.ChoosePictureFromLibrary(400, 95, pictureStream => {

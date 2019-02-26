@@ -20,6 +20,7 @@ namespace TaskDropper.iOS.Views
 
             set.Bind(NameLabel).To(vm => vm.Name);
             set.Bind(EmailLabel).To(vm => vm.Email);
+            set.Bind(NoInternetConnection).For(v => v.Hidden).To(vm => vm.IsNoInternetVisible);
             set.Apply();
         }
     }

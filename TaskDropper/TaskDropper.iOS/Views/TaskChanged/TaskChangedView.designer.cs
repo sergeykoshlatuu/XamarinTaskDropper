@@ -31,6 +31,10 @@ namespace TaskDropper.iOS.Views
 
         [Outlet]
         [GeneratedCode ("iOS Designer", "1.0")]
+        UIKit.UILabel NoInternetConnection { get; set; }
+
+        [Outlet]
+        [GeneratedCode ("iOS Designer", "1.0")]
         UIKit.UIImageView PhotoImageView { get; set; }
 
         [Outlet]
@@ -65,6 +69,11 @@ namespace TaskDropper.iOS.Views
             if (DetachPhotoButton != null) {
                 DetachPhotoButton.Dispose ();
                 DetachPhotoButton = null;
+            }
+
+            if (NoInternetConnection != null) {
+                NoInternetConnection.Dispose ();
+                NoInternetConnection = null;
             }
 
             if (PhotoImageView != null) {

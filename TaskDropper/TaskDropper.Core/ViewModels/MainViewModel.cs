@@ -12,28 +12,20 @@ namespace TaskDropper.Core.ViewModels
 {
     public class MainViewModel : BaseViewModel
     {
-
-        private readonly IMvxNavigationService _navigationService;
-        private IDatabaseHelper _databaseHelper;
-
-        public MainViewModel(IMvxNavigationService navigationService, IDatabaseHelper databaseHelper)
+        private IDatabaseUserService _databaseUserService;
+        public MainViewModel(IMvxNavigationService navigationService, IDatabaseUserService databaseUserService):base(navigationService)
         {
-            _navigationService = navigationService;
-            _databaseHelper = databaseHelper;
-            ShowHomeViewModelCommand = new MvxAsyncCommand(async () => await _navigationService.Navigate<HomeViewModel>());
-            ShowTaskListViewModelCommand = new MvxAsyncCommand(async () => await _navigationService.Navigate<TasksListViewModel>());
+            _databaseUserService = databaseUserService;
+            ShowHomeViewModelCommand = new MvxAsyncCommand(async () => await _navigationService.Navigate<HomeViewModel>()); 
             ShowGoogleLoginViewModelCommand = new MvxAsyncCommand(async () => await _navigationService.Navigate<GoogleLoginViewModel>());
-            ShowAboutViewModelCommand = new MvxAsyncCommand(async () => await _navigationService.Navigate<AboutViewModel>());
         }
      
-        public IMvxAsyncCommand ShowHomeViewModelCommand { get; private set; }
-        public IMvxAsyncCommand ShowTaskListViewModelCommand { get; private set; }
-        public IMvxAsyncCommand ShowGoogleLoginViewModelCommand { get; private set; }
-        public IMvxAsyncCommand ShowAboutViewModelCommand { get; private set; }
+        public IMvxAsyncCommand ShowHomeViewModelCommand { get; private set; }       
+        public IMvxAsyncCommand ShowGoogleLoginViewModelCommand { get; private set; }       
 
         public bool IsUserLogin()
         {
-            if (_databaseHelper.GetLastUserId()==1)
+            if (_databaseUserService.GetLastUserId()==1)
             {
                 return true;
             }
@@ -45,7 +37,7 @@ namespace TaskDropper.Core.ViewModels
 
         public void LogOutUser()
         {
-            _databaseHelper.LogOutUser();
+            _databaseUserService.LogOutUser();
         }
     }
 }

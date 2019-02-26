@@ -13,34 +13,72 @@ using System.IO;
 
 namespace TaskDropper.Core.ViewModels
 {
-    public class TaskChangedViewModel : MvxViewModel<ItemTask>
+    public class TaskChangedViewModel : BaseViewModel<ItemTask>
     {
-        private readonly IMvxNavigationService _navigationService;
-        private IDatabaseHelper _databaseHelper;
+        private IDatabaseUserService _databaseUserService;
+        private IDatabaseTaskService _databaseTaskService;
         private readonly IPhotoService _photoService;
         private readonly IMvxPictureChooserTask _pictureChooserTask;
+       
+        private ITaskWebApiService _taskWebApiService;
+
+        
+
+        public TaskChangedViewModel(IMvxNavigationService navigationService,
+            IDatabaseUserService databaseUserService, 
+            IDatabaseTaskService databaseTaskService,
+            IPhotoService photoService,
+            IMvxPictureChooserTask pictureChooserTask,
+            ITaskWebApiService taskWebApiService):base(navigationService)
+        {
+            _photoService = photoService;
+            _databaseUserService = databaseUserService;
+            _databaseTaskService = databaseTaskService;
+            _pictureChooserTask = pictureChooserTask;
+            _taskWebApiService = taskWebApiService;
+            
+        }
+        #region Public methods
         public override async Task Initialize()
         {
             await base.Initialize();
 
         }
 
-
-        public TaskChangedViewModel(IMvxNavigationService navigationService,
-            IDatabaseHelper databaseHelper, 
-            IPhotoService photoService,
-            IMvxPictureChooserTask pictureChooserTask)
+        public override void Prepare(ItemTask parameter)
         {
-            _photoService = photoService;
-            _navigationService = navigationService;
-            _databaseHelper = databaseHelper;
-            _pictureChooserTask = pictureChooserTask;
-            CloseCommand = new MvxAsyncCommand(async () => await _navigationService.Navigate<HomeViewModel>());
-            UserId = _databaseHelper.GetLastUserId();
-    }
-      
-        public IMvxAsyncCommand CloseCommand { get; set; }
-      
+            IsNoInternetVisible = CheckInternetConnection() ? false : true;
+            if (parameter != null)
+            {
+                Id = parameter.Id;
+                UserId = parameter.UserId;
+                Title = parameter.Title;
+                Description = parameter.Description;
+                Status = parameter.Status;
+                Photo = parameter.PhotoTask;
+                UserEmail = parameter.UserEmail;
+            }
+           
+            UpdateSave();
+            UpdateIsDetachEnabled();
+        }
+
+        public override void ViewAppearing()
+        {
+            IsNoInternetVisible = CheckInternetConnection() ? false : true;
+            UserEmail = _databaseUserService.GetLastUserEmail();
+            RaisePropertyChanged(() => Photo);
+            base.ViewAppearing();
+        }
+
+        public bool CheckPermissionForCamera()
+        {
+            return _photoService.CheckPermission();
+        }
+        #endregion
+
+        #region variables and properties
+        bool IsNoInternetVisible { get; set; }
         private int _id;
         private string _title;
         private string _description;
@@ -56,7 +94,6 @@ namespace TaskDropper.Core.ViewModels
                 RaisePropertyChanged(() => Id);
             }
         }
-
         public string UserEmail
         {
             get => _userEmail;
@@ -66,7 +103,6 @@ namespace TaskDropper.Core.ViewModels
                 RaisePropertyChanged(() => UserEmail);
             }
         }
-
         public int UserId
         {
             get => _userId;
@@ -76,7 +112,6 @@ namespace TaskDropper.Core.ViewModels
                 RaisePropertyChanged(() => UserId);
             }
         }
-
         public string Title
         {
             get => _title;
@@ -88,38 +123,6 @@ namespace TaskDropper.Core.ViewModels
 
             }
         }
-
-
-        public void UpdateSave()
-        {
-            if (Title != null && Title != " " && Title != "")
-            {
-                IsSavingEnabled = true;
-            }
-            else
-                IsSavingEnabled = false;
-        }
-
-        public void UpdateIsDetachEnabled()
-        {
-            if (Photo!=null)
-            {
-                IsDetachEnabled = true;
-            }
-            else
-                IsDetachEnabled = false;
-        }
-
-        public string Description
-        {
-            get => _description;
-            set
-            {
-                _description = value;
-                RaisePropertyChanged(() => Description);
-            }
-        }
-
         public bool Status
         {
             get => _status;
@@ -129,20 +132,15 @@ namespace TaskDropper.Core.ViewModels
                 RaisePropertyChanged(() => Status);
             }
         }
-
-
-        public IMvxCommand SaveCommand
+        public string Description
         {
-            get { return new MvxCommand(SaveTask); }
+            get => _description;
+            set
+            {
+                _description = value;
+                RaisePropertyChanged(() => Description);
+            }
         }
-
-        public IMvxCommand DeleteCommand
-        {
-            get { return new MvxCommand(DeleteTask); }
-        }
-       
-
-
         private bool _isSavingEnabled;
         public bool IsSavingEnabled
         {
@@ -153,7 +151,6 @@ namespace TaskDropper.Core.ViewModels
                 RaisePropertyChanged(() => IsSavingEnabled);
             }
         }
-
         private bool _isDetachEnabled;
         public bool IsDetachEnabled
         {
@@ -164,40 +161,28 @@ namespace TaskDropper.Core.ViewModels
                 RaisePropertyChanged(() => IsDetachEnabled);
             }
         }
-        
-
-        private void DeleteTask()
+        private byte[] _photo;
+        public byte[] Photo
         {
-            ItemTask _deletedTask = new ItemTask(Id,UserId, Title, Description, Status,Photo,UserEmail);
-            _databaseHelper.DeleteTaskFromTable(_deletedTask);
-            _navigationService.Navigate<HomeViewModel>();
-            //_navigationService.Navigate<TasksListViewModel>();
+            get { return _photo; }
+            set { _photo = value; RaisePropertyChanged(() => Photo); UpdateIsDetachEnabled(); }
+        }
+        #endregion
 
+        #region Commands
+        public IMvxCommand DettachPhoto
+        {
+            get { return new MvxCommand(DettachPhotos); }
         }
 
-        private void SaveTask()
+        public IMvxCommand SaveCommand
         {
-            ItemTask _addtask = new ItemTask(Id,UserId, Title, Description, Status,Photo,UserEmail);
-            _databaseHelper.AddTaskToTable(_addtask);
-            _navigationService.Navigate<HomeViewModel>();
-            //_navigationService.Navigate<TasksListViewModel>();
+            get { return new MvxCommand(SaveTask); }
         }
 
-        
-
-        public override void Prepare(ItemTask parameter)
+        public IMvxCommand DeleteCommand
         {
-            if (parameter != null)
-            {
-                Id = parameter.Id;
-                UserId = parameter.UserId;
-                Title = parameter.Title;
-                Description = parameter.Description;
-                Status = parameter.Status;
-                Photo = parameter.PhotoTask;
-            }
-            UpdateSave();
-            UpdateIsDetachEnabled();
+            get { return new MvxCommand(DeleteTask); }
         }
 
         public IMvxCommand LogOutUserCommand
@@ -205,26 +190,86 @@ namespace TaskDropper.Core.ViewModels
             get { return new MvxCommand(LogOutUser); }
         }
 
-        private void LogOutUser()
-        {
-            _databaseHelper.LogOutUser();
-            _navigationService.Navigate<GoogleLoginViewModel>();
-        }
-
-       public IMvxCommand BackCommand
+        public IMvxCommand BackCommand
         {
             get { return new MvxCommand(Back); }
+        }
+
+        public IMvxCommand TakePictureCommand
+        {
+            get { return new MvxCommand(DoTakePicture); }
+        }
+
+        public IMvxCommand ChoosePictureCommand
+        {
+            get { return new MvxCommand(DoChoosePicture); }
+        }
+        #endregion
+
+        #region Private methods
+        private void UpdateSave()
+        {
+            if (Title != null && Title != " " && Title != "")
+            {
+                IsSavingEnabled = true;
+            }
+            else
+                IsSavingEnabled = false;
+        }
+
+       
+
+        private void UpdateIsDetachEnabled()
+        {
+            if (Photo != null)
+            {
+                IsDetachEnabled = true;
+            }
+            else
+                IsDetachEnabled = false;
+        }
+
+        private void DeleteTask()
+        {
+            if (CheckInternetConnection())
+            {
+                _taskWebApiService.DeleteItemTaskAsync(Id.ToString());
+                ItemTask _deletedTask = new ItemTask { Id = Id, UserId = UserId, Title = Title, Description = Description, Status = Status, PhotoTask = Photo, UserEmail = UserEmail };
+                _databaseTaskService.DeleteTaskFromTable(_deletedTask);
+                _navigationService.Navigate<HomeViewModel>();
+                //_navigationService.Navigate<TasksListViewModel>();
+            }
+        }
+
+        private void SaveTask()
+        {
+            if (CheckInternetConnection())
+            {
+                ItemTask _addtask = new ItemTask { Id = Id, UserId = UserId, Title = Title, Description = Description, Status = Status, PhotoTask = Photo, UserEmail = UserEmail };
+                _databaseTaskService.AddTaskToTable(_addtask);
+                if (Id == 0)
+                {
+                    _taskWebApiService.SaveItemTaskAsync(_addtask, true);
+                }
+                else
+                {
+                    _taskWebApiService.SaveItemTaskAsync(_addtask, false);
+                }
+                _navigationService.Navigate<HomeViewModel>();
+                //_navigationService.Navigate<TasksListViewModel>();
+            }
+        }
+
+        private void LogOutUser()
+        {
+            _databaseUserService.LogOutUser();
+            _navigationService.Navigate<GoogleLoginViewModel>();
         }
 
         private void Back()
         {
             //_navigationService.Navigate<TasksListViewModel>();
             _navigationService.Navigate<HomeViewModel>();
-        }
-
-        public IMvxCommand TakePictureCommand
-        {
-            get { return new MvxCommand(DoTakePicture); }
         }
 
         private void DoTakePicture()
@@ -236,54 +281,25 @@ namespace TaskDropper.Core.ViewModels
             RaisePropertyChanged(() => Photo);
         }
 
-        public IMvxCommand ChoosePictureCommand
-        {
-            get { return new MvxCommand(DoChoosePicture); }
-        }
- 
-
         private void DoChoosePicture()
         {
             Action<byte[]> action = new Action<byte[]>(GetPhotoFromDroid);
 
-            _photoService.ChoosePictureFromGallary(action);    
+            _photoService.ChoosePictureFromGallery(action);    
             UpdateIsDetachEnabled();
             RaisePropertyChanged(() => Photo);
         }
-
-        public override void ViewAppearing()
-        {
-            UserEmail = _databaseHelper.GetLastUserEmail();
-            RaisePropertyChanged(() => Photo);
-            base.ViewAppearing();
-        }
-
-        public bool CheckPermissionForCamera()
-        {
-            return _photoService.CheckPermission();
-        }
       
-
-        public void GetPhotoFromDroid(byte[] photos)
+        private void GetPhotoFromDroid(byte[] photos)
         {
             Photo= photos;
         }
 
-        private byte[] _photo;
-
-        public byte[] Photo
-        {
-            get { return _photo; }
-            set { _photo = value; RaisePropertyChanged(() => Photo); UpdateIsDetachEnabled(); }
-        } 
-        public IMvxCommand DettachPhoto
-        {
-            get { return new MvxCommand(DettachPhotos); }
-        }
-
-        public void DettachPhotos()
+        private void DettachPhotos()
         {
             Photo = null;
         }
+        #endregion
+
     }
 }

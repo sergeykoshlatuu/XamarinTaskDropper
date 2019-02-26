@@ -21,6 +21,10 @@ namespace TaskDropper.iOS.Views
         [GeneratedCode ("iOS Designer", "1.0")]
         UIKit.UILabel NameLabel { get; set; }
 
+        [Outlet]
+        [GeneratedCode ("iOS Designer", "1.0")]
+        UIKit.UILabel NoInternetConnection { get; set; }
+
         void ReleaseDesignerOutlets ()
         {
             if (EmailLabel != null) {
@@ -31,6 +35,11 @@ namespace TaskDropper.iOS.Views
             if (NameLabel != null) {
                 NameLabel.Dispose ();
                 NameLabel = null;
+            }
+
+            if (NoInternetConnection != null) {
+                NoInternetConnection.Dispose ();
+                NoInternetConnection = null;
             }
         }
     }
