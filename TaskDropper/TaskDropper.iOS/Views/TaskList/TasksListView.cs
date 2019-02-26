@@ -27,7 +27,6 @@ namespace TaskDropper.iOS.Views
             var set = this.CreateBindingSet<TasksListView, TasksListViewModel>();
             set.Bind(source).To(m => m.TaskCollection);
             set.Bind(source).For(v => v.SelectionChangedCommand).To(vm => vm.ShowTaskChangedView);
-
             set.Bind(_refreshControl).For(r => r.IsRefreshing).To(vm => vm.IsRefreshTaskCollection);
             set.Bind(_refreshControl).For(r => r.RefreshCommand).To(vm => vm.RefreshTaskCommand);
             set.Bind(NoInternetConnection).For(v => v.Hidden).To(vm => vm.IsNoInternetVisible);

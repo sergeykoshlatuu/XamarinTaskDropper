@@ -30,6 +30,19 @@ namespace TaskDropper.iOS.Views
             NavigationController.NavigationBar.BarTintColor = UIColor.FromRGB(43, 61, 80);
             NavigationController.NavigationBar.TitleTextAttributes = new UIStringAttributes() { ForegroundColor = UIColor.Black };
 
+            SetBind();
+            
+            HideKeyboard();
+
+            SetupNavigationsBar();
+
+            BindClickForAllButton();
+
+           
+        }
+
+        private void SetBind()
+        {
             var set = this.CreateBindingSet<TaskChangedView, TaskChangedViewModel>();
             set.Bind(TitleTextField).To(vm => vm.Title);
             set.Bind(DescriptionTextField).To(vm => vm.Description);
@@ -39,16 +52,8 @@ namespace TaskDropper.iOS.Views
             set.Bind(DetachPhotoButton).For(v => v.Enabled).To(vm => vm.IsDetachEnabled);
             set.Bind(DetachPhotoButton).To(vm => vm.DettachPhoto);
             set.Bind(NoInternetConnection).For(v => v.Hidden).To(vm => vm.IsNoInternetVisible);
-
-            HideKeyboard();
-
-            SetupNavigationsBar();
-
-            BindClickForAllButton();
-
             set.Apply();
         }
-        
         private void BindClickForAllButton()
         {
             _logoutButton.TouchUpInside += LogoutButtonClick;

@@ -29,20 +29,21 @@ namespace TaskDropper.Droid.Views
         static readonly int REQUEST_STORAGE = 0;
         Android.Support.V7.Widget.Toolbar _toolbar;
         Button DettachPhoto;
+        Button showPopupMenu;
         private LinearLayout _linearLayoutMain;
         private ScrollView _scrollView;
        
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
             var view = base.OnCreateView(inflater, container, savedInstanceState);
-
+            showPopupMenu = view.FindViewById<Button>(Resource.Id.OpenPopup);
             DettachPhoto = view.FindViewById<Button>(Resource.Id.DettachPhoto);
             DettachPhoto.Click += HideImage;
             SetupPopupMenu(view);
             //fonts
             SetupFonts(view);
             //Hide Keyboard
-
+          
             CheckInternetConnection(view);
 
             SetupHideKeyboard(view);
@@ -87,49 +88,42 @@ namespace TaskDropper.Droid.Views
 
         public void SetupPopupMenu(View view)
         {
-            Button showPopupMenu = view.FindViewById<Button>(Resource.Id.OpenPopup);
-            showPopupMenu.Click += (s, arg) => {
-
-                PopupMenu menu = new PopupMenu(Context, showPopupMenu);
-
-
-                // Call inflate directly on the menu:
-                menu.Inflate(Resource.Menu.popup_menu);
-
-                // A menu item was clicked:
-                menu.MenuItemClick += (s1, arg1) => {
-
-                    if (arg1.Item.ItemId == Resource.Id.FromGallary)
-                    {
-                        ViewModel.ChoosePictureCommand.Execute();
-                    }
-
-                    if (arg1.Item.ItemId == Resource.Id.FromCamera)
-                    {
-                        if (ViewModel.CheckPermissionForCamera())
-                        {
-                            ViewModel.TakePictureCommand.Execute();
-                        }
-                        else
-                        {
-                            RequestStoragePermission();
-
-
-                        }
-
-                    }
-                };
-
-                // Menu was dismissed:
-                menu.DismissEvent += (s2, arg2) => {
-                    Console.WriteLine("menu dismissed");
-                };
-
-                menu.Show();
-            };
+            showPopupMenu.Click += ShowPopupMenu;
 
         }
+         
+        private void ShowPopupMenu(Object sender, EventArgs e)
+        {
+            PopupMenu menu = new PopupMenu(Context, showPopupMenu);
 
+            // Call inflate directly on the menu:
+            menu.Inflate(Resource.Menu.popup_menu);
+
+            // A menu item was clicked:
+            menu.MenuItemClick += PopupMenuItemClick;
+
+            menu.Show();
+        }
+
+        private void PopupMenuItemClick(object s1, PopupMenu.MenuItemClickEventArgs arg1)
+        {
+            if (arg1.Item.ItemId == Resource.Id.FromGallary)
+            {
+                ViewModel.ChoosePictureCommand.Execute();
+            }
+
+            if (arg1.Item.ItemId == Resource.Id.FromCamera)
+            {
+                if (ViewModel.CheckPermissionForCamera())
+                {
+                    ViewModel.TakePictureCommand.Execute();
+                }
+                else
+                {
+                    RequestStoragePermission();
+                }
+            }
+        }
         public void SetupHideKeyboard(View view)
         {
             _linearLayoutMain = view.FindViewById<LinearLayout>(Resource.Id.content);
@@ -226,6 +220,8 @@ namespace TaskDropper.Droid.Views
             saveButton.Click -= ShowMessage;
 
             deleteButton.Click -= ShowMessage;
+
+            showPopupMenu.Click -= ShowPopupMenu;
         }
  
     }

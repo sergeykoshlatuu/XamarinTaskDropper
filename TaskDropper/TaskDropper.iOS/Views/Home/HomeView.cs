@@ -27,11 +27,9 @@ namespace TaskDropper.iOS.Views
             var tabs = new MvxViewController[] {
                 tab1, tab2
             };
-
            
             ViewControllers = tabs;
-            
-            
+           
             CustomizableViewControllers = new UIViewController[] { };
             SelectedViewController = ViewControllers[0];
 
@@ -47,9 +45,7 @@ namespace TaskDropper.iOS.Views
             base.ViewDidLoad();
 
             SetupNavigationBar();
-            var set = this.CreateBindingSet<HomeView, HomeViewModel>();
- 
-            set.Apply();           
+                     
         }
 
         private void SetupNavigationBar()

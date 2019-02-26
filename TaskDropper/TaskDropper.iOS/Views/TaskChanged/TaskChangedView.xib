@@ -49,13 +49,14 @@
                                 <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" id="12739" translatesAutoresizingMaskIntoConstraints="NO">
                                     <rect key="frame" x="8" y="143" width="51" height="31"/>
                                 </switch>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Done" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="12749" translatesAutoresizingMaskIntoConstraints="NO" misplaced="YES">
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Done" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="12749" translatesAutoresizingMaskIntoConstraints="NO">
                                     <rect key="frame" x="213" y="148" width="134" height="21"/>
                                     <fontDescription key="fontDescription" name="NK123" family="NK123" pointSize="17"/>
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
                                     <constraints>
                                         <constraint id="14090" firstAttribute="width" constant="134"/>
+                                        <constraint id="21769" firstAttribute="height" constant="21"/>
                                     </constraints>
                                 </label>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="12777" translatesAutoresizingMaskIntoConstraints="NO">
@@ -66,12 +67,12 @@
                                         <constraint id="16903" firstAttribute="width" constant="146"/>
                                     </constraints>
                                 </button>
-                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="12805" translatesAutoresizingMaskIntoConstraints="NO" misplaced="YES">
-                                    <rect key="frame" x="248" y="214" width="147" height="30"/>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="12805" translatesAutoresizingMaskIntoConstraints="NO">
+                                    <rect key="frame" x="248" y="215" width="147" height="30"/>
                                     <fontDescription key="fontDescription" name="NK123" family="NK123" pointSize="17"/>
                                     <state key="normal" title="Dettach Photo"/>
                                     <constraints>
-                                        <constraint id="16931" firstAttribute="width" constant="147"/>
+                                        <constraint id="21763" firstAttribute="width" constant="147"/>
                                     </constraints>
                                 </button>
                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="12824" translatesAutoresizingMaskIntoConstraints="NO" misplaced="YES" ambiguous="YES">
@@ -108,15 +109,16 @@
                                 <constraint id="13820" firstItem="12824" firstAttribute="leading" secondItem="12324" secondAttribute="leading" constant="14"/>
                                 <constraint id="14023" firstItem="12824" firstAttribute="top" secondItem="12777" secondAttribute="bottom" constant="22"/>
                                 <constraint id="15398" firstItem="12777" firstAttribute="leading" secondItem="12324" secondAttribute="leading" constant="14"/>
-                                <constraint id="15428" firstAttribute="trailing" secondItem="12805" secondAttribute="trailing" constant="19"/>
                                 <constraint id="15911" firstAttribute="trailing" secondItem="12749" secondAttribute="trailing" constant="67"/>
                                 <constraint id="16883" firstItem="12777" firstAttribute="top" secondItem="12739" secondAttribute="bottom" constant="41"/>
-                                <constraint id="16893" firstItem="12805" firstAttribute="top" secondItem="12749" secondAttribute="bottom" constant="45"/>
                                 <constraint id="21113" firstItem="12852" firstAttribute="top" secondItem="12824" secondAttribute="bottom" constant="8"/>
                                 <constraint id="21135" firstItem="12852" firstAttribute="leading" secondItem="12324" secondAttribute="leading" constant="14"/>
                                 <constraint id="21157" firstAttribute="trailing" secondItem="12871" secondAttribute="trailing" constant="18"/>
                                 <constraint id="21158" firstAttribute="bottom" secondItem="12871" secondAttribute="bottom" constant="11"/>
                                 <constraint id="21180" firstItem="12871" firstAttribute="top" secondItem="12824" secondAttribute="bottom" constant="8"/>
+                                <constraint id="21765" firstItem="12824" firstAttribute="top" secondItem="12805" secondAttribute="bottom" constant="22"/>
+                                <constraint id="21767" firstAttribute="trailing" secondItem="12805" secondAttribute="trailing" constant="19"/>
+                                <constraint id="21768" firstItem="12805" firstAttribute="top" secondItem="12749" secondAttribute="bottom" constant="46"/>
                             </constraints>
                         </view>
                     </subviews>

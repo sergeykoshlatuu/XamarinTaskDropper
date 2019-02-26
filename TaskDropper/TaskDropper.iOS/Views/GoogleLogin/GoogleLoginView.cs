@@ -27,9 +27,6 @@ namespace TaskDropper.iOS.Views
             Auth = new GoogleAuthenticator(Configuration.ClientId, Configuration.Scope, Configuration.RedirectUrl, this);
 
             GoogleLoginButton.TouchUpInside += OnGoogleLoginButtonClicked;
-
-            var set = this.CreateBindingSet<GoogleLoginView, GoogleLoginViewModel>();
-            set.Apply();
         }
 
         private void OnGoogleLoginButtonClicked(object sender, EventArgs e)

@@ -16,8 +16,12 @@ namespace TaskDropper.iOS.Views
         {
             base.ViewDidLoad();
 
-            var set = this.CreateBindingSet<AboutView, AboutViewModel>();
+            SetBind();
+        }
 
+        private void SetBind()
+        {
+            var set = this.CreateBindingSet<AboutView, AboutViewModel>();
             set.Bind(NameLabel).To(vm => vm.Name);
             set.Bind(EmailLabel).To(vm => vm.Email);
             set.Bind(NoInternetConnection).For(v => v.Hidden).To(vm => vm.IsNoInternetVisible);
