@@ -24,9 +24,10 @@ namespace TaskDropper.Droid.Views
     public class TaskChangedFragment : BaseFragment<TaskChangedViewModel>
     {
         protected override int FragmentId => Resource.Layout.item_changed;
-
+        Button saveButton;
+        Button deleteButton;
         static readonly int REQUEST_STORAGE = 0;
-        View layout;
+        Android.Support.V7.Widget.Toolbar _toolbar;
         Button DettachPhoto;
         private LinearLayout _linearLayoutMain;
         private ScrollView _scrollView;
@@ -35,20 +36,62 @@ namespace TaskDropper.Droid.Views
         {
             var view = base.OnCreateView(inflater, container, savedInstanceState);
 
-            Typeface newTypeface = Typeface.CreateFromAsset(Activity.Assets, "NK123.otf");
-            Button showPopupMenu = view.FindViewById<Button>(Resource.Id.OpenPopup);
-
             DettachPhoto = view.FindViewById<Button>(Resource.Id.DettachPhoto);
+            DettachPhoto.Click += HideImage;
+            SetupPopupMenu(view);
+            //fonts
+            SetupFonts(view);
+            //Hide Keyboard
 
-            DettachPhoto.Click += delegate
+            CheckInternetConnection(view);
+
+            SetupHideKeyboard(view);
+            //Seting Action Bar
+            SetupBackActionBar(view);
+
+            return view;
+        }
+        
+        public void CheckInternetConnection(View view)
+        {
+             saveButton = view.FindViewById<Button>(Resource.Id.Savetask);
+             deleteButton = view.FindViewById<Button>(Resource.Id.Deletetask);
+
+            saveButton.Click += ShowMessage;
+            deleteButton.Click += ShowMessage;
+        }
+
+       public void  ShowMessage(Object sender, EventArgs e)
+        {
+            if (!ViewModel.CheckInternetConnection())
             {
-                HideImage();
-            };
+                new AlertDialog.Builder(this.Context)
+                                   .SetTitle("Eror")
+                                   .SetMessage("No internet connection ")
+                                   .Show();
+            }
+        }
+         public void SetupFonts(View view)
+        {
+            Typeface newTypeface = Typeface.CreateFromAsset(Activity.Assets, "NK123.otf");
+            view.FindViewById<EditText>(Resource.Id.title_txt).SetTypeface(newTypeface, TypefaceStyle.Normal);
+            view.FindViewById<EditText>(Resource.Id.description_txt).SetTypeface(newTypeface, TypefaceStyle.Normal);
+            view.FindViewById<CheckBox>(Resource.Id.status_check).SetTypeface(newTypeface, TypefaceStyle.Normal);
+            view.FindViewById<TextView>(Resource.Id.done_txt).SetTypeface(newTypeface, TypefaceStyle.Normal);
+            view.FindViewById<Button>(Resource.Id.Savetask).SetTypeface(newTypeface, TypefaceStyle.Normal);
+            view.FindViewById<Button>(Resource.Id.Deletetask).SetTypeface(newTypeface, TypefaceStyle.Normal);
+            view.FindViewById<TextView>(Resource.Id.app_name_text).SetTypeface(newTypeface, TypefaceStyle.Normal);
+            view.FindViewById<Button>(Resource.Id.OpenPopup).SetTypeface(newTypeface, TypefaceStyle.Normal);
+            view.FindViewById<Button>(Resource.Id.DettachPhoto).SetTypeface(newTypeface, TypefaceStyle.Normal);
+        }
 
+        public void SetupPopupMenu(View view)
+        {
+            Button showPopupMenu = view.FindViewById<Button>(Resource.Id.OpenPopup);
             showPopupMenu.Click += (s, arg) => {
 
                 PopupMenu menu = new PopupMenu(Context, showPopupMenu);
-              
+
 
                 // Call inflate directly on the menu:
                 menu.Inflate(Resource.Menu.popup_menu);
@@ -56,13 +99,13 @@ namespace TaskDropper.Droid.Views
                 // A menu item was clicked:
                 menu.MenuItemClick += (s1, arg1) => {
 
-                        if (arg1.Item.ItemId == Resource.Id.FromGallary)
-                        {
-                            ViewModel.ChoosePictureCommand.Execute();
-                        }
-                    
+                    if (arg1.Item.ItemId == Resource.Id.FromGallary)
+                    {
+                        ViewModel.ChoosePictureCommand.Execute();
+                    }
+
                     if (arg1.Item.ItemId == Resource.Id.FromCamera)
-                        {
+                    {
                         if (ViewModel.CheckPermissionForCamera())
                         {
                             ViewModel.TakePictureCommand.Execute();
@@ -70,8 +113,8 @@ namespace TaskDropper.Droid.Views
                         else
                         {
                             RequestStoragePermission();
-                           
-                            
+
+
                         }
 
                     }
@@ -85,53 +128,27 @@ namespace TaskDropper.Droid.Views
                 menu.Show();
             };
 
-            //fonts
-            view.FindViewById<EditText>(Resource.Id.title_txt).SetTypeface(newTypeface, TypefaceStyle.Normal);
-            view.FindViewById<EditText>(Resource.Id.description_txt).SetTypeface(newTypeface, TypefaceStyle.Normal);
-            view.FindViewById<CheckBox>(Resource.Id.status_check).SetTypeface(newTypeface, TypefaceStyle.Normal);
-            view.FindViewById<TextView>(Resource.Id.done_txt).SetTypeface(newTypeface, TypefaceStyle.Normal);
-            view.FindViewById<Button>(Resource.Id.Savetask).SetTypeface(newTypeface, TypefaceStyle.Normal);
-            view.FindViewById<Button>(Resource.Id.Deletetask).SetTypeface(newTypeface, TypefaceStyle.Normal);
-            view.FindViewById<TextView>(Resource.Id.app_name_text).SetTypeface(newTypeface, TypefaceStyle.Normal);
-            view.FindViewById<Button>(Resource.Id.OpenPopup).SetTypeface(newTypeface, TypefaceStyle.Normal);
-            view.FindViewById<Button>(Resource.Id.DettachPhoto).SetTypeface(newTypeface, TypefaceStyle.Normal);
-            
-            //Hide Keyboard
-            _linearLayoutMain = view.FindViewById<LinearLayout>(Resource.Id.LinearLayout1);
-            _linearLayoutMain.Click += delegate
-            {
-                HideSoftKeyboard();
-            };
-
-            var _toolbar = view.FindViewById<Android.Support.V7.Widget.Toolbar>(Resource.Id.toolbar);
-            _toolbar.Click += delegate
-            {
-                HideSoftKeyboard();
-            };
-
-            _scrollView = view.FindViewById<ScrollView>(Resource.Id.scrollingElement);
-            _scrollView.Click += delegate
-            {
-                HideSoftKeyboard();
-            };
-
-            //toolbar setting
-            var addtask_button = view.FindViewById<ImageButton>(Resource.Id.addtask_button);
-            addtask_button.Visibility = ViewStates.Invisible;
-            var back_button = view.FindViewById<ImageButton>(Resource.Id.back_button);
-            back_button.Visibility = ViewStates.Visible;
-
-
-            return view;
         }
 
-        private void HideImage()
+        public void SetupHideKeyboard(View view)
+        {
+            _linearLayoutMain = view.FindViewById<LinearLayout>(Resource.Id.content);
+            _linearLayoutMain.Click += HideSoftKeyboard;
+
+            _scrollView = view.FindViewById<ScrollView>(Resource.Id.scrollingElement);
+            _scrollView.Click += HideSoftKeyboard;
+
+            _toolbar = view.FindViewById<Android.Support.V7.Widget.Toolbar>(Resource.Id.toolbar);
+            _toolbar.Click += HideSoftKeyboard;          
+        }
+
+        private void HideImage(Object sender,EventArgs e)
         {
             var image = View.FindViewById<ImageView>(Resource.Id.imageview);
             image.SetImageBitmap(null);
         }
 
-        public void HideSoftKeyboard()
+        public void HideSoftKeyboard(Object sender, EventArgs e)
         {
             InputMethodManager close = (InputMethodManager)Activity.GetSystemService(Context.InputMethodService);
             close.HideSoftInputFromWindow(_linearLayoutMain.WindowToken, 0);
@@ -197,24 +214,19 @@ namespace TaskDropper.Droid.Views
         public override void OnDestroyView()
         {
             base.OnDestroyView();
-            DettachPhoto.Click -= delegate
-            {
-                HideImage();
-            };
 
-            _linearLayoutMain.Click -= delegate
-            {
-                HideSoftKeyboard();
-            };
+            DettachPhoto.Click -= HideSoftKeyboard;
 
-            _scrollView.Click -= delegate
-            {
-                HideSoftKeyboard();
-            };
+            _linearLayoutMain.Click -= HideSoftKeyboard;
+
+            _scrollView.Click -= HideSoftKeyboard;
+            
+            _toolbar.Click -= HideSoftKeyboard;
+
+            saveButton.Click -= ShowMessage;
+
+            deleteButton.Click -= ShowMessage;
         }
-
-       
-
-       
+ 
     }
 }

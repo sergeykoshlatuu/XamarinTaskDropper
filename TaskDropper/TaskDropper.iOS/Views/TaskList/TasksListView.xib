@@ -9,6 +9,7 @@
             <connections>
                 <outlet property="TasksTable" destination="154" id="name-outlet-154"/>
                 <outlet property="view" destination="2" id="RRd-Eg-VrN"/>
+                <outlet property="NoInternetConnection" destination="3472" id="name-outlet-3472"/>
             </connections>S
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
@@ -18,15 +19,26 @@
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <subviews>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="154" translatesAutoresizingMaskIntoConstraints="NO">
-                    <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                    <rect key="frame" x="0.0" y="0.0" width="414" height="669"/>
                     <color key="backgroundColor" colorSpace="calibratedRGB" red="0.97254901960784312" green="0.93333333333333335" blue="0.93333333333333335" alpha="1"/>
                 </tableView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No Internet Connection" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="3472" translatesAutoresizingMaskIntoConstraints="NO">
+                    <rect key="frame" x="0.0" y="668" width="414" height="21"/>
+                    <fontDescription key="fontDescription" name="NK123" family="NK123" pointSize="17"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                    <color key="backgroundColor" colorSpace="calibratedRGB" red="0.90588235294117647" green="0.84313725490196079" blue="0.84313725490196079" alpha="1"/>
+                </label>
             </subviews>
             <constraints>
-                <constraint id="2696" firstItem="154" firstAttribute="leading" secondItem="2" secondAttribute="leading"/>
-                <constraint id="2708" firstItem="154" firstAttribute="trailing" secondItem="2" secondAttribute="trailing"/>
-                <constraint id="2720" firstItem="154" firstAttribute="bottom" secondItem="2" secondAttribute="bottom"/>
-                <constraint id="2754" firstItem="154" firstAttribute="top" secondItem="2" secondAttribute="top"/>
+                <constraint id="3473" firstItem="154" firstAttribute="top" secondItem="2" secondAttribute="top"/>
+                <constraint id="3474" firstItem="154" firstAttribute="trailing" secondItem="2" secondAttribute="trailing"/>
+                <constraint id="3475" firstItem="154" firstAttribute="leading" secondItem="2" secondAttribute="leading"/>
+                <constraint id="3476" firstAttribute="bottom" secondItem="154" secondAttribute="bottom" constant="67"/>
+                <constraint id="3477" firstItem="154" firstAttribute="bottom" secondItem="3472" secondAttribute="top" constant="1"/>
+                <constraint id="3478" firstItem="3472" firstAttribute="leading" secondItem="2" secondAttribute="leading"/>
+                <constraint id="3479" firstItem="3472" firstAttribute="trailing" secondItem="2" secondAttribute="trailing"/>
+                <constraint id="3480" firstAttribute="bottom" secondItem="3472" secondAttribute="bottom" constant="47"/>
             </constraints>
         </view>
     </objects>

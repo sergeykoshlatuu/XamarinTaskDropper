@@ -15,15 +15,16 @@ namespace TaskDropper.Core.Services
         HttpClient client;
         public List<ItemTask> Items { get; private set; }
         string RestUrl;
+        private IDatabaseTaskService _databaseTaskService;
 
-        public TaskWebApiService()
+        public TaskWebApiService(IDatabaseTaskService databaseTaskService)
         {
             client = new HttpClient();
-           
+            _databaseTaskService = databaseTaskService;
         }
 
 
-        public async  Task<List<ItemTask>> RefreshDataAsync(string email)
+        public async Task RefreshDataAsync(string email)
         {
             string RestUrl = "http://10.10.3.183:50176/api/task/";
             Items = new List<ItemTask>();
@@ -35,11 +36,11 @@ namespace TaskDropper.Core.Services
             if (response.IsSuccessStatusCode)
             {
                 var content = await response.Content.ReadAsStringAsync();
-                Items = JsonConvert.DeserializeObject<List<ItemTask>>(content);           
+                Items = JsonConvert.DeserializeObject<List<ItemTask>>(content);
+                _databaseTaskService.UpdateLocalDatabese(Items);
             }
 
             Console.WriteLine(Items);
-            return Items;
         }
 
         public async Task SaveItemTaskAsync(ItemTask item, bool isNewItem=false)
@@ -56,7 +57,7 @@ namespace TaskDropper.Core.Services
             }
             else
             {
-                RestUrl = "http://10.10.3.183:50176/api/task/?id=" + item.Id;
+                RestUrl = "http://10.10.3.183:50176/api/task/?id="+item.Id;
                 uri = new Uri(string.Format(RestUrl, string.Empty));
                 response = await client.PutAsync(uri, content);
             }
@@ -79,10 +80,6 @@ namespace TaskDropper.Core.Services
                 Debug.WriteLine(@"          Task deleted.");
             }
         }
-
-        public List<ItemTask> GetItems()
-        {
-            return Items;
-        }
+ 
     }
 }

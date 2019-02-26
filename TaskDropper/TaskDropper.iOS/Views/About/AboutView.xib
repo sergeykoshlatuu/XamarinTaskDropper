@@ -10,6 +10,7 @@
                 <outlet property="view" destination="2" id="RRd-Eg-VrN"/>
                 <outlet property="NameLabel" destination="440" id="name-outlet-440"/>
                 <outlet property="EmailLabel" destination="441" id="name-outlet-441"/>
+                <outlet property="NoInternetConnection" destination="1580" id="name-outlet-1580"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
@@ -52,12 +53,25 @@
                         <constraint id="1233" firstAttribute="height" constant="270"/>
                     </constraints>
                 </view>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No Internet Connection" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="1580" translatesAutoresizingMaskIntoConstraints="NO">
+                    <rect key="frame" x="0.0" y="668" width="414" height="21"/>
+                    <fontDescription key="fontDescription" name="NK123" family="NK123" pointSize="17"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                    <color key="backgroundColor" colorSpace="calibratedRGB" red="0.90588235294117647" green="0.84313725490196079" blue="0.84313725490196079" alpha="1"/>
+                    <constraints>
+                        <constraint id="1624" firstAttribute="height" constant="21"/>
+                    </constraints>
+                </label>
             </subviews>
             <constraints>
                 <constraint id="1050" firstItem="439" firstAttribute="top" secondItem="2" secondAttribute="top" constant="91"/>
                 <constraint id="1051" firstAttribute="trailing" secondItem="439" secondAttribute="trailing" constant="34"/>
                 <constraint id="1052" firstItem="439" firstAttribute="leading" secondItem="2" secondAttribute="leading" constant="20"/>
                 <constraint id="1053" firstAttribute="bottom" secondItem="439" secondAttribute="bottom" constant="375"/>
+                <constraint id="1591" firstItem="1580" firstAttribute="leading" secondItem="2" secondAttribute="leading"/>
+                <constraint id="1602" firstItem="1580" firstAttribute="trailing" secondItem="2" secondAttribute="trailing"/>
+                <constraint id="1613" firstAttribute="bottom" secondItem="1580" secondAttribute="bottom" constant="47"/>
             </constraints>
         </view>
     </objects>

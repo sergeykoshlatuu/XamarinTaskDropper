@@ -12,6 +12,8 @@ namespace TaskDropper.iOS.Views
     [MvxRootPresentation(WrapInNavigationController = true)]
     public partial class HomeView : MvxTabBarViewController<HomeViewModel>
     {
+        UITextView noInternetConnection = new UITextView();
+
         public HomeView() : base()
         {
             tab1 = new TasksListView();
@@ -22,11 +24,11 @@ namespace TaskDropper.iOS.Views
             tab2 = new AboutView();
             tab2.Title = "About";
             tab2.ViewModel = ViewModel.AboutViewModel;
-
             var tabs = new MvxViewController[] {
                 tab1, tab2
             };
-            
+
+           
             ViewControllers = tabs;
             
             
@@ -41,8 +43,12 @@ namespace TaskDropper.iOS.Views
 
         public override void ViewDidLoad()
         {
-            base.ViewDidLoad();          
+
+            base.ViewDidLoad();
+            
             var set = this.CreateBindingSet<HomeView, HomeViewModel>();
+            //set.Bind(NoInternetConnection).For(v => v.Hidden).To(vm => vm.IsNoInternetVisible);
+
             var _addbutton = new UIButton(UIButtonType.Custom);
             _addbutton.Frame = new CGRect(0, 0, 40, 40);
             _addbutton.SetImage(UIImage.FromBundle("AddButton"), UIControlState.Normal);
@@ -58,6 +64,8 @@ namespace TaskDropper.iOS.Views
             _addbutton.TouchUpInside += AddButtonClick;
             _logoutButton.TouchUpInside += LogoutButtonClick;
             set.Apply();
+
+            
         }
 
         private void LogoutButtonClick(object sender, EventArgs e)

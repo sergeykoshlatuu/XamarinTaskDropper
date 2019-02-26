@@ -4,7 +4,7 @@ namespace TaskDropper.Core.Models
 {
     public class ItemTask
     {
-        [PrimaryKey, AutoIncrement]
+        [PrimaryKey]
         public int Id { get; set; }
 
         public int UserId { get; set; }

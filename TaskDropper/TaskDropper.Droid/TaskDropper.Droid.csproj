@@ -69,10 +69,9 @@
     <Compile Include="Services\PhotoService.cs" />
     <Compile Include="Setup.cs" />
     <Compile Include="SplashScreen.cs" />
-    <Compile Include="ViewAdapters\CustomPagerAdapter.cs" />
     <Compile Include="ViewAdapters\MvxViewPagerFragmentAdapter.cs" />
     <Compile Include="ViewAdapters\TasksListAdapter.cs" />
-    <Compile Include="ViewAdapters\TasksViewHolder.cs" />
+    <Compile Include="Holders\TasksViewHolder.cs" />
     <Compile Include="Views\AboutFragment.cs" />
     <Compile Include="Views\BaseFragment.cs" />
     <Compile Include="Views\HomeFragment.cs" />

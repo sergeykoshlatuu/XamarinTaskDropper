@@ -13,10 +13,10 @@ using System.IO;
 
 namespace TaskDropper.Core.ViewModels
 {
-    public class TaskChangedViewModel : MvxViewModel<ItemTask>
+    public class TaskChangedViewModel : BaseViewModel<ItemTask>
     {
-        private readonly IMvxNavigationService _navigationService;
-        private IDatabaseHelper _databaseHelper;
+        private IDatabaseUserService _databaseUserService;
+        private IDatabaseTaskService _databaseTaskService;
         private readonly IPhotoService _photoService;
         private readonly IMvxPictureChooserTask _pictureChooserTask;
        
@@ -25,18 +25,19 @@ namespace TaskDropper.Core.ViewModels
         
 
         public TaskChangedViewModel(IMvxNavigationService navigationService,
-            IDatabaseHelper databaseHelper, 
+            IDatabaseUserService databaseUserService, 
+            IDatabaseTaskService databaseTaskService,
             IPhotoService photoService,
             IMvxPictureChooserTask pictureChooserTask,
-            ITaskWebApiService taskWebApiService)
+            ITaskWebApiService taskWebApiService):base(navigationService)
         {
             _photoService = photoService;
-            _navigationService = navigationService;
-            _databaseHelper = databaseHelper;
+            _databaseUserService = databaseUserService;
+            _databaseTaskService = databaseTaskService;
             _pictureChooserTask = pictureChooserTask;
             _taskWebApiService = taskWebApiService;
-            UserId = _databaseHelper.GetLastUserId();
-    }
+            
+        }
         #region Public methods
         public override async Task Initialize()
         {
@@ -46,6 +47,7 @@ namespace TaskDropper.Core.ViewModels
 
         public override void Prepare(ItemTask parameter)
         {
+            IsNoInternetVisible = CheckInternetConnection() ? false : true;
             if (parameter != null)
             {
                 Id = parameter.Id;
@@ -54,14 +56,17 @@ namespace TaskDropper.Core.ViewModels
                 Description = parameter.Description;
                 Status = parameter.Status;
                 Photo = parameter.PhotoTask;
+                UserEmail = parameter.UserEmail;
             }
+           
             UpdateSave();
             UpdateIsDetachEnabled();
         }
 
         public override void ViewAppearing()
         {
-            UserEmail = _databaseHelper.GetLastUserEmail();
+            IsNoInternetVisible = CheckInternetConnection() ? false : true;
+            UserEmail = _databaseUserService.GetLastUserEmail();
             RaisePropertyChanged(() => Photo);
             base.ViewAppearing();
         }
@@ -73,6 +78,7 @@ namespace TaskDropper.Core.ViewModels
         #endregion
 
         #region variables and properties
+        bool IsNoInternetVisible { get; set; }
         private int _id;
         private string _title;
         private string _description;
@@ -211,6 +217,8 @@ namespace TaskDropper.Core.ViewModels
                 IsSavingEnabled = false;
         }
 
+       
+
         private void UpdateIsDetachEnabled()
         {
             if (Photo != null)
@@ -223,33 +231,38 @@ namespace TaskDropper.Core.ViewModels
 
         private void DeleteTask()
         {
-            _taskWebApiService.DeleteItemTaskAsync(Id.ToString());
-            ItemTask _deletedTask = new ItemTask { Id=Id, UserId=UserId, Title=Title, Description=Description, Status=Status, PhotoTask=Photo, UserEmail=UserEmail };
-            _databaseHelper.DeleteTaskFromTable(_deletedTask);
-            _navigationService.Navigate<HomeViewModel>();
-            //_navigationService.Navigate<TasksListViewModel>();
-
+            if (CheckInternetConnection())
+            {
+                _taskWebApiService.DeleteItemTaskAsync(Id.ToString());
+                ItemTask _deletedTask = new ItemTask { Id = Id, UserId = UserId, Title = Title, Description = Description, Status = Status, PhotoTask = Photo, UserEmail = UserEmail };
+                _databaseTaskService.DeleteTaskFromTable(_deletedTask);
+                _navigationService.Navigate<HomeViewModel>();
+                //_navigationService.Navigate<TasksListViewModel>();
+            }
         }
 
         private void SaveTask()
         {
-            ItemTask _addtask = new ItemTask {Id=Id,UserId = UserId, Title = Title, Description = Description, Status = Status, PhotoTask = Photo, UserEmail = UserEmail };
-            //_databaseHelper.AddTaskToTable(_addtask);
-            if (Id == 0)
+            if (CheckInternetConnection())
             {
-                _taskWebApiService.SaveItemTaskAsync(_addtask, true);
+                ItemTask _addtask = new ItemTask { Id = Id, UserId = UserId, Title = Title, Description = Description, Status = Status, PhotoTask = Photo, UserEmail = UserEmail };
+                _databaseTaskService.AddTaskToTable(_addtask);
+                if (Id == 0)
+                {
+                    _taskWebApiService.SaveItemTaskAsync(_addtask, true);
+                }
+                else
+                {
+                    _taskWebApiService.SaveItemTaskAsync(_addtask, false);
+                }
+                _navigationService.Navigate<HomeViewModel>();
+                //_navigationService.Navigate<TasksListViewModel>();
             }
-            else
-            {
-                _taskWebApiService.SaveItemTaskAsync(_addtask, false);
-            }
-            _navigationService.Navigate<HomeViewModel>();
-            //_navigationService.Navigate<TasksListViewModel>();
         }
 
         private void LogOutUser()
         {
-            _databaseHelper.LogOutUser();
+            _databaseUserService.LogOutUser();
             _navigationService.Navigate<GoogleLoginViewModel>();
         }
 
@@ -272,7 +285,7 @@ namespace TaskDropper.Core.ViewModels
         {
             Action<byte[]> action = new Action<byte[]>(GetPhotoFromDroid);
 
-            _photoService.ChoosePictureFromGallary(action);    
+            _photoService.ChoosePictureFromGallery(action);    
             UpdateIsDetachEnabled();
             RaisePropertyChanged(() => Photo);
         }

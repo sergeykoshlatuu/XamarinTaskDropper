@@ -5,13 +5,14 @@ using MvvmCross.Commands;
 using TaskDropper.Core.Interface;
 using TaskDropper.Core.Models;
 using System.Collections.Generic;
+using Xamarin.Essentials;
 
 namespace TaskDropper.Core.ViewModels
 {
     public class TasksListViewModel : BaseViewModel
     {
-        private readonly IMvxNavigationService _navigationService;
-        public IDatabaseHelper _databaseHelper;
+        private IDatabaseUserService _databaseUserService;
+        private IDatabaseTaskService _databaseTaskService;
         private ITaskWebApiService _taskWebApiService;
         public override async Task Initialize()
         {
@@ -21,16 +22,53 @@ namespace TaskDropper.Core.ViewModels
 
 
 
-        public TasksListViewModel(IMvxNavigationService navigationService, IDatabaseHelper databaseHelper, ITaskWebApiService taskWebApiService)
+        public TasksListViewModel(IMvxNavigationService navigationService,
+            IDatabaseUserService databaseUserService, 
+            ITaskWebApiService taskWebApiService,
+            IDatabaseTaskService databaseTaskService)
+            :base(navigationService)
         {
             _taskWebApiService = taskWebApiService;
-            _navigationService = navigationService;
-            _databaseHelper = databaseHelper;
+            _databaseUserService = databaseUserService;
+            _databaseTaskService = databaseTaskService;
             ShowTaskChangedView = new MvxAsyncCommand<ItemTask>(ShowTaskChanged);
-            
+            IsNoInternetVisible = false;
+            if (Connectivity.NetworkAccess == NetworkAccess.Internet)
+            {
+                IsNoInternetVisible = true;
+            }
+            Connectivity.ConnectivityChanged += Connectivity_ConnectivityChanged;
         }
 
-    public IMvxCommand ShowTaskChangedView { get; set; }
+
+        private bool _isNoInternetVisible;
+
+        public bool IsNoInternetVisible
+        {
+            get
+            {
+
+                return _isNoInternetVisible;
+
+            }
+            set
+            {
+                _isNoInternetVisible = value;
+                RaisePropertyChanged(() => IsNoInternetVisible);
+            }
+        }
+
+        private void Connectivity_ConnectivityChanged(object sender, ConnectivityChangedEventArgs e)
+        {
+            if (e.NetworkAccess == NetworkAccess.Internet)
+            {
+                IsNoInternetVisible = true;
+                return;
+            }
+            IsNoInternetVisible = false;
+        }
+
+        public IMvxCommand ShowTaskChangedView { get; set; }
 
 
         private async Task ShowTaskChanged(ItemTask _taskCreate)
@@ -53,10 +91,19 @@ namespace TaskDropper.Core.ViewModels
         }
         private async void LoadTasks()
         {
+            List<ItemTask> _templeteTasksList;
             IsRefreshTaskCollection = true;
-            string userEmail = _databaseHelper.GetLastUserEmail();
-            //List<ItemTask> _templeteTasksList = _databaseHelper.LoadListItemsTask(userEmail);
-            List<ItemTask> _templeteTasksList = await _taskWebApiService.RefreshDataAsync(userEmail);
+            string userEmail = _databaseUserService.GetLastUserEmail();
+
+            if (CheckInternetConnection())
+            {
+                 await _taskWebApiService.RefreshDataAsync(userEmail);
+                _templeteTasksList = _databaseTaskService.LoadListItemsTask(userEmail);
+            }
+            else
+            {
+                _templeteTasksList = _databaseTaskService.LoadListItemsTask(userEmail);
+            }
             TaskCollection = new MvxObservableCollection<ItemTask>(_templeteTasksList);
             IsRefreshTaskCollection = false;
         }

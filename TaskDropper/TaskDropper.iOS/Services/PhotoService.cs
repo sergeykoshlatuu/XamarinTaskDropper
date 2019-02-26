@@ -21,7 +21,7 @@ namespace TaskDropper.iOS.Services
         {
 
         }
-        public void ChoosePictureFromGallary(Action<byte[]> action)
+        public void ChoosePictureFromGallery(Action<byte[]> action)
         {
             var task = Mvx.IoCProvider.Resolve<IMvxPictureChooserTask>();
 

@@ -8,12 +8,11 @@ namespace TaskDropper.Core.Interface
 {
     public interface ITaskWebApiService
     {
-        Task<List<ItemTask>> RefreshDataAsync(string email);
+        Task RefreshDataAsync(string email);
 
         Task SaveItemTaskAsync(ItemTask item, bool isNewItem);
 
         Task DeleteItemTaskAsync(string id);
 
-        List<ItemTask> GetItems();
     }
 }

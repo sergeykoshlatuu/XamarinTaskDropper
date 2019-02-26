@@ -4,25 +4,58 @@ using System.Threading.Tasks;
 using System.Collections.Generic;
 using MvvmCross.Navigation;
 using TaskDropper.Core.Interface;
+using Xamarin.Essentials;
 
 namespace TaskDropper.Core.ViewModels
 {
-    public class AboutViewModel : MvxViewModel
+    public class AboutViewModel : BaseViewModel
     {
       
-        private readonly IMvxNavigationService _navigationService;
+        
 
         public override async Task Initialize()
         {
             await base.Initialize();
         }
 
-        public AboutViewModel(IMvxNavigationService navigationService)
+        public AboutViewModel(IMvxNavigationService navigationService):base(navigationService)
         {
-            _navigationService = navigationService;
-
             Name = "Sergey Koshlatuu";
             Email = "koshsy6363@gmail.com";
+            IsNoInternetVisible = false;
+            if (Connectivity.NetworkAccess == NetworkAccess.Internet)
+            {
+                IsNoInternetVisible = true;
+            }
+            Connectivity.ConnectivityChanged += Connectivity_ConnectivityChanged;
+        }
+
+
+        private bool _isNoInternetVisible;
+
+        public bool IsNoInternetVisible
+        {
+            get
+            {
+
+                return _isNoInternetVisible;
+
+            }
+            set
+            {
+                _isNoInternetVisible = value;
+                RaisePropertyChanged(() => IsNoInternetVisible);
+            }
+        }
+
+        private void Connectivity_ConnectivityChanged(object sender, ConnectivityChangedEventArgs e)
+        {
+            if (e.NetworkAccess == NetworkAccess.Internet)
+            {
+                IsNoInternetVisible = true;
+                return;
+            }
+            IsNoInternetVisible = false;
         }
 
         public override void ViewAppearing()

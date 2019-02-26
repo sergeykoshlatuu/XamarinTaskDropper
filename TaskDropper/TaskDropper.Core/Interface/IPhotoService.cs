@@ -9,7 +9,7 @@ namespace TaskDropper.Core.Interface
 {
     public interface IPhotoService
     {
-        void ChoosePictureFromGallary(Action<byte[]> action);
+        void ChoosePictureFromGallery(Action<byte[]> action);
         void TakePictureFromCamera(Action<byte[]> action);
         byte[] GetPhoto();
         bool CheckPermission();
