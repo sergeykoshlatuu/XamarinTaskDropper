@@ -15,7 +15,43 @@ namespace TaskDropper.Core.ViewModels
         {
             _navigationService = navigationService;
 
+            IsNoInternetVisible = false;
+            if (Connectivity.NetworkAccess == NetworkAccess.Internet)
+            {
+                IsNoInternetVisible = true;
+            }
+            Connectivity.ConnectivityChanged += Connectivity_ConnectivityChanged;
         }
+
+
+        private bool _isNoInternetVisible;
+
+        public bool IsNoInternetVisible
+        {
+            get
+            {
+
+                return _isNoInternetVisible;
+
+            }
+            set
+            {
+                _isNoInternetVisible = value;
+                RaisePropertyChanged(() => IsNoInternetVisible);
+            }
+        }
+
+        private void Connectivity_ConnectivityChanged(object sender, ConnectivityChangedEventArgs e)
+        {
+            if (e.NetworkAccess == NetworkAccess.Internet)
+            {
+                IsNoInternetVisible = true;
+                return;
+            }
+            IsNoInternetVisible = false;
+        }
+
+
 
         public bool CheckInternetConnection()
         {
@@ -30,8 +66,6 @@ namespace TaskDropper.Core.ViewModels
                 return false;
             }
         }
-
-
     }
     public abstract class BaseViewModel<TParameter> : MvxViewModel<TParameter>
         where TParameter : class
@@ -42,6 +76,40 @@ namespace TaskDropper.Core.ViewModels
         {
             _navigationService = navigationService;
 
+            IsNoInternetVisible = false;
+            if (Connectivity.NetworkAccess == NetworkAccess.Internet)
+            {
+                IsNoInternetVisible = true;
+            }
+            Connectivity.ConnectivityChanged += Connectivity_ConnectivityChanged;
+        }
+
+
+        private bool _isNoInternetVisible;
+
+        public bool IsNoInternetVisible
+        {
+            get
+            {
+
+                return _isNoInternetVisible;
+
+            }
+            set
+            {
+                _isNoInternetVisible = value;
+                RaisePropertyChanged(() => IsNoInternetVisible);
+            }
+        }
+
+        private void Connectivity_ConnectivityChanged(object sender, ConnectivityChangedEventArgs e)
+        {
+            if (e.NetworkAccess == NetworkAccess.Internet)
+            {
+                IsNoInternetVisible = true;
+                return;
+            }
+            IsNoInternetVisible = false;
         }
 
         public bool CheckInternetConnection()

@@ -26,12 +26,7 @@ namespace TaskDropper.Core.ViewModels
             TaskListViewModel = Mvx.IoCConstruct<TasksListViewModel>();
             AboutViewModel = Mvx.IoCConstruct<AboutViewModel>();
             ShowTaskChangedViewCommand = new MvxAsyncCommand<ItemTask>(ShowTaskChanged);
-
-            
         }
-
-
-        
 
         public IMvxCommand LogOutUserCommand
         {
@@ -45,7 +40,6 @@ namespace TaskDropper.Core.ViewModels
         }
 
         public IMvxCommand ShowTaskChangedViewCommand { get; set; }
-
 
         private async Task ShowTaskChanged(ItemTask _taskCreate)
         {

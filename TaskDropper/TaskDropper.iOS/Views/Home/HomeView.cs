@@ -45,10 +45,15 @@ namespace TaskDropper.iOS.Views
         {
 
             base.ViewDidLoad();
-            
-            var set = this.CreateBindingSet<HomeView, HomeViewModel>();
-            //set.Bind(NoInternetConnection).For(v => v.Hidden).To(vm => vm.IsNoInternetVisible);
 
+            SetupNavigationBar();
+            var set = this.CreateBindingSet<HomeView, HomeViewModel>();
+ 
+            set.Apply();           
+        }
+
+        private void SetupNavigationBar()
+        {
             var _addbutton = new UIButton(UIButtonType.Custom);
             _addbutton.Frame = new CGRect(0, 0, 40, 40);
             _addbutton.SetImage(UIImage.FromBundle("AddButton"), UIControlState.Normal);
@@ -63,9 +68,6 @@ namespace TaskDropper.iOS.Views
 
             _addbutton.TouchUpInside += AddButtonClick;
             _logoutButton.TouchUpInside += LogoutButtonClick;
-            set.Apply();
-
-            
         }
 
         private void LogoutButtonClick(object sender, EventArgs e)

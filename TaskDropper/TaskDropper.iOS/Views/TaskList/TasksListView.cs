@@ -23,6 +23,7 @@ namespace TaskDropper.iOS.Views
             var source = new TasksTVS(TasksTable);
             TasksTable.Source = source;
             TasksTable.AddSubview(_refreshControl);
+
             var set = this.CreateBindingSet<TasksListView, TasksListViewModel>();
             set.Bind(source).To(m => m.TaskCollection);
             set.Bind(source).For(v => v.SelectionChangedCommand).To(vm => vm.ShowTaskChangedView);
@@ -33,5 +34,7 @@ namespace TaskDropper.iOS.Views
 
             set.Apply();
         }
+
+    
     }
 }

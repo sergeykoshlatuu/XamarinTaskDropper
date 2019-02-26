@@ -23,49 +23,15 @@ namespace TaskDropper.Core.ViewModels
 
 
         public TasksListViewModel(IMvxNavigationService navigationService,
-            IDatabaseUserService databaseUserService, 
+            IDatabaseUserService databaseUserService,
             ITaskWebApiService taskWebApiService,
             IDatabaseTaskService databaseTaskService)
-            :base(navigationService)
+            : base(navigationService)
         {
             _taskWebApiService = taskWebApiService;
             _databaseUserService = databaseUserService;
             _databaseTaskService = databaseTaskService;
             ShowTaskChangedView = new MvxAsyncCommand<ItemTask>(ShowTaskChanged);
-            IsNoInternetVisible = false;
-            if (Connectivity.NetworkAccess == NetworkAccess.Internet)
-            {
-                IsNoInternetVisible = true;
-            }
-            Connectivity.ConnectivityChanged += Connectivity_ConnectivityChanged;
-        }
-
-
-        private bool _isNoInternetVisible;
-
-        public bool IsNoInternetVisible
-        {
-            get
-            {
-
-                return _isNoInternetVisible;
-
-            }
-            set
-            {
-                _isNoInternetVisible = value;
-                RaisePropertyChanged(() => IsNoInternetVisible);
-            }
-        }
-
-        private void Connectivity_ConnectivityChanged(object sender, ConnectivityChangedEventArgs e)
-        {
-            if (e.NetworkAccess == NetworkAccess.Internet)
-            {
-                IsNoInternetVisible = true;
-                return;
-            }
-            IsNoInternetVisible = false;
         }
 
         public IMvxCommand ShowTaskChangedView { get; set; }

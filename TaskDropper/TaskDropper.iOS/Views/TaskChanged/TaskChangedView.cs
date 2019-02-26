@@ -38,7 +38,41 @@ namespace TaskDropper.iOS.Views
             set.Bind(SaveButton).For(v => v.Enabled).To(vm => vm.IsSavingEnabled);
             set.Bind(DetachPhotoButton).For(v => v.Enabled).To(vm => vm.IsDetachEnabled);
             set.Bind(DetachPhotoButton).To(vm => vm.DettachPhoto);
+            set.Bind(NoInternetConnection).For(v => v.Hidden).To(vm => vm.IsNoInternetVisible);
 
+            HideKeyboard();
+
+            SetupNavigationsBar();
+
+            BindClickForAllButton();
+
+            set.Apply();
+        }
+        
+        private void BindClickForAllButton()
+        {
+            _logoutButton.TouchUpInside += LogoutButtonClick;
+            _backButton.TouchUpInside += BackButtonClick;
+            SaveButton.TouchUpInside += SaveButtonClick;
+            DeleteButton.TouchUpInside += DeleteButtonClick;
+            AttachPhotoButton.TouchUpInside += AttachPhotoClick;
+        }
+
+        private void SetupNavigationsBar()
+        {
+            _backButton.Frame = new CGRect(0, 0, 40, 40);
+            _backButton.SetImage(UIImage.FromBundle("BackButton"), UIControlState.Normal);
+
+            _logoutButton.Frame = new CGRect(0, 0, 40, 40);
+            _logoutButton.SetImage(UIImage.FromBundle("LogOutButton"), UIControlState.Normal);
+
+
+            NavigationItem.SetRightBarButtonItem(new UIBarButtonItem(_logoutButton), false);
+            NavigationItem.SetLeftBarButtonItem(new UIBarButtonItem(_backButton), false);
+        }
+
+    private void HideKeyboard()
+        {
             TitleTextField.ShouldReturn = (textField) => {
                 textField.ResignFirstResponder();
                 return true;
@@ -51,26 +85,7 @@ namespace TaskDropper.iOS.Views
             g.CancelsTouchesInView = false; //for iOS5
 
             View.AddGestureRecognizer(g);
-            _backButton.Frame = new CGRect(0, 0, 40, 40);
-            _backButton.SetImage(UIImage.FromBundle("BackButton"), UIControlState.Normal);
-
-            _logoutButton.Frame = new CGRect(0, 0, 40, 40);
-            _logoutButton.SetImage(UIImage.FromBundle("LogOutButton"), UIControlState.Normal);
-
-
-            NavigationItem.SetRightBarButtonItem(new UIBarButtonItem(_logoutButton), false);
-            NavigationItem.SetLeftBarButtonItem(new UIBarButtonItem(_backButton), false);
-
-            _logoutButton.TouchUpInside += LogoutButtonClick;
-            _backButton.TouchUpInside += BackButtonClick;
-            SaveButton.TouchUpInside += SaveButtonClick;
-            DeleteButton.TouchUpInside += DeleteButtonClick;
-            AttachPhotoButton.TouchUpInside += AttachPhotoClick;
-
-            set.Apply();
         }
-         
-    
         private void DeleteButtonClick(object sender, EventArgs e)
         {
             if (!ViewModel.CheckInternetConnection())

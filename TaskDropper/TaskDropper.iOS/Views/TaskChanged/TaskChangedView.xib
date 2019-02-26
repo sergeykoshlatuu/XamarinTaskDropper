@@ -16,6 +16,7 @@
                 <outlet property="SaveButton" destination="12852" id="name-outlet-12852"/>
                 <outlet property="DeleteButton" destination="12871" id="name-outlet-12871"/>
                 <outlet property="view" destination="12017" id="RRd-Eg-VrN"/>
+                <outlet property="NoInternetConnection" destination="17351" id="name-outlet-17351"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
@@ -26,30 +27,31 @@
             <point key="canvasLocation" x="-125.6428" y="-84.63001"/>
             <subviews>
                 <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="12229" translatesAutoresizingMaskIntoConstraints="NO" ambiguous="YES">
-                    <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                    <rect key="frame" x="0.0" y="0.0" width="414" height="714"/>
                     <subviews>
                         <view contentMode="scaleToFill" id="12324" translatesAutoresizingMaskIntoConstraints="NO" misplaced="YES" ambiguous="YES">
-                            <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                            <rect key="frame" x="0.0" y="0.0" width="414" height="714"/>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <subviews>
-                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Text" borderStyle="roundedRect" minimumFontSize="17" id="12701" translatesAutoresizingMaskIntoConstraints="NO">
+                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" id="12701" translatesAutoresizingMaskIntoConstraints="NO" placeholder="Title">
                                     <rect key="frame" x="8" y="31" width="398" height="30"/>
                                     <nil key="textColor"/>
-                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                    <fontDescription key="fontDescription" name="NK123" family="NK123" pointSize="14"/>
                                     <textInputTraits key="textInputTraits"/>
                                 </textField>
-                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Text" borderStyle="roundedRect" minimumFontSize="17" id="12720" translatesAutoresizingMaskIntoConstraints="NO">
+                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" id="12720" translatesAutoresizingMaskIntoConstraints="NO" placeholder="Description">
                                     <rect key="frame" x="8" y="84" width="398" height="30"/>
                                     <nil key="textColor"/>
-                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                    <fontDescription key="fontDescription" name="NK123" family="NK123" pointSize="14"/>
                                     <textInputTraits key="textInputTraits"/>
+                                    <accessibility key="accessibilityConfiguration" hint="Description"/>
                                 </textField>
                                 <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" id="12739" translatesAutoresizingMaskIntoConstraints="NO">
                                     <rect key="frame" x="8" y="143" width="51" height="31"/>
                                 </switch>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Status" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="12749" translatesAutoresizingMaskIntoConstraints="NO">
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Done" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="12749" translatesAutoresizingMaskIntoConstraints="NO" misplaced="YES">
                                     <rect key="frame" x="213" y="148" width="134" height="21"/>
-                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                    <fontDescription key="fontDescription" name="NK123" family="NK123" pointSize="17"/>
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
                                     <constraints>
@@ -58,13 +60,15 @@
                                 </label>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="12777" translatesAutoresizingMaskIntoConstraints="NO">
                                     <rect key="frame" x="14" y="215" width="146" height="30"/>
+                                    <fontDescription key="fontDescription" name="NK123" family="NK123" pointSize="17"/>
                                     <state key="normal" title="AttachPhoto"/>
                                     <constraints>
                                         <constraint id="16903" firstAttribute="width" constant="146"/>
                                     </constraints>
                                 </button>
-                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="12805" translatesAutoresizingMaskIntoConstraints="NO">
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="12805" translatesAutoresizingMaskIntoConstraints="NO" misplaced="YES">
                                     <rect key="frame" x="248" y="214" width="147" height="30"/>
+                                    <fontDescription key="fontDescription" name="NK123" family="NK123" pointSize="17"/>
                                     <state key="normal" title="Dettach Photo"/>
                                     <constraints>
                                         <constraint id="16931" firstAttribute="width" constant="147"/>
@@ -74,14 +78,16 @@
                                     <rect key="frame" x="14" y="267" width="381" height="397"/>
                                 </imageView>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="12852" translatesAutoresizingMaskIntoConstraints="NO" misplaced="YES" ambiguous="YES">
-                                    <rect key="frame" x="14" y="689" width="110" height="30"/>
+                                    <rect key="frame" x="14" y="672" width="110" height="30"/>
+                                    <fontDescription key="fontDescription" name="NK123" family="NK123" pointSize="17"/>
                                     <state key="normal" title="Save"/>
                                     <constraints>
                                         <constraint id="13919" firstAttribute="width" constant="110"/>
                                     </constraints>
                                 </button>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="12871" translatesAutoresizingMaskIntoConstraints="NO" misplaced="YES" ambiguous="YES">
-                                    <rect key="frame" x="274" y="689" width="121" height="30"/>
+                                    <rect key="frame" x="274" y="672" width="121" height="30"/>
+                                    <fontDescription key="fontDescription" name="NK123" family="NK123" pointSize="17"/>
                                     <state key="normal" title="Delete"/>
                                     <constraints>
                                         <constraint id="13880" firstAttribute="width" constant="121"/>
@@ -100,18 +106,17 @@
                                 <constraint id="13740" firstItem="12749" firstAttribute="top" secondItem="12720" secondAttribute="bottom" constant="34"/>
                                 <constraint id="13810" firstAttribute="trailing" secondItem="12824" secondAttribute="trailing" constant="19"/>
                                 <constraint id="13820" firstItem="12824" firstAttribute="leading" secondItem="12324" secondAttribute="leading" constant="14"/>
-                                <constraint id="13850" firstItem="12871" firstAttribute="top" secondItem="12824" secondAttribute="bottom" constant="25"/>
-                                <constraint id="13860" firstAttribute="trailing" secondItem="12871" secondAttribute="trailing" constant="19"/>
-                                <constraint id="13870" firstAttribute="bottom" secondItem="12871" secondAttribute="bottom" constant="17"/>
-                                <constraint id="13899" firstItem="12852" firstAttribute="top" secondItem="12824" secondAttribute="bottom" constant="25"/>
-                                <constraint id="13909" firstItem="12852" firstAttribute="leading" secondItem="12324" secondAttribute="leading" constant="14"/>
-                                <constraint id="13929" firstAttribute="bottom" secondItem="12852" secondAttribute="bottom" constant="17"/>
                                 <constraint id="14023" firstItem="12824" firstAttribute="top" secondItem="12777" secondAttribute="bottom" constant="22"/>
                                 <constraint id="15398" firstItem="12777" firstAttribute="leading" secondItem="12324" secondAttribute="leading" constant="14"/>
                                 <constraint id="15428" firstAttribute="trailing" secondItem="12805" secondAttribute="trailing" constant="19"/>
                                 <constraint id="15911" firstAttribute="trailing" secondItem="12749" secondAttribute="trailing" constant="67"/>
                                 <constraint id="16883" firstItem="12777" firstAttribute="top" secondItem="12739" secondAttribute="bottom" constant="41"/>
                                 <constraint id="16893" firstItem="12805" firstAttribute="top" secondItem="12749" secondAttribute="bottom" constant="45"/>
+                                <constraint id="21113" firstItem="12852" firstAttribute="top" secondItem="12824" secondAttribute="bottom" constant="8"/>
+                                <constraint id="21135" firstItem="12852" firstAttribute="leading" secondItem="12324" secondAttribute="leading" constant="14"/>
+                                <constraint id="21157" firstAttribute="trailing" secondItem="12871" secondAttribute="trailing" constant="18"/>
+                                <constraint id="21158" firstAttribute="bottom" secondItem="12871" secondAttribute="bottom" constant="11"/>
+                                <constraint id="21180" firstItem="12871" firstAttribute="top" secondItem="12824" secondAttribute="bottom" constant="8"/>
                             </constraints>
                         </view>
                     </subviews>
@@ -120,15 +125,29 @@
                         <constraint id="12559" firstItem="12324" firstAttribute="top" secondItem="12229" secondAttribute="top"/>
                         <constraint id="12569" firstItem="12324" firstAttribute="trailing" secondItem="12229" secondAttribute="trailing"/>
                         <constraint id="12579" firstItem="12324" firstAttribute="leading" secondItem="12229" secondAttribute="leading"/>
-                        <constraint id="12681" firstItem="12324" firstAttribute="bottom" secondItem="12229" secondAttribute="bottom"/>
+                        <constraint id="17225" firstAttribute="height" constant="714"/>
+                        <constraint id="18757" firstItem="12324" firstAttribute="bottom" secondItem="12229" secondAttribute="bottom"/>
                     </constraints>
                 </scrollView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No Internet Connection" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="17351" translatesAutoresizingMaskIntoConstraints="NO">
+                    <rect key="frame" x="0.0" y="717" width="414" height="21"/>
+                    <fontDescription key="fontDescription" name="NK123" family="NK123" pointSize="17"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                    <color key="backgroundColor" colorSpace="calibratedRGB" red="0.90588235294117647" green="0.84313725490196079" blue="0.84313725490196079" alpha="1"/>
+                    <constraints>
+                        <constraint id="17352" firstAttribute="height" constant="21"/>
+                    </constraints>
+                </label>
             </subviews>
             <constraints>
                 <constraint id="12295" firstItem="12229" firstAttribute="top" secondItem="12017" secondAttribute="top"/>
-                <constraint id="12429" firstItem="12229" firstAttribute="height" secondItem="12017" secondAttribute="height"/>
                 <constraint id="12503" firstItem="12229" firstAttribute="leading" secondItem="12017" secondAttribute="leading"/>
                 <constraint id="12513" firstItem="12229" firstAttribute="trailing" secondItem="12017" secondAttribute="trailing"/>
+                <constraint id="17461" firstItem="17351" firstAttribute="leading" secondItem="12229" secondAttribute="leading"/>
+                <constraint id="17483" firstItem="17351" firstAttribute="trailing" secondItem="12017" secondAttribute="trailing"/>
+                <constraint id="17505" firstItem="17351" firstAttribute="bottom" secondItem="12017" secondAttribute="bottom" constant="2"/>
+                <constraint id="18073" firstItem="17351" firstAttribute="top" secondItem="12229" secondAttribute="bottom" constant="3"/>
             </constraints>
         </view>
     </objects>

@@ -18,46 +18,11 @@ namespace TaskDropper.Core.ViewModels
             await base.Initialize();
         }
 
-        public AboutViewModel(IMvxNavigationService navigationService):base(navigationService)
+        public AboutViewModel(IMvxNavigationService navigationService) : base(navigationService)
         {
             Name = "Sergey Koshlatuu";
             Email = "koshsy6363@gmail.com";
-            IsNoInternetVisible = false;
-            if (Connectivity.NetworkAccess == NetworkAccess.Internet)
-            {
-                IsNoInternetVisible = true;
-            }
-            Connectivity.ConnectivityChanged += Connectivity_ConnectivityChanged;
         }
-
-
-        private bool _isNoInternetVisible;
-
-        public bool IsNoInternetVisible
-        {
-            get
-            {
-
-                return _isNoInternetVisible;
-
-            }
-            set
-            {
-                _isNoInternetVisible = value;
-                RaisePropertyChanged(() => IsNoInternetVisible);
-            }
-        }
-
-        private void Connectivity_ConnectivityChanged(object sender, ConnectivityChangedEventArgs e)
-        {
-            if (e.NetworkAccess == NetworkAccess.Internet)
-            {
-                IsNoInternetVisible = true;
-                return;
-            }
-            IsNoInternetVisible = false;
-        }
-
         public override void ViewAppearing()
         {
            

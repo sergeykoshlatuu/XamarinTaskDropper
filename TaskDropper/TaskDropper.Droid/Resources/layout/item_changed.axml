@@ -118,9 +118,25 @@
 					local:MvxBind = "Click DeleteCommand"/>
 			</LinearLayout>
 		</LinearLayout>
+
 	</ScrollView>
 		</LinearLayout>
-	
+	<LinearLayout
+			android:id="@+id/no_internet"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_alignParentBottom="true"
+			local:MvxBind="Visible BooleanTrueToFalse(IsNoInternetVisible)"
+			>
+			<TextView
+				android:id="@+id/no_internet_text_view"
+				android:textAlignment="center"
+				android:text="No internet connection"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:background="@color/design_fab_shadow_start_color"
+				/>	
+		</LinearLayout>
 		</RelativeLayout>
 
 
