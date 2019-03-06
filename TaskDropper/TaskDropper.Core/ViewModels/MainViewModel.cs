@@ -18,10 +18,16 @@ namespace TaskDropper.Core.ViewModels
             _databaseUserService = databaseUserService;
             ShowHomeViewModelCommand = new MvxAsyncCommand(async () => await _navigationService.Navigate<HomeViewModel>()); 
             ShowGoogleLoginViewModelCommand = new MvxAsyncCommand(async () => await _navigationService.Navigate<GoogleLoginViewModel>());
+            ShowAboutViewModelCommand = new MvxAsyncCommand(async () => await _navigationService.Navigate<AboutViewModel>());
+            ShowTaskChangedViewModelCommand = new MvxAsyncCommand(async () => await _navigationService.Navigate<TaskChangedViewModel>());
+            ShowTaskListViewModelCommand = new MvxAsyncCommand(async () => await _navigationService.Navigate<TasksListViewModel>());
         }
      
         public IMvxAsyncCommand ShowHomeViewModelCommand { get; private set; }       
-        public IMvxAsyncCommand ShowGoogleLoginViewModelCommand { get; private set; }       
+        public IMvxAsyncCommand ShowGoogleLoginViewModelCommand { get; private set; }
+        public IMvxAsyncCommand ShowAboutViewModelCommand { get; private set; }
+        public IMvxAsyncCommand ShowTaskChangedViewModelCommand { get; private set; }
+        public IMvxAsyncCommand ShowTaskListViewModelCommand { get; private set; }
 
         public bool IsUserLogin()
         {

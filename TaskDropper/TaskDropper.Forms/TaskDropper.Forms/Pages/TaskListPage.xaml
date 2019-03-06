@@ -1,0 +1,84 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<views:MvxContentPage 
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:android="http://schemas.android.com/apk/res/android"  
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:TypeArguments="viewModels:TasksListViewModel"
+    xmlns:mvx="clr-namespace:MvvmCross.Forms.Bindings;assembly=MvvmCross.Forms"
+    xmlns:views="clr-namespace:MvvmCross.Forms.Views;assembly=MvvmCross.Forms"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:viewModels="clr-namespace:TaskDropper.Core.ViewModels;assembly=TaskDropper.Core"
+    x:Class="TaskDropper.Forms.Pages.TaskListPage"
+    NavigationPage.HasBackButton="False"
+    
+    Title="Task List">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem 
+                     x:Name="AddTaskMenuItem"
+                     Order="Primary"          
+                     Text=""
+         
+                     Icon="PlusIcon.png"
+                     Command="{mvx:MvxBind ShowTaskChangedView}"
+                     Priority="1"/>
+    </ContentPage.ToolbarItems>
+    <ContentPage.Content>
+        <StackLayout>
+           
+            <views:MvxListView 
+                HorizontalOptions="FillAndExpand" 
+                VerticalOptions="FillAndExpand"
+                SelectionMode="None" 
+                IsPullToRefreshEnabled="True"
+                RefreshCommand="{Binding RefreshTaskCommand}"             
+                IsRefreshing="{Binding IsRefreshTaskCollection}"
+                ItemsSource="{mvx:MvxBind TaskCollection}"       
+                ItemClick="{mvx:MvxBind ShowTaskChangedView}"
+                BackgroundColor="Transparent"
+                RowHeight="100"
+                SeparatorColor="White" >
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <views:MvxViewCell>
+                            <Frame CornerRadius="15" Margin="4" Padding="0"
+                                   >
+                                <Grid HeightRequest="92" Padding="10,-10,0,0">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="30"/>
+                                        <RowDefinition Height="30"/>
+                                        <RowDefinition Height="30"/>
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="50" />
+                                    </Grid.ColumnDefinitions>
+                                    <Label x:Name="TitleLabel"
+                                        FontSize="Large"  
+                                           MaxLines="3"
+                                        VerticalTextAlignment="Center"                              
+                                        mvx:Bi.nd="Text Title"
+                                           Grid.Row="0"
+                                           Grid.RowSpan="3"
+                                           Grid.Column="0"/>
+                                    <Image WidthRequest="30"
+                                           HeightRequest="30"
+                                           Source="Checked"
+                                           Grid.Column="1"
+                                           Grid.Row="1"/>
+                                </Grid>
+                            </Frame>
+                        </views:MvxViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </views:MvxListView>
+            <Label HeightRequest="20"
+                x:Name="NoInternetConnection" 
+                   Text="No Internet Connection" 
+                   HorizontalOptions="Fill"
+                   HorizontalTextAlignment="Center"
+                   BackgroundColor="Gray"
+                   IsVisible="{Binding IsNoInternetVisible, Converter={StaticResource TrueToFalse}}"
+                   />
+        </StackLayout>
+    </ContentPage.Content>
+</views:MvxContentPage>

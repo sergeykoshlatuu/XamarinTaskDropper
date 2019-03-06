@@ -1,26 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Android;
 using Android.App;
-using Android.Content;
 using Android.Content.PM;
-using Android.OS;
-using Android.Runtime;
-using Android.Support.Design.Widget;
 using Android.Support.V4.App;
-using Android.Util;
-using Android.Views;
-using Android.Widget;
 using MvvmCross;
-using MvvmCross.Droid.Support.V7.AppCompat;
 using MvvmCross.Plugin.PictureChooser;
-using MvvmCross.Plugin.PictureChooser.Platforms.Android;
 using TaskDropper.Core.Interface;
-using TaskDropper.Core.Services;
 
 namespace TaskDropper.Droid.Services
 {

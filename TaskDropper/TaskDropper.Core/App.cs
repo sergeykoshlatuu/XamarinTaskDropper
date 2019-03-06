@@ -21,7 +21,7 @@ namespace TaskDropper.Core
 
             var foo = Mvx.IoCProvider.Resolve<IDatabaseConnectionService>();
             RegisterAppStart<MainViewModel>();
-
+            //RegisterCustomAppStart<AppStart>();
         }
     }
 }

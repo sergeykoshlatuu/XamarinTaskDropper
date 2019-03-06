@@ -24,7 +24,7 @@
     <item name="android:layout_width">match_parent</item>
     <item name="android:layout_height">wrap_content</item>
     <item name="android:backgroundTint">@android:color/transparent</item>
-    <item name="android:textColorHint">#A9A9A9</item>
+    <item name="android:textColorHint">@color/edittext_hint</item>
     <item name="android:textColor">@android:color/background_dark</item>
   </style>
 

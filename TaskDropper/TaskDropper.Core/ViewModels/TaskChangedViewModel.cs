@@ -47,7 +47,6 @@ namespace TaskDropper.Core.ViewModels
 
         public override void Prepare(ItemTask parameter)
         {
-            IsNoInternetVisible = CheckInternetConnection() ? false : true;
             if (parameter != null)
             {
                 Id = parameter.Id;
@@ -65,7 +64,6 @@ namespace TaskDropper.Core.ViewModels
 
         public override void ViewAppearing()
         {
-            IsNoInternetVisible = CheckInternetConnection() ? false : true;
             UserEmail = _databaseUserService.GetLastUserEmail();
             RaisePropertyChanged(() => Photo);
             base.ViewAppearing();
@@ -78,7 +76,6 @@ namespace TaskDropper.Core.ViewModels
         #endregion
 
         #region variables and properties
-        bool IsNoInternetVisible { get; set; }
         private int _id;
         private string _title;
         private string _description;
@@ -245,8 +242,9 @@ namespace TaskDropper.Core.ViewModels
         {
             if (CheckInternetConnection())
             {
+                //UserEmail = "koshsy6363@gmail.com";
                 ItemTask _addtask = new ItemTask { Id = Id, UserId = UserId, Title = Title, Description = Description, Status = Status, PhotoTask = Photo, UserEmail = UserEmail };
-                _databaseTaskService.AddTaskToTable(_addtask);
+                //_databaseTaskService.AddTaskToTable(_addtask);
                 if (Id == 0)
                 {
                     _taskWebApiService.SaveItemTaskAsync(_addtask, true);

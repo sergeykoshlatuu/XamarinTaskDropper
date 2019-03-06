@@ -66,6 +66,7 @@
     <Compile Include="Resources\Resource.designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\DatabaseConnectionService.cs" />
+    <Compile Include="Services\GetUiService.cs" />
     <Compile Include="Services\PhotoService.cs" />
     <Compile Include="Setup.cs" />
     <Compile Include="SplashScreen.cs" />
@@ -139,9 +140,6 @@
     <PackageReference Include="Xamarin.Android.Support.v7.CardView">
       <Version>28.0.0.1</Version>
     </PackageReference>
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\values\values.xml" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\layout\home_view.axml">
@@ -220,6 +218,12 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\Drawable\launcscreen.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\values\strings.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\values\colors.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.

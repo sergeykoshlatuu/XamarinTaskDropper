@@ -14,7 +14,7 @@ namespace TaskDropper.Core.Services
     {
         HttpClient client;
         public List<ItemTask> Items { get; private set; }
-        string RestUrl;
+        string RestUrl = "http://10.10.3.183:50176/api/task/";
         private IDatabaseTaskService _databaseTaskService;
 
         public TaskWebApiService(IDatabaseTaskService databaseTaskService)
@@ -26,59 +26,83 @@ namespace TaskDropper.Core.Services
 
         public async Task RefreshDataAsync(string email)
         {
-            string RestUrl = "http://10.10.3.183:50176/api/task/";
-            Items = new List<ItemTask>();
-            string temp = RestUrl+"?id=" + email;
-            var uri = new Uri(temp);
-
-            
-            var response = await client.GetAsync(uri);
-            if (response.IsSuccessStatusCode)
+            try
             {
-                var content = await response.Content.ReadAsStringAsync();
-                Items = JsonConvert.DeserializeObject<List<ItemTask>>(content);
-                _databaseTaskService.UpdateLocalDatabese(Items);
-            }
+                Items = new List<ItemTask>();
+                string templateUrl = RestUrl + "?id=" + email;
+                var uri = new Uri(templateUrl);
 
+                var response = await client.GetAsync(uri);
+                if (response.IsSuccessStatusCode)
+                {
+                    var content = await response.Content.ReadAsStringAsync();
+                    Items = JsonConvert.DeserializeObject<List<ItemTask>>(content);
+                    _databaseTaskService.UpdateLocalDatabese(Items);
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Exeption: {ex.Message}");
+                Console.WriteLine($"Method: {ex.TargetSite}");
+                Console.WriteLine($"Stack Trace: {ex.StackTrace}");
+            }
             Console.WriteLine(Items);
         }
 
         public async Task SaveItemTaskAsync(ItemTask item, bool isNewItem=false)
         {
-            RestUrl = "http://10.10.3.183:50176/api/task/";
-            var uri = new Uri(string.Format(RestUrl, string.Empty));
-
-            var json = JsonConvert.SerializeObject(item);
-            var content = new StringContent(json, Encoding.UTF8, "application/json");
-            HttpResponseMessage response = null;
-            if (isNewItem)
+            try
             {
-                response = await client.PostAsync(uri, content);
+                var uri = new Uri(string.Format(RestUrl, string.Empty));
+
+                var json = JsonConvert.SerializeObject(item);
+                var content = new StringContent(json, Encoding.UTF8, "application/json");
+                HttpResponseMessage response = null;
+                if (isNewItem)
+                {
+                    response = await client.PostAsync(uri, content);
+                }
+                else
+                {
+                    string templateUrl = RestUrl + "?id=" + item.Id;
+                    uri = new Uri(string.Format(templateUrl, string.Empty));
+                    response = await client.PutAsync(uri, content);
+                }
+
+                if (response.IsSuccessStatusCode)
+                {
+                    Debug.WriteLine(@"Task successfully saved.");
+                }
             }
-            else
+            catch (Exception ex)
             {
-                RestUrl = "http://10.10.3.183:50176/api/task/?id="+item.Id;
-                uri = new Uri(string.Format(RestUrl, string.Empty));
-                response = await client.PutAsync(uri, content);
-            }
-
-            if (response.IsSuccessStatusCode)
-            {
-                Debug.WriteLine(@"                Task successfully saved.");
-
+                Console.WriteLine($"Exeption: {ex.Message}");
+                Console.WriteLine($"Method: {ex.TargetSite}");
+                Console.WriteLine($"Stack Trace: {ex.StackTrace}");
             }
         }
 
         public async Task DeleteItemTaskAsync(string id)
         {
-            RestUrl = "http://10.10.3.183:50176/api/task/"+id;
-            var uri = new Uri(string.Format(RestUrl));
-            var response = await client.DeleteAsync(uri);
-
-            if (response.IsSuccessStatusCode)
+            try
             {
-                Debug.WriteLine(@"          Task deleted.");
+                string templateUrl = RestUrl + id;
+                var uri = new Uri(string.Format(templateUrl));
+
+                var response = await client.DeleteAsync(uri);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    Debug.WriteLine(@"Task deleted.");
+                }
             }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Exeption: {ex.Message}");
+                Console.WriteLine($"Method: {ex.TargetSite}");
+                Console.WriteLine($"Stack Trace: {ex.StackTrace}");
+            }
+
         }
  
     }

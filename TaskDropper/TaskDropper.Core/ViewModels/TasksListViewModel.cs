@@ -16,7 +16,7 @@ namespace TaskDropper.Core.ViewModels
         private ITaskWebApiService _taskWebApiService;
         public override async Task Initialize()
         {
-           
+            IsRefreshTaskCollection = false;
             await base.Initialize();
         }
 
@@ -32,6 +32,8 @@ namespace TaskDropper.Core.ViewModels
             _databaseUserService = databaseUserService;
             _databaseTaskService = databaseTaskService;
             ShowTaskChangedView = new MvxAsyncCommand<ItemTask>(ShowTaskChanged);
+            IsRefreshTaskCollection = false;
+
         }
 
         public IMvxCommand ShowTaskChangedView { get; set; }
@@ -60,6 +62,7 @@ namespace TaskDropper.Core.ViewModels
             List<ItemTask> _templeteTasksList;
             IsRefreshTaskCollection = true;
             string userEmail = _databaseUserService.GetLastUserEmail();
+            //userEmail = "koshsy6363@gmail.com";
 
             if (CheckInternetConnection())
             {
@@ -72,6 +75,7 @@ namespace TaskDropper.Core.ViewModels
             }
             TaskCollection = new MvxObservableCollection<ItemTask>(_templeteTasksList);
             IsRefreshTaskCollection = false;
+            
         }
 
         private MvxCommand _refreshCommand;
@@ -80,7 +84,7 @@ namespace TaskDropper.Core.ViewModels
         private bool _isRefreshTaskCollection;
         public bool IsRefreshTaskCollection
         {
-            get => _isRefreshTaskCollection;
+            get =>_isRefreshTaskCollection;
             set
             {
                 _isRefreshTaskCollection = value;

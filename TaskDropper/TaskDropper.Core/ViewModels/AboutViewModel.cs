@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using MvvmCross.Navigation;
 using TaskDropper.Core.Interface;
 using Xamarin.Essentials;
+using MvvmCross.Commands;
 
 namespace TaskDropper.Core.ViewModels
 {
@@ -22,7 +23,11 @@ namespace TaskDropper.Core.ViewModels
         {
             Name = "Sergey Koshlatuu";
             Email = "koshsy6363@gmail.com";
+            ShowTaskChangedView = new MvxAsyncCommand(async () => await _navigationService.Navigate<TaskChangedViewModel>());
         }
+
+        public IMvxCommand ShowTaskChangedView { get; set; }
+
         public override void ViewAppearing()
         {
            

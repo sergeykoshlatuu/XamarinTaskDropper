@@ -1,0 +1,51 @@
+﻿<views:MvxContentPage 
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:TypeArguments="viewModels:TaskChangedViewModel"
+    xmlns:mvx="clr-namespace:MvvmCross.Forms.Bindings;assembly=MvvmCross.Forms"
+    xmlns:views="clr-namespace:MvvmCross.Forms.Views;assembly=MvvmCross.Forms"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:viewModels="clr-namespace:TaskDropper.Core.ViewModels;assembly=TaskDropper.Core"
+    x:Class="TaskDropper.Forms.Pages.TaskChangePage">
+    <ContentPage.Content>
+        <ScrollView>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="70"/>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="20"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Entry Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" mvx:Bi.nd="Text Title"></Entry>
+            <Editor Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" HeightRequest="100" mvx:Bi.nd="Text Description"></Editor>
+            <Switch mvx:Bi.nd="Checked Status"
+                Grid.Row="2" Grid.Column="0" HorizontalOptions="Start" Margin="5,0,0,0"/>
+            <Label Grid.Row="2" Grid.Column="1" Text="Done" VerticalOptions="Center" />
+            <Button Text="Attach Photo" Clicked="AttachPhotoClicked"
+                   Grid.Row="3" Grid.Column="0" />
+            <Button Text="Dettach Photo"
+                    Command="{Binding DettachPhoto}" IsEnabled="{Binding IsDetachEnabled}"
+                   Grid.Row="3" Grid.Column="1" />
+            <Image Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" Source = "{Binding Photo, Converter={StaticResource PhotoConvert}}" />
+            <Button Text="Save"  Command="{Binding SaveCommand}" IsEnabled="{Binding IsSavingEnabled}"
+                   Grid.Row="5" Grid.Column="0" />
+            <Button Text="Delete" Command="{Binding DeleteCommand}"
+                   Grid.Row="5" Grid.Column="1" />
+                <Label HeightRequest="20"
+                x:Name="NoInternetConnection" 
+                   Text="No Internet Connection" 
+                   HorizontalOptions="Fill"
+                   HorizontalTextAlignment="Center" 
+                   BackgroundColor="Gray"
+                   Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="2" IsVisible="{Binding IsNoInternetVisible, Converter={StaticResource TrueToFalse}}"/>
+        </Grid>
+        </ScrollView>
+    </ContentPage.Content>
+</views:MvxContentPage>
