@@ -14,12 +14,7 @@ namespace TaskDropper.Core.ViewModels
 {
     public class HomeViewModel : BaseViewModel
     {
-        public override async Task Initialize()
-        {
-            await base.Initialize();
-
-        }
-        private IDatabaseUserService _databaseUserService;
+        #region constructors
         public HomeViewModel(IMvxNavigationService navigationService, IDatabaseUserService databaseUserService):base(navigationService)
         {
             _databaseUserService = databaseUserService;
@@ -27,29 +22,42 @@ namespace TaskDropper.Core.ViewModels
             AboutViewModel = Mvx.IoCConstruct<AboutViewModel>();
             ShowTaskChangedViewCommand = new MvxAsyncCommand<ItemTask>(ShowTaskChanged);
         }
+        #endregion
 
+        #region overrides
+        public override async Task Initialize()
+        {
+            await base.Initialize();
+
+        }
+        #endregion
+
+        #region commands
         public IMvxCommand LogOutUserCommand
         {
             get { return new MvxCommand(LogOutUser); }
         }
 
+        public IMvxCommand ShowTaskChangedViewCommand { get; set; }
+        #endregion
+
+        #region methods
         private void LogOutUser()
         {
             _databaseUserService.LogOutUser();
             _navigationService.Navigate<GoogleLoginViewModel>();
         }
 
-        public IMvxCommand ShowTaskChangedViewCommand { get; set; }
-
         private async Task ShowTaskChanged(ItemTask _taskCreate)
         {
-            var result = await _navigationService.Navigate<TaskChangedViewModel, ItemTask>(_taskCreate);
-           
+            var result = await _navigationService.Navigate<TaskChangedViewModel, ItemTask>(_taskCreate);           
         }
+        #endregion
 
-      
-
+        #region variable
+        private IDatabaseUserService _databaseUserService;
         public TasksListViewModel TaskListViewModel;
        public AboutViewModel AboutViewModel;
+        #endregion
     }
 }

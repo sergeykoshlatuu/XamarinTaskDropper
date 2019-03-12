@@ -20,6 +20,25 @@
         <string>UIInterfaceOrientationLandscapeLeft</string>
         <string>UIInterfaceOrientationLandscapeRight</string>
     </array>
+  <key>NSCameraUsageDescription</key>
+  <string>This permission nedd to working with camera</string>
+  <key>NSPhotoLibraryUsageDescription</key>
+  <string>This permission nedd to working with location </string>
+  <key>NSPhotoLibraryAddUsageDescription</key>
+  <string>This permission nedd to working with location </string>
+  <key>CFBundleURLTypes</key>
+  <array>
+    <dict>
+      <key>CFBundleURLName</key>
+      <string>Google Auth</string>
+      <key>CFBundleURLSchemes</key>
+      <array>
+        <string>com.koshsy6363.xamarin</string>
+      </array>
+      <key>CFBundleURLTypes</key>
+      <string>Viewer</string>
+    </dict>
+  </array>
     <key>MinimumOSVersion</key>
     <string>8.0</string>
     <key>CFBundleDisplayName</key>

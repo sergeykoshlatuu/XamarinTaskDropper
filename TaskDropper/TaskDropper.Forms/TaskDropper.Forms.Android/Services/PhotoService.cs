@@ -1,12 +1,10 @@
 ﻿using System;
-using System.IO;
-using Android;
-using Android.App;
-using Android.Content.PM;
 using Android.Support.V4.App;
-using MvvmCross;
+using Android;
 using MvvmCross.Plugin.PictureChooser;
 using TaskDropper.Core.Interface;
+using MvvmCross;
+using System.IO;
 
 namespace TaskDropper.Forms.Droid.Services
 {
@@ -48,15 +46,12 @@ namespace TaskDropper.Forms.Droid.Services
 
         public bool CheckPermission()
         {
-
-            if (ActivityCompat.CheckSelfPermission(Application.Context, Manifest.Permission.WriteExternalStorage) == (int)Permission.Granted)
+            if (ActivityCompat.CheckSelfPermission(Android.App.Application.Context, Manifest.Permission.WriteExternalStorage) == (Android.Content.PM.Permission.Granted)&&
+                ActivityCompat.CheckSelfPermission(Android.App.Application.Context, Manifest.Permission.Camera) == (Android.Content.PM.Permission.Granted))
             {
                 return true;
             }
-            else
-            {
-                return false;
-            }
+            return false;
         }
 
 
@@ -72,15 +67,5 @@ namespace TaskDropper.Forms.Droid.Services
         {
             return Photos;
         }
-
-        static readonly int REQUEST_STORAGE = 0;
-
-        static string[] PERMISSIONS_CONTACT = {
-            Manifest.Permission.ReadExternalStorage,
-            Manifest.Permission.WriteExternalStorage
-        };
-
-
-
     }
 }

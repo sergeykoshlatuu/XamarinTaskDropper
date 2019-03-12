@@ -50,6 +50,7 @@ namespace TaskDropper.Forms.Droid.PageRenderers
             GoogleLoginRenderer.Auth?.OnPageLoading(uri_netfx);
             //.IsVisible = false;
             Finish();
+           
         }
     }
 }

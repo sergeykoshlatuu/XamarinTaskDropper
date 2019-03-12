@@ -13,7 +13,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaskDropper.Forms.Android",
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaskDropper.Forms.iOS", "TaskDropper.Forms\TaskDropper.Forms.iOS\TaskDropper.Forms.iOS.csproj", "{715B7C2B-E0D7-48FA-BFD2-78EDE49E6481}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaskDropper.Forms", "TaskDropper.Forms\TaskDropper.Forms\TaskDropper.Forms.csproj", "{A2EEE390-A49B-44D9-B0E1-5B7D4045E2E9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TaskDropper.Forms", "TaskDropper.Forms\TaskDropper.Forms\TaskDropper.Forms.csproj", "{A2EEE390-A49B-44D9-B0E1-5B7D4045E2E9}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Forms", "Forms", "{5823F819-EB16-48D9-9A77-4A4E8B898ED5}"
 EndProject

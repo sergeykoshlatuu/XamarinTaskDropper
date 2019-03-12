@@ -10,7 +10,7 @@ namespace TaskDropper.Core.ViewModels
 {
     public abstract class BaseViewModel : MvxViewModel
     {
-        public IMvxNavigationService _navigationService;
+        #region constructors
         protected BaseViewModel(IMvxNavigationService navigationService)
         {
             _navigationService = navigationService;
@@ -22,7 +22,10 @@ namespace TaskDropper.Core.ViewModels
             }
             Connectivity.ConnectivityChanged += Connectivity_ConnectivityChanged;
         }
+        #endregion
 
+        #region variables and properties
+        public IMvxNavigationService _navigationService;
 
         private bool _isNoInternetVisible;
 
@@ -40,7 +43,9 @@ namespace TaskDropper.Core.ViewModels
                 RaisePropertyChanged(() => IsNoInternetVisible);
             }
         }
+        #endregion
 
+        #region methods
         private void Connectivity_ConnectivityChanged(object sender, ConnectivityChangedEventArgs e)
         {
             if (e.NetworkAccess == NetworkAccess.Internet)
@@ -50,8 +55,6 @@ namespace TaskDropper.Core.ViewModels
             }
             IsNoInternetVisible = false;
         }
-
-
 
         public bool CheckInternetConnection()
         {
@@ -66,12 +69,14 @@ namespace TaskDropper.Core.ViewModels
                 return false;
             }
         }
+        #endregion
     }
     public abstract class BaseViewModel<TParameter> : MvxViewModel<TParameter>
         where TParameter : class
 
     {
-        public IMvxNavigationService _navigationService;
+       
+        #region constructors
         protected BaseViewModel(IMvxNavigationService navigationService)
         {
             _navigationService = navigationService;
@@ -83,8 +88,10 @@ namespace TaskDropper.Core.ViewModels
             }
             Connectivity.ConnectivityChanged += Connectivity_ConnectivityChanged;
         }
+        #endregion
 
-
+        #region variables and properties
+        public IMvxNavigationService _navigationService;
         private bool _isNoInternetVisible;
 
         public bool IsNoInternetVisible
@@ -101,7 +108,9 @@ namespace TaskDropper.Core.ViewModels
                 RaisePropertyChanged(() => IsNoInternetVisible);
             }
         }
+        #endregion
 
+        #region methods
         private void Connectivity_ConnectivityChanged(object sender, ConnectivityChangedEventArgs e)
         {
             if (e.NetworkAccess == NetworkAccess.Internet)
@@ -125,5 +134,7 @@ namespace TaskDropper.Core.ViewModels
                 return false;
             }
         }
+        #endregion
+
     }
 }

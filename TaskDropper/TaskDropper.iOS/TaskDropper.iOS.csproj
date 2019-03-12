@@ -67,7 +67,6 @@
     <AppExtensionDebugBundleId />
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Services\GetUiService.cs" />
     <Compile Include="Views\About\AboutView.cs" />
     <Compile Include="Views\About\AboutView.designer.cs">
       <DependentUpon>AboutView.cs</DependentUpon>

@@ -1,36 +1,39 @@
 ﻿using MvvmCross.Forms.Views;
 using System;
-using Xamarin.Auth;
 using TaskDropper.Core.Authentication;
 using TaskDropper.Core.ViewModels;
-using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
-
-using UIKit;
-using TaskDropper.Core.Services;
+using System.Diagnostics;
 
 namespace TaskDropper.Forms.Pages
 {
-	[XamlCompilation(XamlCompilationOptions.Compile)]
-	public partial class GoogleLoginPage : MvxContentPage<GoogleLoginViewModel>
+    [XamlCompilation(XamlCompilationOptions.Compile)]
+	public partial class GoogleLoginPage : MvxContentPage<FormsLoginVieModel>
     {
-        GoogleOAuthToken _token = null;
+        
         public static GoogleAuthenticator Auth;
         
         public GoogleLoginPage ()
 		{
-			InitializeComponent ();
+            try
+            {
+                InitializeComponent();
+            } 
+            catch(Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+            }
 		}
 
+        
         protected override void OnAppearing()
         {
-
             base.OnAppearing();
         }
 
         private void GoogleLogin_Clicked(object sender, EventArgs e)
         {
-            LoginView.IsVisible = true;
+            ViewModel.ShowGoogleLogin.Execute();
         }
     }
 }

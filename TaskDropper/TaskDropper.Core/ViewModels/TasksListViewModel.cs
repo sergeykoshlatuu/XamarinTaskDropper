@@ -11,17 +11,7 @@ namespace TaskDropper.Core.ViewModels
 {
     public class TasksListViewModel : BaseViewModel
     {
-        private IDatabaseUserService _databaseUserService;
-        private IDatabaseTaskService _databaseTaskService;
-        private ITaskWebApiService _taskWebApiService;
-        public override async Task Initialize()
-        {
-            IsRefreshTaskCollection = false;
-            await base.Initialize();
-        }
-
-
-
+        #region constructors
         public TasksListViewModel(IMvxNavigationService navigationService,
             IDatabaseUserService databaseUserService,
             ITaskWebApiService taskWebApiService,
@@ -33,18 +23,40 @@ namespace TaskDropper.Core.ViewModels
             _databaseTaskService = databaseTaskService;
             ShowTaskChangedView = new MvxAsyncCommand<ItemTask>(ShowTaskChanged);
             IsRefreshTaskCollection = false;
-
         }
+        #endregion
 
+        #region Commands
         public IMvxCommand ShowTaskChangedView { get; set; }
 
-
-        private async Task ShowTaskChanged(ItemTask _taskCreate)
+        public IMvxCommand LogOutUserCommand
         {
-            var result = await _navigationService.Navigate<TaskChangedViewModel, ItemTask>(_taskCreate);
-
+            get { return new MvxCommand(LogOutUser); }
         }
 
+        public IMvxCommand LogOutUserFormsCommand
+        {
+            get { return new MvxCommand(LogOutFormsUser); }
+        }
+
+        private MvxCommand _refreshCommand;
+        public MvxCommand RefreshTaskCommand => _refreshCommand = _refreshCommand ?? new MvxCommand(LoadTasks);
+        #endregion
+
+        #region variables and properties
+        private bool _isRefreshTaskCollection;
+        public bool IsRefreshTaskCollection
+        {
+            get => _isRefreshTaskCollection;
+            set
+            {
+                _isRefreshTaskCollection = value;
+                RaisePropertyChanged(() => IsRefreshTaskCollection);
+            }
+        }
+        private IDatabaseUserService _databaseUserService;
+        private IDatabaseTaskService _databaseTaskService;
+        private ITaskWebApiService _taskWebApiService;
 
         private MvxObservableCollection<ItemTask> _taskCollection;
 
@@ -57,6 +69,27 @@ namespace TaskDropper.Core.ViewModels
                 RaisePropertyChanged(() => TaskCollection);
             }
         }
+        #endregion
+
+        #region methods
+        private void LogOutUser()
+        {
+            _databaseUserService.LogOutUser();
+            _navigationService.Navigate<GoogleLoginViewModel>();
+        }
+
+        private void LogOutFormsUser()
+        {
+            _databaseUserService.LogOutUser();
+            _navigationService.Navigate<FormsLoginVieModel>();
+        }
+
+        private async Task ShowTaskChanged(ItemTask _taskCreate)
+        {
+            var result = await _navigationService.Navigate<TaskChangedViewModel, ItemTask>(_taskCreate);
+
+        }
+
         private async void LoadTasks()
         {
             List<ItemTask> _templeteTasksList;
@@ -77,24 +110,19 @@ namespace TaskDropper.Core.ViewModels
             IsRefreshTaskCollection = false;
             
         }
+        #endregion
 
-        private MvxCommand _refreshCommand;
-        public MvxCommand RefreshTaskCommand => _refreshCommand = _refreshCommand ?? new MvxCommand(LoadTasks);
-
-        private bool _isRefreshTaskCollection;
-        public bool IsRefreshTaskCollection
+        #region overrides
+        public override async Task Initialize()
         {
-            get =>_isRefreshTaskCollection;
-            set
-            {
-                _isRefreshTaskCollection = value;
-                RaisePropertyChanged(() => IsRefreshTaskCollection);
-            }
+            IsRefreshTaskCollection = false;
+            await base.Initialize();
         }
-        
+
         public override void ViewAppearing()
         {
             RefreshTaskCommand.Execute();
         }
+        #endregion
     }
 }

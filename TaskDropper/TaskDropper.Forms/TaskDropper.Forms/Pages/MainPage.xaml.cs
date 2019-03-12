@@ -1,13 +1,6 @@
 ﻿using MvvmCross.Forms.Presenters.Attributes;
 using MvvmCross.Forms.Views;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using TaskDropper.Core.ViewModels;
-using Xamarin.Forms;
-using Xamarin.Forms.Xaml;
 
 namespace TaskDropper.Forms.Pages
 {
@@ -26,7 +19,7 @@ namespace TaskDropper.Forms.Pages
 
             if (!ViewModel.IsUserLogin())
             {
-                ViewModel.ShowGoogleLoginViewModelCommand.Execute(null);
+                ViewModel.ShowFormsLogin.Execute(null);
             }
             else
             {

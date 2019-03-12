@@ -13,18 +13,21 @@
     
     Title="Task List">
     <ContentPage.ToolbarItems>
-        <ToolbarItem 
-                     x:Name="AddTaskMenuItem"
+        <ToolbarItem Name="AddTaskMenuItem"
                      Order="Primary"          
                      Text=""
-         
                      Icon="PlusIcon.png"
                      Command="{mvx:MvxBind ShowTaskChangedView}"
-                     Priority="1"/>
+                     Priority="0"/>
+        <ToolbarItem Name="AddTaskMenuItem"
+                     Order="Primary"          
+                     Text=""
+                     Icon="LogoutIcon.png"
+                     Command="{mvx:MvxBind LogOutUserFormsCommand}"
+                     Priority="0"/>
     </ContentPage.ToolbarItems>
     <ContentPage.Content>
         <StackLayout>
-           
             <views:MvxListView 
                 HorizontalOptions="FillAndExpand" 
                 VerticalOptions="FillAndExpand"

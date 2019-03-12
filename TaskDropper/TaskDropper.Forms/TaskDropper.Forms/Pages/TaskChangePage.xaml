@@ -7,6 +7,14 @@
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
     xmlns:viewModels="clr-namespace:TaskDropper.Core.ViewModels;assembly=TaskDropper.Core"
     x:Class="TaskDropper.Forms.Pages.TaskChangePage">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Name="AddTaskMenuItem"
+                     Order="Primary"          
+                     Text=""
+                     Icon="LogoutIcon.png"
+                     Command="{mvx:MvxBind LogOutUserFormsCommand}"
+                     Priority="0"/>
+    </ContentPage.ToolbarItems>
     <ContentPage.Content>
         <ScrollView>
         <Grid>

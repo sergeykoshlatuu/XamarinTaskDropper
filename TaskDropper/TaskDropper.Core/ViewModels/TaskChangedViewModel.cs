@@ -15,67 +15,31 @@ namespace TaskDropper.Core.ViewModels
 {
     public class TaskChangedViewModel : BaseViewModel<ItemTask>
     {
-        private IDatabaseUserService _databaseUserService;
-        private IDatabaseTaskService _databaseTaskService;
-        private readonly IPhotoService _photoService;
-        private readonly IMvxPictureChooserTask _pictureChooserTask;
-       
-        private ITaskWebApiService _taskWebApiService;
-
-        
-
+        #region constructors
         public TaskChangedViewModel(IMvxNavigationService navigationService,
             IDatabaseUserService databaseUserService, 
             IDatabaseTaskService databaseTaskService,
             IPhotoService photoService,
             IMvxPictureChooserTask pictureChooserTask,
-            ITaskWebApiService taskWebApiService):base(navigationService)
+            ITaskWebApiService taskWebApiService
+            ,IPermissionService permissionService):base(navigationService)
         {
             _photoService = photoService;
             _databaseUserService = databaseUserService;
             _databaseTaskService = databaseTaskService;
             _pictureChooserTask = pictureChooserTask;
             _taskWebApiService = taskWebApiService;
-            
-        }
-        #region Public methods
-        public override async Task Initialize()
-        {
-            await base.Initialize();
-
-        }
-
-        public override void Prepare(ItemTask parameter)
-        {
-            if (parameter != null)
-            {
-                Id = parameter.Id;
-                UserId = parameter.UserId;
-                Title = parameter.Title;
-                Description = parameter.Description;
-                Status = parameter.Status;
-                Photo = parameter.PhotoTask;
-                UserEmail = parameter.UserEmail;
-            }
-           
-            UpdateSave();
-            UpdateIsDetachEnabled();
-        }
-
-        public override void ViewAppearing()
-        {
-            UserEmail = _databaseUserService.GetLastUserEmail();
-            RaisePropertyChanged(() => Photo);
-            base.ViewAppearing();
-        }
-
-        public bool CheckPermissionForCamera()
-        {
-            return _photoService.CheckPermission();
+            _permissionService = permissionService;
         }
         #endregion
 
         #region variables and properties
+        private IDatabaseUserService _databaseUserService;
+        private IDatabaseTaskService _databaseTaskService;
+        private readonly IPhotoService _photoService;
+        private readonly IMvxPictureChooserTask _pictureChooserTask;
+        private IPermissionService _permissionService;
+        private ITaskWebApiService _taskWebApiService;
         private int _id;
         private string _title;
         private string _description;
@@ -172,6 +136,11 @@ namespace TaskDropper.Core.ViewModels
             get { return new MvxCommand(DettachPhotos); }
         }
 
+        public IMvxCommand LogOutUserFormsCommand
+        {
+            get { return new MvxCommand(LogOutFormsUser); }
+        }
+
         public IMvxCommand SaveCommand
         {
             get { return new MvxCommand(SaveTask); }
@@ -203,7 +172,7 @@ namespace TaskDropper.Core.ViewModels
         }
         #endregion
 
-        #region Private methods
+        #region methods
         private void UpdateSave()
         {
             if (Title != null && Title != " " && Title != "")
@@ -214,7 +183,22 @@ namespace TaskDropper.Core.ViewModels
                 IsSavingEnabled = false;
         }
 
-       
+
+        public bool CheckPermissionForCamera()
+        {
+            return _photoService.CheckPermission();
+        }
+
+        private void LogOutFormsUser()
+        {
+            _databaseUserService.LogOutUser();
+            _navigationService.Navigate<FormsLoginVieModel>();
+        }
+
+        public void AddPermission()
+        {
+            _permissionService.AddPermission();
+        }
 
         private void UpdateIsDetachEnabled()
         {
@@ -296,6 +280,38 @@ namespace TaskDropper.Core.ViewModels
         private void DettachPhotos()
         {
             Photo = null;
+        }
+        #endregion
+
+        #region ovverides
+        public override async Task Initialize()
+        {
+            await base.Initialize();
+
+        }
+
+        public override void Prepare(ItemTask parameter)
+        {
+            if (parameter != null)
+            {
+                Id = parameter.Id;
+                UserId = parameter.UserId;
+                Title = parameter.Title;
+                Description = parameter.Description;
+                Status = parameter.Status;
+                Photo = parameter.PhotoTask;
+                UserEmail = parameter.UserEmail;
+            }
+
+            UpdateSave();
+            UpdateIsDetachEnabled();
+        }
+
+        public override void ViewAppearing()
+        {
+            UserEmail = _databaseUserService.GetLastUserEmail();
+            RaisePropertyChanged(() => Photo);
+            base.ViewAppearing();
         }
         #endregion
 

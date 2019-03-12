@@ -12,12 +12,7 @@ namespace TaskDropper.Core.ViewModels
 {
    public class GoogleLoginViewModel : BaseViewModel
     {
-        public override async Task Initialize()
-        {
-            await base.Initialize();
-        }
-        private IDatabaseUserService _databaseUserService;
-
+        #region constructors
         public GoogleLoginViewModel(IMvxNavigationService navigationService,IDatabaseUserService databaseUserService):base(navigationService)
         {
             _databaseUserService = databaseUserService;
@@ -25,23 +20,38 @@ namespace TaskDropper.Core.ViewModels
             ShowTaskListViewModelCommand = new MvxAsyncCommand(async () => await _navigationService.Navigate<TasksListViewModel>());
             ShowAboutViewModelCommand = new MvxAsyncCommand(async () => await _navigationService.Navigate<AboutViewModel>());
         }
+        #endregion
 
-      
+        #region variable
+        private IDatabaseUserService _databaseUserService;
+        #endregion
 
+        #region methods
         public void AddUserToTable(string email)
         {
             _databaseUserService.AddUserToTable(email);
             _databaseUserService.UpdateLastUser(email);
         }
 
+
+        #endregion
+
+        #region commands
         public IMvxAsyncCommand ShowHomeViewModelCommand { get; private set; }
         public IMvxAsyncCommand ShowTaskListViewModelCommand { get; private set; }
         public IMvxAsyncCommand ShowAboutViewModelCommand { get; private set; }
+        #endregion
 
+        #region overrides
         public override void ViewAppearing()
         {
 
         }
 
+        public override async Task Initialize()
+        {
+            await base.Initialize();
+        }
+        #endregion
     }
 }
