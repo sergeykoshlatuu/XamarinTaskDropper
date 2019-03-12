@@ -7,7 +7,7 @@
         <ResourceDictionary>
             <conv:NativeByteToImageFieldConverter x:Key="PhotoConvert" />
             <conv:NativeTrueToFalseConvertor x:Key="TrueToFalse"/>
-            <conv:NativeBoolToImageSourceConverter x:Key="BoolToImage"/>
+            <conv:NativeBoolToStringConverter x:Key="BoolToString"/>
         </ResourceDictionary>
     </Application.Resources>
 </Application>

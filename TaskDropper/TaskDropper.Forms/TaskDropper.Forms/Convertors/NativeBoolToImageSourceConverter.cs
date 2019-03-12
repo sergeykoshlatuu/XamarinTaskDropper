@@ -5,7 +5,7 @@ using System.Text;
 
 namespace TaskDropper.Forms.Convertors
 {
-    public class NativeBoolToImageSourceConverter : MvxNativeValueConverter<BoolToImageSourceConverter>
+    public class NativeBoolToStringConverter : MvxNativeValueConverter<BoolToStringConverter>
     {
     }
 }

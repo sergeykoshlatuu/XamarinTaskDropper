@@ -65,7 +65,7 @@
                                            Grid.Column="0"/>
                                     <Image WidthRequest="30"
                                            HeightRequest="30"
-                                           Source="{Binding Status, Converter={StaticResource BoolToImage}}"
+                                           Source="{Binding Status, Converter={StaticResource BoolToString}}"
                                            
                                            Grid.Column="1"
                                            Grid.Row="1"/>
