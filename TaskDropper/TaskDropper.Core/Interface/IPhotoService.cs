@@ -11,7 +11,5 @@ namespace TaskDropper.Core.Interface
     {
         void ChoosePictureFromGallery(Action<byte[]> action);
         void TakePictureFromCamera(Action<byte[]> action);
-        byte[] GetPhoto();
-        bool CheckPermission();
     }
 }

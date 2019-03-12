@@ -2,7 +2,7 @@
 using System;
 using System.Diagnostics;
 using TaskDropper.Core.ViewModels;
-
+using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
 
@@ -15,6 +15,7 @@ namespace TaskDropper.Forms.Pages
         public TaskChangePage()
         {
             InitializeComponent();
+            Subscribe();
         }
 
         private async void AttachPhotoClicked(object sender, EventArgs e)
@@ -28,12 +29,26 @@ namespace TaskDropper.Forms.Pages
             }
             if (action == "From Camera")
             {
-                if (!ViewModel.CheckPermissionForCamera())
-                {
-                    ViewModel.AddPermission();
-                }
-                ViewModel.TakePictureCommand.Execute();
+                //ViewModel.CheckPermissionForCamera();
+                
+                //if (ViewModel.CheckPermissionForCamera())
+                
+                    ViewModel.TakePictureCommand.Execute();
             }
+            
+        }
+
+        private void Subscribe()
+        {
+           
+            MessagingCenter.Subscribe<Page>(
+               this, // кто подписывается на сообщения
+               "iosPermission",   // название сообщения
+               (sender) => {
+                   var action = DisplayActionSheet("Go to app setings and get this app camera permission", "Cancel", null);
+               });    // вызываемое действие
+
+
         }
     }
 }

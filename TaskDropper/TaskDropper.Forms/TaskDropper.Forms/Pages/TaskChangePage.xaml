@@ -33,7 +33,7 @@
             </Grid.ColumnDefinitions>
             <Entry Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" mvx:Bi.nd="Text Title"></Entry>
             <Editor Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" HeightRequest="100" mvx:Bi.nd="Text Description"></Editor>
-            <Switch mvx:Bi.nd="Checked Status"
+                <Switch mvx:Bi.nd="IsToggled Status" 
                 Grid.Row="2" Grid.Column="0" HorizontalOptions="Start" Margin="5,0,0,0"/>
             <Label Grid.Row="2" Grid.Column="1" Text="Done" VerticalOptions="Center" />
             <Button Text="Attach Photo" Clicked="AttachPhotoClicked"

@@ -41,7 +41,7 @@ namespace TaskDropper.Core.ViewModels
         #region methods
         public bool IsUserLogin()
         {
-            if (_databaseUserService.GetLastUserId()==1)
+            if (_databaseUserService.GetLastUserId()!=0)
             {
                 return true;
             }

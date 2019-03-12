@@ -26,6 +26,8 @@
   <string>This permission nedd to working with location </string>
   <key>NSPhotoLibraryAddUsageDescription</key>
   <string>This permission nedd to working with location </string>
+  <key>NSCalendarsUsageDescription</key>
+  <string>Needs Calendar Permission</string>
   <key>CFBundleURLTypes</key>
   <array>
     <dict>

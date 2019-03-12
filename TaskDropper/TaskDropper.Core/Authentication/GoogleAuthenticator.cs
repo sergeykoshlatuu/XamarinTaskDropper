@@ -35,6 +35,7 @@ namespace TaskDropper.Core.Authentication
         public void OnPageLoading(Uri uri)
         {
             _auth.OnPageLoading(uri);
+            _auth.ClearCookiesBeforeLogin.Equals(true);
         }
 
         private void OnAuthenticationCompleted(object sender, AuthenticatorCompletedEventArgs e)

@@ -96,7 +96,6 @@
     <Compile Include="AppDelegate.cs" />
     <Compile Include="PageRenderers\GoogleLoginRenderer.cs" />
     <Compile Include="Services\DatabaseConnectionService.cs" />
-    <Compile Include="Services\PermissionService.cs" />
     <Compile Include="Services\PhotoService.cs" />
     <Compile Include="Setup.cs" />
     <None Include="Entitlements.plist" />
@@ -130,6 +129,9 @@
     <ImageAsset Include="Assets.xcassets\Checked.imageset\Contents.json">
       <Visible>false</Visible>
     </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\Unchecked.imageset\Contents.json">
+      <Visible>false</Visible>
+    </ImageAsset>
     <ImageAsset Include="Assets.xcassets\LogoutIcon.imageset\Contents.json">
       <Visible>false</Visible>
     </ImageAsset>
@@ -152,6 +154,15 @@
       <Visible>false</Visible>
     </ImageAsset>
     <ImageAsset Include="Assets.xcassets\PlusIcon.imageset\PlusIcon2.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\Unchecked.imageset\Unchecked.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\Unchecked.imageset\Unchecked1.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\Unchecked.imageset\Unchecked2.png">
       <Visible>false</Visible>
     </ImageAsset>
     <InterfaceDefinition Include="Resources\LaunchScreen.storyboard" />
@@ -210,6 +221,9 @@
     </PackageReference>
     <PackageReference Include="MvvmCross.Forms">
       <Version>6.2.3</Version>
+    </PackageReference>
+    <PackageReference Include="Plugin.Permissions">
+      <Version>3.0.0.12</Version>
     </PackageReference>
     <PackageReference Include="sqlite-net-pcl">
       <Version>1.5.231</Version>

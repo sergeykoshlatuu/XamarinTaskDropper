@@ -6,16 +6,13 @@ using TaskDropper.Core.Interface;
 using Plugin.Media;
 using Plugin.Media.Abstractions;
 using UIKit;
+using Plugin.Permissions;
+using Plugin.Permissions.Abstractions;
 
 namespace TaskDropper.iOS.Services
 {
     public class PhotoService : IPhotoService
     {
-        public byte[] Photos
-        {
-            get;
-            set;
-        }
 
         public PhotoService()
         {
@@ -29,39 +26,30 @@ namespace TaskDropper.iOS.Services
                 {
                     var memoryStream = new MemoryStream();
                     pictureStream.CopyTo(memoryStream);
-                    Photos = memoryStream.ToArray();
-                    action(Photos);
+                    action(memoryStream.ToArray());
                 }, () => { });
         }
 
-        public void TakePictureFromCamera(Action<byte[]> action)
+        public async void TakePictureFromCamera(Action<byte[]> action)
         {
-           
-                var task = Mvx.IoCProvider.Resolve<IMvxPictureChooserTask>();
+            var task = Mvx.IoCProvider.Resolve<IMvxPictureChooserTask>();
+            if (await CrossPermissions.Current.CheckPermissionStatusAsync(Plugin.Permissions.Abstractions.Permission.Storage) != PermissionStatus.Granted ||
+                      await CrossPermissions.Current.CheckPermissionStatusAsync(Plugin.Permissions.Abstractions.Permission.Camera) != PermissionStatus.Granted)
+            {
+                var results = await CrossPermissions.Current.RequestPermissionsAsync(Plugin.Permissions.Abstractions.Permission.Storage, Plugin.Permissions.Abstractions.Permission.Camera);
+                //Best practice to always check that the key exists
+                return;
+            }
+            if (await CrossPermissions.Current.CheckPermissionStatusAsync(Plugin.Permissions.Abstractions.Permission.Storage) == PermissionStatus.Granted ||
+                      await CrossPermissions.Current.CheckPermissionStatusAsync(Plugin.Permissions.Abstractions.Permission.Camera) == PermissionStatus.Granted)
+            {
                 task.TakePicture(400, 95, pictureStream =>
                 {
                     var memoryStream = new MemoryStream();
                     pictureStream.CopyTo(memoryStream);
-                    Photos = memoryStream.ToArray();
-                    action(Photos);
+                    action(memoryStream.ToArray());
                 }, () => { });
-            
+            }
         }
-
-        public bool CheckPermission()
-        {
-            //iOS automaticly check permission 
-            return true;
-        }
-
-
-        public byte[] GetPhoto()
-        {
-            return Photos;
-        }
-
-       
-
-
     }
 }

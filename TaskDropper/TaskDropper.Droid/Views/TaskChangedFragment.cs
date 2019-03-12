@@ -17,6 +17,8 @@ using Android.Util;
 using Android.Support.Design.Widget;
 using TaskDropper.Core.Services;
 using TaskDropper.Droid.Services;
+using Plugin.Permissions;
+using Android.Runtime;
 
 namespace TaskDropper.Droid.Views
 {
@@ -114,15 +116,9 @@ namespace TaskDropper.Droid.Views
 
             if (arg1.Item.ItemId == Resource.Id.FromCamera)
             {
-                if (ViewModel.CheckPermissionForCamera())
-                {
-                    ViewModel.TakePictureCommand.Execute();
-                }
-                else
-                {
-                    RequestStoragePermission();
-                }
+                ViewModel.TakePictureCommand.Execute();
             }
+            
         }
         public void SetupHideKeyboard(View view)
         {
@@ -148,63 +144,6 @@ namespace TaskDropper.Droid.Views
             close.HideSoftInputFromWindow(_linearLayoutMain.WindowToken, 0);
         }
 
-        public override void OnRequestPermissionsResult(int requestCode, string[] permissions, Permission[] grantResults)
-        {
-            View layout = new View(null);
-            if (requestCode == REQUEST_STORAGE)
-            {
-                // Received permission result for camera permission.
-                Log.Info("TaskDropper", "Received response for Camera permission request.");
-               
-                // Check if the only required permission has been granted
-                if (grantResults.Length == 1 && grantResults[0] == Permission.Granted)
-                {  
-                    // Camera permission has been granted, preview can be displayed
-                    Log.Info("TaskDropper", "CAMERA permission has now been granted. Showing preview.");
-                    Snackbar.Make(this.View, Resource.String.permission_available_camera, Snackbar.LengthShort).Show();
-                   
-                }
-                else
-                {
-                    Log.Info("TaskDropper", "CAMERA permission was NOT granted.");
-                    Snackbar.Make(this.View, Resource.String.permissions_not_granted, Snackbar.LengthShort).Show();
-                }
-            }
-            else
-            {
-                base.OnRequestPermissionsResult(requestCode, permissions, grantResults);
-            }
-        }
-
-        public void RequestStoragePermission()
-        {
-            Log.Info("TaskDropper", "CAMERA permission has NOT been granted. Requesting permission.");
-
-            if (ActivityCompat.ShouldShowRequestPermissionRationale(ParentActivity, Manifest.Permission.WriteExternalStorage))
-            {
-                // Provide an additional rationale to the user if the permission was not granted
-                // and the user would benefit from additional context for the use of the permission.
-                // For example if the user has previously denied the permission.
-                Log.Info("TaskDropper", "Displaying storage permission rationale to provide additional context.");
-                
-                Snackbar.Make(this.View, "Storage Permission",
-                     Snackbar.LengthIndefinite).SetAction(Resource.String.ok, new Action<View>(delegate (View obj)
-                     {
-                         ActivityCompat.RequestPermissions(ParentActivity, new String[] { Manifest.Permission.WriteExternalStorage }, REQUEST_STORAGE);
-                     })).Show();
-
-            }
-            else
-            {
-                // Camera permission has not been granted yet. Request it directly.
-                ActivityCompat.RequestPermissions(ParentActivity, new String[] { Manifest.Permission.WriteExternalStorage }, REQUEST_STORAGE);
-            }
-            if (ViewModel.CheckPermissionForCamera())
-            {
-                ViewModel.TakePictureCommand.Execute();
-            }
-        }
-
         public override void OnDestroyView()
         {
             base.OnDestroyView();
@@ -223,6 +162,11 @@ namespace TaskDropper.Droid.Views
 
             showPopupMenu.Click -= ShowPopupMenu;
         }
- 
+
+        public override void OnRequestPermissionsResult(int requestCode, string[] permissions, [GeneratedEnum] Android.Content.PM.Permission[] grantResults)
+        {
+            PermissionsImplementation.Current.OnRequestPermissionsResult(requestCode, permissions, grantResults);
+            base.OnRequestPermissionsResult(requestCode, permissions, grantResults);
+        }
     }
 }

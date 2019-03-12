@@ -28,9 +28,16 @@ namespace TaskDropper.Forms.Pages
                 this, // кто подписывается на сообщения
                 "Complete",   // название сообщения
                 (sender) => {
+                    
                     ViewModel.ShowHomeViewModelCommand.Execute();                   
                 });    // вызываемое действие
 
+            MessagingCenter.Subscribe<Page>(
+                this, // кто подписывается на сообщения
+                "Back",   // название сообщения
+                (sender) => {
+                    ViewModel.ShowHomeViewModelCommand.Execute();
+                });
             MessagingCenter.Subscribe<Page>(
                this, // кто подписывается на сообщения
                "Failed",   // название сообщения

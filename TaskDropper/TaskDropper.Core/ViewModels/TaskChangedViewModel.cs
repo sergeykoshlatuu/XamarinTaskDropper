@@ -22,14 +22,14 @@ namespace TaskDropper.Core.ViewModels
             IPhotoService photoService,
             IMvxPictureChooserTask pictureChooserTask,
             ITaskWebApiService taskWebApiService
-            ,IPermissionService permissionService):base(navigationService)
+           ):base(navigationService)
         {
             _photoService = photoService;
             _databaseUserService = databaseUserService;
             _databaseTaskService = databaseTaskService;
             _pictureChooserTask = pictureChooserTask;
             _taskWebApiService = taskWebApiService;
-            _permissionService = permissionService;
+           
         }
         #endregion
 
@@ -38,7 +38,6 @@ namespace TaskDropper.Core.ViewModels
         private IDatabaseTaskService _databaseTaskService;
         private readonly IPhotoService _photoService;
         private readonly IMvxPictureChooserTask _pictureChooserTask;
-        private IPermissionService _permissionService;
         private ITaskWebApiService _taskWebApiService;
         private int _id;
         private string _title;
@@ -184,20 +183,15 @@ namespace TaskDropper.Core.ViewModels
         }
 
 
-        public bool CheckPermissionForCamera()
-        {
-            return _photoService.CheckPermission();
-        }
+        //public bool CheckPermissionForCamera()
+        //{
+        //    return _photoService.CheckPermission();
+        //}
 
         private void LogOutFormsUser()
         {
             _databaseUserService.LogOutUser();
             _navigationService.Navigate<FormsLoginVieModel>();
-        }
-
-        public void AddPermission()
-        {
-            _permissionService.AddPermission();
         }
 
         private void UpdateIsDetachEnabled()

@@ -10,6 +10,7 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using MvvmCross.Droid.Support.V7.AppCompat;
+using TaskDropper.Forms.Pages;
 
 namespace TaskDropper.Forms.Droid.PageRenderers
 {
@@ -48,9 +49,15 @@ namespace TaskDropper.Forms.Droid.PageRenderers
 
             // Send the URI to the Authenticator for continuation
             GoogleLoginRenderer.Auth?.OnPageLoading(uri_netfx);
-            //.IsVisible = false;
-            Finish();
-           
+
+            var intent = new Intent(this, typeof(RootActivity));
+            intent.SetFlags(ActivityFlags.ClearTop | ActivityFlags.SingleTop);
+            StartActivity(intent);
+
+            this.Finish();
+
+            return;
+
         }
     }
 }

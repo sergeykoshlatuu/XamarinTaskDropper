@@ -42,20 +42,19 @@ namespace TaskDropper.Forms.Droid.PageRenderers
                 var intent = authenticator.GetUI(this.Context);
 
                 activity.StartActivity(intent);
+                WebView webView = new WebView();
                 done = true;     
             }
         }
        
 
         public async void OnAuthenticationCompleted(GoogleOAuthToken token)
-        { 
+        {
             var googleService = new GoogleService();
             var email = await googleService.GetEmailAsync(token.TokenType, token.AccessToken);
-            
-            MessagingCenter.Send<Page>(this.Element, "Complete");
             AddUserToTable(email);
-            var activity = this.Context as Activity;
-            //activity.FinishActivityFromChild();
+            MessagingCenter.Send<Page>(this.Element, "Complete");
+           
         }
 
         public void AddUserToTable(string email)
@@ -73,5 +72,6 @@ namespace TaskDropper.Forms.Droid.PageRenderers
         {
             MessagingCenter.Send<Page>(this.Element, "Canceled");
         }
+       
     }
 }

@@ -5,17 +5,15 @@ using MvvmCross.Plugin.PictureChooser;
 using TaskDropper.Core.Interface;
 using MvvmCross;
 using System.IO;
+using Plugin.Permissions;
+using Plugin.Permissions.Abstractions;
+using System.Threading.Tasks;
 
 namespace TaskDropper.Forms.Droid.Services
 {
     public class PhotoService : IPhotoService
     {
-        public byte[] Photos
-        {
-            get;
-            set;
-        }
-
+      
         public PhotoService()
         {
 
@@ -26,46 +24,29 @@ namespace TaskDropper.Forms.Droid.Services
             task.ChoosePictureFromLibrary(400, 95, pictureStream => {
                 var memoryStream = new MemoryStream();
                 pictureStream.CopyTo(memoryStream);
-                Photos = memoryStream.ToArray();
-                action(Photos);
+                action(memoryStream.ToArray());
             }, () => { });
         }
 
-        public void TakePictureFromCamera(Action<byte[]> action)
+        public async void TakePictureFromCamera(Action<byte[]> action)
         {
-
             var task = Mvx.IoCProvider.Resolve<IMvxPictureChooserTask>();
-            task.TakePicture(400, 95, pictureStream =>
+            if (await CrossPermissions.Current.CheckPermissionStatusAsync(Plugin.Permissions.Abstractions.Permission.Storage) != PermissionStatus.Granted ||
+                      await CrossPermissions.Current.CheckPermissionStatusAsync(Plugin.Permissions.Abstractions.Permission.Camera) != PermissionStatus.Granted)
             {
-                var memoryStream = new MemoryStream();
-                pictureStream.CopyTo(memoryStream);
-                Photos = memoryStream.ToArray();
-                action(Photos);
-            }, () => { });
-        }
-
-        public bool CheckPermission()
-        {
-            if (ActivityCompat.CheckSelfPermission(Android.App.Application.Context, Manifest.Permission.WriteExternalStorage) == (Android.Content.PM.Permission.Granted)&&
-                ActivityCompat.CheckSelfPermission(Android.App.Application.Context, Manifest.Permission.Camera) == (Android.Content.PM.Permission.Granted))
-            {
-                return true;
+                var results = await CrossPermissions.Current.RequestPermissionsAsync(Plugin.Permissions.Abstractions.Permission.Storage, Plugin.Permissions.Abstractions.Permission.Camera);
+                //Best practice to always check that the key exists                    
             }
-            return false;
-        }
-
-
-
-        private void OnPicture(Stream stream)
-        {
-            var memoryStream = new MemoryStream();
-            stream.CopyTo(memoryStream);
-            Photos = memoryStream.ToArray();
-        }
-
-        public byte[] GetPhoto()
-        {
-            return Photos;
+            if (await CrossPermissions.Current.CheckPermissionStatusAsync(Plugin.Permissions.Abstractions.Permission.Storage) == PermissionStatus.Granted ||
+                      await CrossPermissions.Current.CheckPermissionStatusAsync(Plugin.Permissions.Abstractions.Permission.Camera) == PermissionStatus.Granted)
+            {
+                task.TakePicture(400, 95, pictureStream =>
+                {
+                    var memoryStream = new MemoryStream();
+                    pictureStream.CopyTo(memoryStream);
+                    action(memoryStream.ToArray());
+                }, () => { });
+            }
         }
     }
 }

@@ -35,7 +35,6 @@ namespace TaskDropper.Forms.iOS
                       .AsInterfaces();
             Mvx.RegisterType<IDatabaseConnectionService, DatabaseConnectionService>();
             Mvx.RegisterType<IPhotoService, PhotoService>();
-            Mvx.RegisterType<IPermissionService, PermissionService>();
             return new Core.App();
         }
 

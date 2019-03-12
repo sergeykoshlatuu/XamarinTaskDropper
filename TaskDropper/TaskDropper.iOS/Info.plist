@@ -66,6 +66,8 @@
 	<string>This permission nedd to working with location </string>
 	<key>NSAppleMusicUsageDescription</key>
 	<string>media</string>
+  <key>NSCalendarsUsageDescription</key>
+  <string>Needs Calendar Permission</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>NK123.otf</string>
