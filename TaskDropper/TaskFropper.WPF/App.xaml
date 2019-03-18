@@ -20,7 +20,9 @@
             <DataTemplate DataType="{x:Type viewModels:AboutViewModel}">
                 <view:AboutView />
             </DataTemplate>
-
+            <DataTemplate DataType="{x:Type viewModels:HomeViewModel}">
+                <view:HomeView />
+            </DataTemplate>
         </ResourceDictionary>
     </Application.Resources>
 </views:MvxApplication>

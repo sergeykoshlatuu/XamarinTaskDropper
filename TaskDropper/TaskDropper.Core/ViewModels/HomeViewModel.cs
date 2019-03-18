@@ -15,11 +15,14 @@ namespace TaskDropper.Core.ViewModels
     public class HomeViewModel : BaseViewModel
     {
         #region constructors
-        public HomeViewModel(IMvxNavigationService navigationService, IDatabaseUserService databaseUserService):base(navigationService)
+        public HomeViewModel(IMvxNavigationService navigationService
+            //, IDatabaseUserService databaseUserService
+            ):base(navigationService)
         {
-            _databaseUserService = databaseUserService;
-            TaskListViewModel = Mvx.IoCConstruct<TasksListViewModel>();
+            //_databaseUserService = databaseUserService;
+            //TaskListViewModel = Mvx.IoCConstruct<TasksListViewModel>();
             AboutViewModel = Mvx.IoCConstruct<AboutViewModel>();
+            TaskChangedViewModel = Mvx.IoCConstruct<TaskChangedViewModel>();
             ShowTaskChangedViewCommand = new MvxAsyncCommand<ItemTask>(ShowTaskChanged);
         }
         #endregion
@@ -58,6 +61,7 @@ namespace TaskDropper.Core.ViewModels
         private IDatabaseUserService _databaseUserService;
         public TasksListViewModel TaskListViewModel;
        public AboutViewModel AboutViewModel;
+        public TaskChangedViewModel TaskChangedViewModel;
         #endregion
     }
 }

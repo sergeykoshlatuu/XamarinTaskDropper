@@ -10,10 +10,5 @@ namespace TaskFropper.WPF
             this.RegisterSetupType<Setup>();
        
         }
-
-        
-
-
-
     }
 }

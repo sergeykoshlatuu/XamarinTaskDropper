@@ -1,0 +1,27 @@
+﻿<views:MvxWpfView x:Class="TaskFropper.WPF.Views.HomeView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:views="clr-namespace:MvvmCross.Platforms.Wpf.Views;assembly=MvvmCross.Platforms.Wpf"
+      xmlns:mvx="clr-namespace:MvvmCross.Platforms.Wpf.Binding;assembly=MvvmCross.Platforms.Wpf"
+   x:TypeArguments="viewModels:HomeViewModel"
+    xmlns:viewModels="clr-namespace:TaskDropper.Core.ViewModels;assembly=TaskDropper.Core"
+      xmlns:Control="clr-namespace:TaskFropper.WPF.Resources.Controls"
+                  mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Menu Grid.Row="0" Height="40" Style="{StaticResource Menu}">
+            <MenuItem Style="{StaticResource MLB_MenuItem}" Height="40" Width="Auto" Header="Task Changed" Name="taskChangedItem" Click="TaskChangedItem_Click"></MenuItem>
+            <MenuItem Style="{StaticResource MLB_MenuItem}" Height="40" Width="Auto" Header="About" Name="aboutItem" Click="AboutItem_Click"></MenuItem>
+        </Menu >
+        <views:MvxWpfView Grid.Row="1" Name="contentView">
+            
+        </views:MvxWpfView>
+    </Grid>
+</views:MvxWpfView>
