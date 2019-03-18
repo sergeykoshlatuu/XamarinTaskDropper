@@ -1,0 +1,21 @@
+﻿<UserControl x:Class="TaskFropper.WPF.Resources.Controls.LabeledTextBox"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:local="clr-namespace:TaskFropper.WPF.Resources.Controls"
+             mc:Ignorable="d" Name="labeledTextBox" >
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="25"/>
+            <RowDefinition Height="35"/>
+        </Grid.RowDefinitions>
+        <Label 
+            Content="{Binding ElementName=labeledTextBox, Path=LabelText}" Margin="5,0,50,0" Grid.Row="0" Foreground="#FFD434F7" FontSize="10" />
+        <TextBox Text="{Binding ElementName=labeledTextBox, Path=Text}"
+               Style="{StaticResource TextBoxStyle}" 
+                 HorizontalContentAlignment="Stretch"
+                 TextChanged="TextBox_TextChanged"  Grid.Row="1" Foreground="#FF9AF044" BorderBrush="#FF434859"/>
+        
+    </Grid>
+</UserControl>

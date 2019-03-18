@@ -1,0 +1,9 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:TaskFropper.WPF.Resources.Theme">
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="RadioButton.xaml" />
+        <ResourceDictionary Source="ScrollBar.xaml" />
+        <ResourceDictionary Source="TextBox.xaml" />
+    </ResourceDictionary.MergedDictionaries>
+</ResourceDictionary>

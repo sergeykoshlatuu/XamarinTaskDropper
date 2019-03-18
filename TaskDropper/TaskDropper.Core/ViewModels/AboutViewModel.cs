@@ -13,12 +13,12 @@ namespace TaskDropper.Core.ViewModels
     {
 
         #region constructors
-        public AboutViewModel(IMvxNavigationService navigationService,IDatabaseUserService databaseUserService ) : base(navigationService)
+        public AboutViewModel(IMvxNavigationService navigationService/*,IDatabaseUserService databaseUserService */) : base(navigationService)
         {
-            Name = "Sergey Koshlatuu";
-            Email = "koshsy6363@gmail.com";
+            Name = "Sport:";
+            Email = "Footbal";
 
-            _databaseUserService = databaseUserService;
+            //_databaseUserService = databaseUserService;
             ShowTaskChangedView = new MvxAsyncCommand(async () => await _navigationService.Navigate<TaskChangedViewModel>());
         }
         #endregion

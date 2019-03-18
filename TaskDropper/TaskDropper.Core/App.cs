@@ -19,8 +19,8 @@ namespace TaskDropper.Core
                .AsInterfaces()
                .RegisterAsLazySingleton();
 
-            var foo = Mvx.IoCProvider.Resolve<IDatabaseConnectionService>();
-            RegisterAppStart<MainViewModel>();
+            //var foo = Mvx.IoCProvider.Resolve<IDatabaseConnectionService>();
+            RegisterAppStart<AboutViewModel>();
             //RegisterCustomAppStart<AppStart>();
         }
     }
