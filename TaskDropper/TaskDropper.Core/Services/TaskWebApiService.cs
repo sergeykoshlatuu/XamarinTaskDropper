@@ -36,10 +36,10 @@ namespace TaskDropper.Core.Services
             {
                 Items = new List<ItemTask>();
 
-                if (token == null)
-                {
+                
                     token = await GetToken();
-                }
+                    //token = await RefreshToken(token);
+                
                 httpClient.DefaultRequestHeaders.Authorization =
                new AuthenticationHeaderValue("Bearer", token);
                 string templateUrl = RestUrl + "?&id=" + email;
@@ -80,16 +80,29 @@ namespace TaskDropper.Core.Services
             return null;
         }
 
+
+        public async Task<string> RefreshToken(string oldToken)
+        {
+            string tokenUrl = "http://10.10.3.183:50176/api/token/?oldToken=" + oldToken;
+            var response = await httpClient.GetAsync(tokenUrl);
+            if (response.IsSuccessStatusCode)
+            {
+                var content = await response.Content.ReadAsStringAsync();
+                content = JsonConvert.DeserializeObject<string>(content);
+
+                return content;
+            }
+            return null;
+        }
         public async Task SaveItemTaskAsync(ItemTask item, bool isNewItem=false)
         {
             try
             {
                 var uri = new Uri(string.Format(RestUrl, string.Empty));
 
-                if (token == null)
-                {
+                
                     token = await GetToken();
-                }
+                
                 httpClient.DefaultRequestHeaders.Authorization =
               new AuthenticationHeaderValue("Bearer", token);
                 var json = JsonConvert.SerializeObject(item);
@@ -126,10 +139,9 @@ namespace TaskDropper.Core.Services
                 string templateUrl = RestUrl + id;
                 var uri = new Uri(string.Format(templateUrl));
 
-                if (token == null)
-                {
+                
                     token = await GetToken();
-                }
+                
                 httpClient.DefaultRequestHeaders.Authorization =
               new AuthenticationHeaderValue("Bearer", token);
 
