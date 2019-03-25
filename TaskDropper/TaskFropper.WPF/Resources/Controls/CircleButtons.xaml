@@ -1,0 +1,47 @@
+﻿<UserControl x:Class="TaskFropper.WPF.Resources.Controls.CircleButtons"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:TaskFropper.WPF.Resources.Controls"
+             mc:Ignorable="d" 
+             d:DesignHeight="350" d:DesignWidth="350">
+    <Grid Margin="0,0,-30,-41">
+        <Button Style="{StaticResource ButtonTop}" Content="Button" Margin="56,0,104,322" Width="220" RenderTransformOrigin="0.5,0.5"/>
+        <Button Style="{StaticResource ButtonTop}" Content="Button" Margin="184,130,-24,192" Width="220" RenderTransformOrigin="0.5,0.5">
+            <Button.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="90"/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </Button.RenderTransform>
+        </Button>
+
+
+        <Button Style="{StaticResource ButtonTop}" Content="Button" Margin="-74,132,234,190" Width="220" RenderTransformOrigin="0.5,0.5">
+            <Button.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="-90"/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </Button.RenderTransform>
+        </Button>
+        <Button Style="{StaticResource ButtonBottom}" Content="Button" Margin="56,261,104,61" Width="220" RenderTransformOrigin="0.5,0.5"/>
+        <Image 
+  Source="C:\Users\Anuitex-89\Desktop\TasksDrops\TaskDropper\TaskFropper.WPF\Resources\Image\icons8-evil-48.png"
+  HorizontalAlignment="Left" Width="222" Margin="56,44,0,90">
+            <Image.Clip>
+                <EllipseGeometry
+      RadiusX="250"
+      RadiusY="250"
+      Center="100,100"/>
+            </Image.Clip>
+        </Image>
+
+
+    </Grid>
+</UserControl>

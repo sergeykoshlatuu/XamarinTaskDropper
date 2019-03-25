@@ -16,11 +16,11 @@ namespace TaskDropper.Core.ViewModels
             _navigationService = navigationService;
 
             IsNoInternetVisible = false;
-            //if (Connectivity.NetworkAccess == NetworkAccess.Internet)
-            //{
-            //    IsNoInternetVisible = true;
-            //}
-            //Connectivity.ConnectivityChanged += Connectivity_ConnectivityChanged;
+            if (Connectivity.NetworkAccess == NetworkAccess.Internet)
+            {
+                IsNoInternetVisible = true;
+            }
+            Connectivity.ConnectivityChanged += Connectivity_ConnectivityChanged;
         }
         #endregion
 
@@ -82,11 +82,11 @@ namespace TaskDropper.Core.ViewModels
             _navigationService = navigationService;
 
             IsNoInternetVisible = false;
-            //if (Connectivity.NetworkAccess == NetworkAccess.Internet)
-            //{
-            //    IsNoInternetVisible = true;
-            //}
-            //Connectivity.ConnectivityChanged += Connectivity_ConnectivityChanged;
+            if (Connectivity.NetworkAccess == NetworkAccess.Internet)
+            {
+                IsNoInternetVisible = true;
+            }
+            Connectivity.ConnectivityChanged += Connectivity_ConnectivityChanged;
         }
         #endregion
 

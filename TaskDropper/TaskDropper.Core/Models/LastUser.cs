@@ -12,12 +12,15 @@ namespace TaskDropper.Core.Models
         [Unique]
         public string Email { get; set; }
 
+        public string Token { get; set; }
+
         public LastUser() { }
 
-        public LastUser(int id,string email)
+        public LastUser(int id,string email,string token)
         {
             Id = id;
             Email = email;
+            Token = token;
         }
     }
 }

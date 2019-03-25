@@ -39,8 +39,6 @@ namespace TaskDropper.Droid.Views
             var intent = authenticator.GetUI(this.Context);
             intent.SetFlags(ActivityFlags.NoHistory);
             StartActivity(intent);
-            ParentActivity.Finish();
-           
         }
 
         public async void OnAuthenticationCompleted(GoogleOAuthToken token)
@@ -50,7 +48,7 @@ namespace TaskDropper.Droid.Views
             var email = await googleService.GetEmailAsync(token.TokenType, token.AccessToken);
 
             ViewModel.ShowHomeViewModelCommand.Execute(null);
-            ViewModel.AddUserToTable(email);  
+            ViewModel.AddUserToTable(email,token.AccessToken);  
         }
 
         public void OnAuthenticationCanceled()

@@ -52,14 +52,14 @@ namespace TaskDropper.Forms.Droid.PageRenderers
         {
             var googleService = new GoogleService();
             var email = await googleService.GetEmailAsync(token.TokenType, token.AccessToken);
-            AddUserToTable(email);
+            AddUserToTable(email, token.AccessToken);
             MessagingCenter.Send<Page>(this.Element, "Complete");
            
         }
 
-        public void AddUserToTable(string email)
+        public void AddUserToTable(string email,string token)
         {
-            _databaseUserService.AddUserToTable(email);
+            _databaseUserService.AddUserToTable(email,token);
             _databaseUserService.UpdateLastUser(email);
         }
 

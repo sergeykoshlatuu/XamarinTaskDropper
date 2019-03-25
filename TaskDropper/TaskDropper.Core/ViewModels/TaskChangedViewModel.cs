@@ -16,19 +16,19 @@ namespace TaskDropper.Core.ViewModels
     public class TaskChangedViewModel : BaseViewModel<ItemTask>
     {
         #region constructors
-        public TaskChangedViewModel(IMvxNavigationService navigationService
-            //IDatabaseUserService databaseUserService, 
-            //IDatabaseTaskService databaseTaskService,
-            //IPhotoService photoService,
-            //IMvxPictureChooserTask pictureChooserTask,
-            //ITaskWebApiService taskWebApiService
-           ):base(navigationService)
+        public TaskChangedViewModel(IMvxNavigationService navigationService,
+            IDatabaseUserService databaseUserService,
+            IDatabaseTaskService databaseTaskService,
+            IPhotoService photoService,
+            IMvxPictureChooserTask pictureChooserTask,
+            ITaskWebApiService taskWebApiService
+           ) :base(navigationService)
         {
-            //_photoService = photoService;
-            //_databaseUserService = databaseUserService;
-            //_databaseTaskService = databaseTaskService;
-            //_pictureChooserTask = pictureChooserTask;
-            //_taskWebApiService = taskWebApiService;
+            _photoService = photoService;
+            _databaseUserService = databaseUserService;
+            _databaseTaskService = databaseTaskService;
+            _pictureChooserTask = pictureChooserTask;
+            _taskWebApiService = taskWebApiService;
             ShowAboutView = new MvxAsyncCommand(async () => await _navigationService.Navigate<AboutViewModel>());
         }
 
@@ -305,8 +305,7 @@ namespace TaskDropper.Core.ViewModels
 
         public override void ViewAppearing()
         {
-            UserEmail = "sdfsdfsfdf";
-           // UserEmail = _databaseUserService.GetLastUserEmail();
+            UserEmail = _databaseUserService.GetLastUserEmail();
             RaisePropertyChanged(() => Photo);
             base.ViewAppearing();
         }

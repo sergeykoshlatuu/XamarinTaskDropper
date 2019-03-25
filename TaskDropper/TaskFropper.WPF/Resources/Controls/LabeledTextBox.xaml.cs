@@ -43,6 +43,15 @@ namespace TaskFropper.WPF.Resources.Controls
         public static readonly DependencyProperty TextProperty =
             DependencyProperty.Register("Text", typeof(string), typeof(LabeledTextBox), new PropertyMetadata(string.Empty));
 
+        public string WidthText
+        {
+            get { return (string)GetValue(WidthProperty); }
+            set { SetValue(WidthProperty, value); }
+        }
+
+        public static readonly DependencyProperty WidthProperty =
+            DependencyProperty.Register("WidthText", typeof(string), typeof(LabeledTextBox), new PropertyMetadata(string.Empty));
+
         private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
             var expression = (sender as TextBox).GetBindingExpression(TextBox.TextProperty);

@@ -20,7 +20,7 @@ namespace TaskDropper.Core.ViewModels
             ):base(navigationService)
         {
             //_databaseUserService = databaseUserService;
-            //TaskListViewModel = Mvx.IoCConstruct<TasksListViewModel>();
+            TaskListViewModel = Mvx.IoCConstruct<TasksListViewModel>();
             AboutViewModel = Mvx.IoCConstruct<AboutViewModel>();
             TaskChangedViewModel = Mvx.IoCConstruct<TaskChangedViewModel>();
             ShowTaskChangedViewCommand = new MvxAsyncCommand<ItemTask>(ShowTaskChanged);

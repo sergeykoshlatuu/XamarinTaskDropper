@@ -4,37 +4,37 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:TaskFropper.WPF.Resources.Controls"
-             mc:Ignorable="d" Height="60" Width="200" x:Name="groupRadio">
+             mc:Ignorable="d" Height="60"   x:Name="groupRadio">
     <StackPanel Orientation="Vertical">
         <Grid>
             <Grid.ColumnDefinitions>
+
                 <ColumnDefinition Width="40"/>
+                <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="40"/>
-                <ColumnDefinition Width="40"/>
-                <ColumnDefinition Width="40"/>
-                <ColumnDefinition Width="40"/>
+
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition Height="30"/>
                 <RowDefinition Height="30"/>
             </Grid.RowDefinitions>
-            <RadioButton Grid.Column="1" Grid.Row="0" Style="{StaticResource RadioButtonStyle}" x:Name="Metric" GroupName="System"  IsChecked="True"  HorizontalContentAlignment="Center" Background="#FF65B64E"/>
-            <RadioButton Grid.Column="3" Grid.Row="0" Style="{StaticResource RadioButtonStyle}" x:Name="Imperial" GroupName="System"  IsChecked="False"  HorizontalContentAlignment="Center"/>
+            <RadioButton  Grid.Column="0" Grid.Row="0" Style="{StaticResource RadioButtonStyle}" x:Name="Metric" GroupName="System"  IsChecked="True"  HorizontalContentAlignment="Center" Background="#FF65B64E" Height="14" Margin="27,8,0,8" Width="13"/>
+            <RadioButton Grid.Column="2" Grid.Row="0" Style="{StaticResource RadioButtonStyle}" x:Name="Imperial" GroupName="System"  IsChecked="False"  HorizontalContentAlignment="Center" Height="14" Margin="0,8,27,8" Width="14"/>
             <Label 
             Content="{Binding LabelTextRadio1, ElementName=groupRadio}"
                 Foreground="White" FontSize="10"  
                 TextBlock.TextAlignment="Center"
               HorizontalContentAlignment="Center" 
-                Padding="0" Grid.Row="1" Grid.Column="1"
+                Padding="0" Grid.Row="1" Grid.Column="0"
                />
             <Label Content="{Binding LabelTextRadio2, ElementName=groupRadio}"
                 Foreground="White" FontSize="10" 
                    TextBlock.TextAlignment="Center"
                    HorizontalContentAlignment="Center" 
-                   Padding="0" Grid.Row="1" Grid.Column="3"
+                   Padding="0" Grid.Row="1" Grid.Column="2"
                    />
-            <Polyline Grid.Column="2" Stroke="#367e23" Fill="#367e23" Points="-15,14 52,14" Grid.ColumnSpan="2"/>
+            <Grid Height="2" Background="Red" Grid.Column="1"/>
         </Grid>
     </StackPanel>
-    
+
 </UserControl>

@@ -19,9 +19,9 @@ namespace TaskDropper.Core.Services
             }
 
             //Work with users
-            public void AddUserToTable(string email)
+            public void AddUserToTable(string email,string token)
             {
-                Users user = new Users(email);
+                Users user = new Users(email,token);
                 List<Users> users = _con.Table<Users>().ToList();
 
                 for (int i = 0; i < users.Count; i++)
@@ -59,7 +59,7 @@ namespace TaskDropper.Core.Services
                 {
                     if (users[i].Email == email)
                     {
-                        LastUser user = new LastUser(users[i].Id, users[i].Email);
+                        LastUser user = new LastUser(users[i].Id, users[i].Email,users[i].Token);
                         _con.Insert(user);
                     }
                 }
@@ -72,6 +72,13 @@ namespace TaskDropper.Core.Services
                 if (lastUsers.Count == 0) return "";
                 return lastUsers[0].Email;
             }
+
+        public LastUser GetLastUser()
+        {
+            List<LastUser> lastUsers = _con.Table<LastUser>().ToList();
+            if (lastUsers.Count == 0) return null;
+            return lastUsers[0];
         }
+    }
     }
 

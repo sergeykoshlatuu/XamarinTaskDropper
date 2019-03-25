@@ -11,11 +11,14 @@
             <RowDefinition Height="35"/>
         </Grid.RowDefinitions>
         <Label 
-            Content="{Binding ElementName=labeledTextBox, Path=LabelText}" Margin="5,0,50,0" Grid.Row="0" Foreground="#FFD434F7" FontSize="10" />
+            Content="{Binding ElementName=labeledTextBox, Path=LabelText}"  Grid.Row="0" Foreground="#FFD434F7" FontSize="10" />
         <TextBox Text="{Binding ElementName=labeledTextBox, Path=Text}"
-               Style="{StaticResource TextBoxStyle}" 
+               Style="{StaticResource test}"
+                 TextChanged="TextBox_TextChanged" 
+                 Grid.Row="1" Foreground="#FF9AF044"
+                 BorderBrush="#FF434859" 
+                 Width="{Binding ElementName=labeledTextBox, Path=Width}"
                  HorizontalContentAlignment="Stretch"
-                 TextChanged="TextBox_TextChanged"  Grid.Row="1" Foreground="#FF9AF044" BorderBrush="#FF434859"/>
-        
+                 />
     </Grid>
 </UserControl>

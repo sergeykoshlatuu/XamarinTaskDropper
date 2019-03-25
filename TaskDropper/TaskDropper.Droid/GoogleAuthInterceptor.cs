@@ -33,7 +33,7 @@ namespace TaskDropper.Droid
     {
         protected override void OnCreate(Bundle savedInstanceState)
         {
-            base.OnCreate(savedInstanceState);
+             base.OnCreate(savedInstanceState);
 
             Android.Net.Uri uri_android = Intent.Data;
 
@@ -42,8 +42,12 @@ namespace TaskDropper.Droid
 
             // Send the URI to the Authenticator for continuation
             LoginFragment.Auth?.OnPageLoading(uri_netfx);
-            //.IsVisible = false;
-            Finish();
+
+            var intent = new Intent(this, typeof(MainView));
+            intent.SetFlags(ActivityFlags.ClearTop | ActivityFlags.SingleTop);
+            StartActivity(intent);
+
+            this.Finish();
         }
     }
 }

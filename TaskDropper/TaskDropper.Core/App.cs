@@ -20,7 +20,7 @@ namespace TaskDropper.Core
                .RegisterAsLazySingleton();
 
             //var foo = Mvx.IoCProvider.Resolve<IDatabaseConnectionService>();
-            RegisterAppStart<HomeViewModel>();
+            RegisterAppStart<MainViewModel>();
             //RegisterCustomAppStart<AppStart>();
         }
     }

@@ -30,5 +30,10 @@ namespace TaskFropper.WPF.Views
         {
             _contentLoaded = contentLoaded;
         }
+
+        private void Grid_MouseMove(object sender, MouseEventArgs e)
+        {
+            slider.Value = e.GetPosition(null).X/2;
+        }
     }
 }

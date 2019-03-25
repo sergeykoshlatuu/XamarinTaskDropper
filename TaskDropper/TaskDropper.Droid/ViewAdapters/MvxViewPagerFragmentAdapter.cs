@@ -13,6 +13,8 @@ using MvvmCross.ViewModels;
 using Android.App;
 using FragmentManager = Android.Support.V4.App.FragmentManager;
 using Fragment = Android.Support.V4.App.Fragment;
+using Android.Content.Res;
+
 namespace TaskDropper.Droid.ViewAdapters
 {
     public class MvxViewPagerFragmentAdapter
@@ -35,6 +37,7 @@ namespace TaskDropper.Droid.ViewAdapters
         {
             _context = context;
             Fragments = fragments;
+           
         }
 
         public override ICharSequence GetPageTitleFormatted(int position)
@@ -50,6 +53,7 @@ namespace TaskDropper.Droid.ViewAdapters
                 FragmentJavaName(fragmentInfo.FragmentType));
             ((MvxFragment)fragment).ViewModel = fragmentInfo.ViewModel;
             return fragment;
+         
         }
 
         protected static string FragmentJavaName(Type fragmentType)

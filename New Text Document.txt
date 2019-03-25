@@ -1,122 +1,80 @@
 
+    <Style x:Key="test" TargetType="{x:Type TextBox}">
+        <Setter Property="Background" Value="#FF44364B"/>
+        <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+        <Setter Property="Margin" Value="30,5,5,5"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type TextBox}">
+                    <UniformGrid  Width="115">
+                        <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="7"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="7"/>
+                        </Grid.ColumnDefinitions>
 
-using Foundation;
-using MvvmCross.Binding.BindingContext;
-using MvvmCross.Platforms.Ios.Views;
-using System;
-using TaskDropper.Core.ViewModels;
-using UIKit;
-using TaskDropper.Core.Authentication;
-using TaskDropper.Core.Services;
+                        <Canvas HorizontalAlignment="Stretch">
+                            <Polyline Grid.Column="0" Points="7,0 0,0 0,18 7,25" Fill="{TemplateBinding BorderBrush}" Stroke="#FFA68A8A" StrokeThickness="2"/>
 
-namespace TaskDropper.iOS.Views
-{
-    //public partial class GoogleAuthView : MvxViewController<GoogleLoginViewModel> //, IGoogleAuthenticationDelegate
-    //{
-    //   // public static GoogleAuthenticator Auth;
-
-    //    public GoogleAuthView() : base(nameof(GoogleAuthView), null)
-    //    {
-    //    }
-
-       
-
-    //    public override void ViewDidLoad()
-    //    {
-    //        base.ViewDidLoad();
-
-    //        //Auth = new GoogleAuthenticator(Configuration.ClientId, Configuration.Scope, Configuration.RedirectUrl, this);
-
-    //        //GoogleLoginButton.TouchUpInside += OnGoogleLoginButtonClicked;
-
-    //        var set = this.CreateBindingSet<GoogleAuthView, GoogleLoginViewModel>();
-    //        set.Apply();
-    //    }
-
-    //    //private void OnGoogleLoginButtonClicked(object sender, EventArgs e)
-    //    //{
-    //    //    var authentificator = Auth.GetAuthenticator();
-    //    //    var viewController = authentificator.GetUI();
-    //    //    PresentViewController(viewController, true, null);
-    //    //}
-
-       
-    //    //public async void OnAuthenticationCompleted(GoogleOAuthToken token)
-    //    //{
-    //    //    DismissViewController(true, null);
-
-    //    //    var googleService = new GoogleService();
-    //    //    var email = await googleService.GetEmailAsync(token.TokenType, token.AccessToken);
-
-    //    //    GoogleLoginButton.SetTitle($"Connected with {email}", UIControlState.Normal);
-
-    //    //}
-
-    //    //public void OnAuthenticationCanceled()
-    //    //{
-    //    //    DismissViewController(true, null);
-    //    //    var alertComtroller = new UIAlertController
-    //    //    {
-    //    //        Title = "Authentication Canceled",
-    //    //        Message = "You didn`t completed the authentication process"
-    //    //    };
-    //    //    PresentViewController(alertComtroller, true, null);
-    //    //}
-
-    //    //public void OnAuthenticationFailed(string message, Exception exception)
-    //    //{
-    //    //    // SFSafariViewController doesn't dismiss itself
-    //    //    DismissViewController(true, null);
-
-    //    //    var alertController = new UIAlertController
-    //    //    {
-    //    //        Title = message,
-    //    //        Message = exception?.ToString()
-    //    //    };
-    //    //    PresentViewController(alertController, true, null);
-    //    //}
-    //}
-}
+                                <Grid Grid.Column="1" Width="Auto" HorizontalAlignment="Stretch">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="2"/>
+                                        <RowDefinition Height="*"/>
+                                        <RowDefinition Height="2"/>
+                                    </Grid.RowDefinitions>
+                                    <Path  Grid.Row="1" Margin="7,-1,0,0" Stretch="Fill" Grid.Column="1"
+                                           Data="M 7,0 H108 V25 H7" Fill="{TemplateBinding BorderBrush}"/>
+                                    <Grid Margin="7,-2,0,0" Background="#FFA68A8A"  Grid.Row="0"  Height="2"></Grid>
+                                    <Grid Margin="7,-3,0,0" Background="#FFA68A8A"  Grid.Row="2" Height="2"></Grid>
+                                </Grid>
+                            
+                                <Polyline Grid.Column="2" Points="108,0 115,7 115,25 108,25" Fill="{TemplateBinding BorderBrush}" Stroke="#FFA68A8A" StrokeThickness="2"/>
+                        </Canvas>
+                        <ScrollViewer  Grid.Column="1"
+                                x:Name="PART_ContentHost" 
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                HorizontalContentAlignment="Stretch"
+                                />
+                        </Grid>
+                    </UniformGrid>
+                    <ControlTemplate.Triggers>
+                
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
 
 
-<RelativeLayout	
-		android:layout_width="match_parent"
-		android:layout_height="wrap_content"
-		android:orientation="vertical"
-		android:padding="8dp">
-			<ImageButton
-				android:id="@+id/back_button"
-				android:layout_width="30dp"
-				android:layout_height="30dp"
-				android:background="@drawable/BackIcon"
-				local:MvxBind = "Click BackCommand"
-				
-				android:layout_gravity = "left"/>
-			<TextView 
-				android:id="@+id/app_name_text"
-				android:text="@string/app_name"
-				android:textColor="@android:color/white"
-				android:textSize="20dp"
-				android:layout_marginLeft="25dp"
-				android:layout_width="match_parent"
-				android:layout_height="wrap_content"
-			    android:layout_gravity = "left"/>
-			<ImageButton
-				android:id="@+id/logout_button"
-				android:layout_width="30dp"
-				android:layout_height="30dp"
-				android:background="@drawable/LogoutIcon"
-				local:MvxBind = "Click LogOutUserCommand"
-				android:layout_alignParentRight = "true"
-				android:layout_gravity = "right"
-			    />
-			<ImageButton
-				android:id="@+id/addtask_button"
-				android:layout_width="30dp"
-				android:layout_height="30dp"
-				android:background="@drawable/PlusIcon"
-				local:MvxBind = "Click ShowTaskChangedViewCommand"
-				android:layout_alignParentRight = "true"
-				android:layout_gravity = "right"
-				android:layout_marginRight="40dp"/>
-		</RelativeLayout>
+    <Style x:Key="TextBoxStyle" TargetType="{x:Type TextBox}">
+        <Setter Property="Background" Value="#FF44364B"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+        <Setter Property="Margin" Value="30,5,5,5"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type TextBox}">
+                    <Grid>
+                        <Path Fill="{TemplateBinding BorderBrush}" x:Name="Border" Stroke="#FFA68A8A"
+                                 StrokeThickness="2" Stretch="Fill"
+                                  Data="M 0,0 H 108 l 7,7 v 18 H 7 l -7,-7 v -19" />
+                        <ScrollViewer 
+                                x:Name="PART_ContentHost" 
+                                Padding="35"
+                                Background="Transparent"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                />
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter Property="Fill" Value="#000" TargetName="Border"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>

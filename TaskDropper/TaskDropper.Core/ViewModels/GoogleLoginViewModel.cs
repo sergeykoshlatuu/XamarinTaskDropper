@@ -27,9 +27,9 @@ namespace TaskDropper.Core.ViewModels
         #endregion
 
         #region methods
-        public void AddUserToTable(string email)
+        public void AddUserToTable(string email,string token)
         {
-            _databaseUserService.AddUserToTable(email);
+            _databaseUserService.AddUserToTable(email,token);
             _databaseUserService.UpdateLastUser(email);
         }
 
