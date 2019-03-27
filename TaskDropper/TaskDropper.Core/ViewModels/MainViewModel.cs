@@ -13,9 +13,12 @@ namespace TaskDropper.Core.ViewModels
     public class MainViewModel : BaseViewModel
     {
         #region constructors
-        public MainViewModel(IMvxNavigationService navigationService, IDatabaseUserService databaseUserService):base(navigationService)
+        public MainViewModel(IMvxNavigationService navigationService
+            , IDatabaseUserService databaseUserService
+            ,ITaskWebApiService taskWebApiService):base(navigationService)
         {
             _databaseUserService = databaseUserService;
+            _taskWebApiService = taskWebApiService;
             ShowHomeViewModelCommand = new MvxAsyncCommand(async () => await _navigationService.Navigate<HomeViewModel>()); 
             ShowGoogleLoginViewModelCommand = new MvxAsyncCommand(async () => await _navigationService.Navigate<GoogleLoginViewModel>());
             ShowAboutViewModelCommand = new MvxAsyncCommand(async () => await _navigationService.Navigate<AboutViewModel>());
@@ -27,6 +30,7 @@ namespace TaskDropper.Core.ViewModels
 
         #region variable
         private IDatabaseUserService _databaseUserService;
+        private ITaskWebApiService _taskWebApiService;
         #endregion
 
         #region commands
@@ -36,6 +40,11 @@ namespace TaskDropper.Core.ViewModels
         public IMvxAsyncCommand ShowTaskChangedViewModelCommand { get; private set; }
         public IMvxAsyncCommand ShowTaskListViewModelCommand { get; private set; }
         public IMvxAsyncCommand ShowFormsLogin { get; private set; }
+        public IMvxAsyncCommand GetApiToken
+        {
+            get { return new MvxAsyncCommand(GetToken); }
+        }
+      
         #endregion
 
         #region methods
@@ -49,6 +58,11 @@ namespace TaskDropper.Core.ViewModels
             {
                 return false;
             }
+        }
+
+        public async Task GetToken()
+        {
+            await _taskWebApiService.GetToken();
         }
 
         public void LogOutUser()

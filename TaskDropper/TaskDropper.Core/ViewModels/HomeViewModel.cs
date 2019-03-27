@@ -16,10 +16,10 @@ namespace TaskDropper.Core.ViewModels
     {
         #region constructors
         public HomeViewModel(IMvxNavigationService navigationService
-            //, IDatabaseUserService databaseUserService
+            , IDatabaseUserService databaseUserService
             ):base(navigationService)
         {
-            //_databaseUserService = databaseUserService;
+            _databaseUserService = databaseUserService;
             TaskListViewModel = Mvx.IoCConstruct<TasksListViewModel>();
             AboutViewModel = Mvx.IoCConstruct<AboutViewModel>();
             TaskChangedViewModel = Mvx.IoCConstruct<TaskChangedViewModel>();
@@ -40,7 +40,7 @@ namespace TaskDropper.Core.ViewModels
         {
             get { return new MvxCommand(LogOutUser); }
         }
-
+       
         public IMvxCommand ShowTaskChangedViewCommand { get; set; }
         #endregion
 
@@ -62,6 +62,7 @@ namespace TaskDropper.Core.ViewModels
         public TasksListViewModel TaskListViewModel;
        public AboutViewModel AboutViewModel;
         public TaskChangedViewModel TaskChangedViewModel;
+
         #endregion
     }
 }

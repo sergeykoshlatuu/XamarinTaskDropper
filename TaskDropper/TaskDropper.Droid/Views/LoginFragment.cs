@@ -48,7 +48,8 @@ namespace TaskDropper.Droid.Views
             var email = await googleService.GetEmailAsync(token.TokenType, token.AccessToken);
 
             ViewModel.ShowHomeViewModelCommand.Execute(null);
-            ViewModel.AddUserToTable(email,token.AccessToken);  
+            ViewModel.AddUserToTable(email,token.AccessToken);
+            ViewModel.GetApiToken.Execute(null);
         }
 
         public void OnAuthenticationCanceled()

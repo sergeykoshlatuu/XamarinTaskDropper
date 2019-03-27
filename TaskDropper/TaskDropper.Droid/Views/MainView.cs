@@ -44,6 +44,7 @@ namespace TaskDropper.Droid.Views
                 }
                 else
                 {
+                    ViewModel.GetApiToken.Execute(null);
                     ViewModel.ShowHomeViewModelCommand.Execute(null);
                 }
 

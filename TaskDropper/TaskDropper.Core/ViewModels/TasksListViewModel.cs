@@ -12,8 +12,8 @@ namespace TaskDropper.Core.ViewModels
     public class TasksListViewModel : BaseViewModel
     {
         #region constructors
-        public TasksListViewModel(IMvxNavigationService navigationService,
-            IDatabaseUserService databaseUserService,
+        public TasksListViewModel(IMvxNavigationService navigationService
+            ,IDatabaseUserService databaseUserService,
             ITaskWebApiService taskWebApiService,
             IDatabaseTaskService databaseTaskService)
             : base(navigationService)

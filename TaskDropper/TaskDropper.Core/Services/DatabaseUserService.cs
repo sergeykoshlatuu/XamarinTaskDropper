@@ -28,6 +28,8 @@ namespace TaskDropper.Core.Services
                 {
                     if (users[i].Email == user.Email)
                     {
+                    users[i].Token = token;
+                    _con.Update(users[i]);
                         return;
                     }
                 }

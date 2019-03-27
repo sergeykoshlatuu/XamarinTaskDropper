@@ -14,5 +14,7 @@ namespace TaskDropper.Core.Interface
 
         Task DeleteItemTaskAsync(string id);
 
+        Task<string> GetToken();
+
     }
 }
